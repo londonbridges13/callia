@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Caller number:</strong>
+  <%= @call.caller_number %>
+</p>
+
+<p>
+  <strong>Called number:</strong>
+  <%= @call.called_number %>
+</p>
+
+<%= link_to 'Edit', edit_call_path(@call) %> |
+<%= link_to 'Back', calls_path %>

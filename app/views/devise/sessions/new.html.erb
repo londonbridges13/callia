@@ -1,0 +1,72 @@
+<div class="loginColumns animated fadeInDown">
+    <div class="row">
+
+        <div class="col-md-6">
+            <h2 class="font-bold">Welcome to Callia</h2>
+
+            <p>
+                Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+            </p>
+
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+            </p>
+
+            <p>
+                When an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            </p>
+
+            <p>
+                <small>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</small>
+            </p>
+
+        </div>
+        <div class="col-md-6">
+            <div class="ibox-content">
+              <div class="m-t" role="form" >
+                <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+                  <div class="form-group">
+                    <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: "Username", required: "" %>
+                  </div>
+
+                  <div class="form-group">
+                    <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: "Password", required: "" %>
+                  </div>
+
+                  <% if devise_mapping.rememberable? -%>
+                    <div class="field">
+                      <%= f.check_box :remember_me %>
+                      <%= f.label :remember_me %>
+                    </div>
+                  <% end -%>
+
+                  <div class="actions">
+                    <%= f.submit "Login", class: "btn btn-primary block full-width m-b" %>
+                  </div>
+                <% end %>
+
+                <small>  <%= link_to "Forgot your password?", new_password_path(resource_name) %></small>
+
+                <p class="text-muted text-center">
+                    <small>Do not have an account?</small>
+                </p>
+                <a class="btn btn-sm btn-white btn-block" href="/users/sign_up">Create an account</a>
+              </div>
+
+                <p class="m-t">
+                    <small>By signing up you are agreeing to our terms and conditions</small>
+                </p>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            Copyright Callia
+        </div>
+        <div class="col-md-6 text-right">
+            <small>© 2014-2017</small>
+        </div>
+    </div>
+</div>

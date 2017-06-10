@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Frequency:</strong>
+  <%= @recurring_shift.frequency %>
+</p>
+
+<p>
+  <strong>Time span:</strong>
+  <%= @recurring_shift.time_span %>
+</p>
+
+<%= link_to 'Edit', edit_recurring_shift_path(@recurring_shift) %> |
+<%= link_to 'Back', recurring_shifts_path %>

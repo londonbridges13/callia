@@ -1,0 +1,72 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Offices</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>Offices</strong>
+            </li>
+        </ol>
+        <a href="/offices/new" class="btn btn-w-m btn-success">Create Office</a>
+
+
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <%current_user.offices.each do |o|%>
+        <div class="row-lg-4">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">ACTIVE</span>
+                    <h5> <%= o.name%> </h5>
+                </div>
+                <div class="ibox-content">
+                    <%if o.location and o.location.address%>
+                      <h4><%= o.location.address%></h4>
+                    <% else %>
+                    <h4>No Address</h4>
+                    <% end %>
+                    <p>
+                      <%if o.shifts.count > 0%>
+                        <% if o.shifts.order('updated_at DESC').first.start_time > Time.now and o.shifts.order('updated_at DESC').first.end_time < Time.now %>
+                          Lastest Shift: <%= o.shifts.order('updated_at DESC').first.caregiver.name %> is currently assisting <%= o.shifts.order('updated_at DESC').first.client.name %>
+                        <%elsif  Time.now and o.shifts.order('updated_at DESC').first.end_time > Time.now%>
+                          Lastest Shift: <%= o.shifts.order('updated_at DESC').first.caregiver.name %> finished assisting <%= o.shifts.order('updated_at DESC').first.client.name %>
+                        <%else%>
+                          Upcoming Shift: <%= o.shifts.order('updated_at DESC').first.caregiver.name %> will assist <%= o.shifts.order('updated_at DESC').first.client.name %>
+                        <%end%>
+                      <%else%>
+                        No News
+                      <%end%>
+                    </p>
+
+                    <div class="row  m-t-sm">
+                        <div class="col-sm-4">
+                            <div class="font-bold">CLIENTS</div>
+                            <%= o.clients.count%>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="font-bold">EMPLOYEES</div>
+                            <%= o.caregivers.count%>
+                        </div>
+                        <a href="/offices/<%=o.id%>" class="btn btn-w-m btn-success pull-right">View Office</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+      <% end %>
+    </div>
+
+<br>

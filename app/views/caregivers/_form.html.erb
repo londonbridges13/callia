@@ -1,0 +1,149 @@
+<%= form_for(@caregiver) do |f| %>
+  <div class="m-t" role="form" >
+    <% if @caregiver.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@caregiver.errors.count, "error") %> prohibited this caregiver from being saved:</h2>
+
+        <ul>
+        <% @caregiver.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <div class="form-group"><label class="col-sm-2 control-label">Name</label>
+      <div class="col-sm-10">
+        <%= f.text_field :name, class:"form-control" %>
+        <span class="help-block m-b-none">Enter Employee's name</span>
+        <br>
+      </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="col-md-12">
+        <br/>
+      </div>
+      <div class="form-group"><label class="col-sm-2 control-label">Address</label>
+      <div class="col-sm-10">
+        <%= f.text_field :address, class:"form-control" %>
+        <br>
+      </div>
+      </div>
+    </div>
+
+
+    <div class="field">
+      <div class="form-group"><label class="col-sm-2 control-label">City</label>
+      <div class="col-sm-10">
+        <%= f.text_field :city, class:"form-control" %>
+        <br>
+      </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="form-group"><label class="col-md-2 control-label">State</label>
+        <div class="col-md-6">
+            <%= f.collection_select :state, ["Alaska",
+                      "Alabama",
+                      "Arkansas",
+                      "American Samoa",
+                      "Arizona",
+                      "California",
+                      "Colorado",
+                      "Connecticut",
+                      "District of Columbia",
+                      "Delaware",
+                      "Florida",
+                      "Georgia",
+                      "Guam",
+                      "Hawaii",
+                      "Iowa",
+                      "Idaho",
+                      "Illinois",
+                      "Indiana",
+                      "Kansas",
+                      "Kentucky",
+                      "Louisiana",
+                      "Massachusetts",
+                      "Maryland",
+                      "Maine",
+                      "Michigan",
+                      "Minnesota",
+                      "Missouri",
+                      "Mississippi",
+                      "Montana",
+                      "North Carolina",
+                      " North Dakota",
+                      "Nebraska",
+                      "New Hampshire",
+                      "New Jersey",
+                      "New Mexico",
+                      "Nevada",
+                      "New York",
+                      "Ohio",
+                      "Oklahoma",
+                      "Oregon",
+                      "Pennsylvania",
+                      "Puerto Rico",
+                      "Rhode Island",
+                      "South Carolina",
+                      "South Dakota",
+                      "Tennessee",
+                      "Texas",
+                      "Utah",
+                      "Virginia",
+                      "Virgin Islands",
+                      "Vermont",
+                      "Washington",
+                      "Wisconsin",
+                      "West Virginia",
+                      "Wyoming"], :to_s, :to_s,
+                      {:class => 'prevent_collapse'},:class => "form-control m-b" %>
+          </div>
+      </div>
+
+    </div>
+
+
+    <div class="field">
+      <div class="col-md-12">
+        <br/>
+      </div>
+      <div class="form-group"><label class="col-md-2 control-label">Status</label>
+        <div class="col-md-4">
+          <%= f.collection_select :status, ["Active", "Inactive", "On Hold"], :to_s, :to_s,
+          {:class => 'prevent_collapse'},:class => "form-control m-b" %>
+        </div>
+      </div>
+      <br/>
+      <br/>
+      <br/>
+    </div>
+
+
+    <div class="field">
+      <div class="col-md-12">
+        <br/>
+      </div>
+
+      <div class="form-group"><label class="col-lg-2 control-label">Select Office</label>
+        <div class="col-md-4">
+          <%= f.collection_select :office_id, current_user.offices, :id, :name,
+          {:class => 'prevent_collapse'},:class => "form-control m-b" %>
+        </div>
+      </div>
+
+    </div>
+<!-- #works, but fix design -->
+
+
+
+<div class="actions">
+  <%= f.submit nil, class: "btn btn-success block full-width m-b" %>
+</div>
+  </div>
+<% end %>
