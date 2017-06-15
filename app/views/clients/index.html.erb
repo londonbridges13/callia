@@ -148,7 +148,10 @@
                                                     <%end%>
                                                     <!-- Many desktop publishing packages and web page editors now use Lorem. -->
                                                 </p>
-                                                <span class="vertical-date small text-muted"> <%=local_time_ago(@first_activity.created_at)%> </span>
+                                                <%if @first_activity%>
+                                                  <span class="vertical-date small text-muted"> <%=local_time_ago(@first_activity.created_at)%> </span>
+                                                <%end%>
+
                                             </div>
                                           </div>
                                         </li>
