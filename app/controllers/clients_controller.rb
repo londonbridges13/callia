@@ -65,7 +65,7 @@ class ClientsController < ApplicationController
     gon.clients_info = clients_info
   end
 
-  def get_clients()
+  def get_clients
 
     @user_clients = []
     current_user.offices.each do |o|
@@ -79,7 +79,11 @@ class ClientsController < ApplicationController
     else
       @about_selected_client = ''
     end
-    @first_activity = @selected_client.activities.order('created_at DESC').first
+    if @selected_client
+      @first_activity = @selected_client.activities.order('created_at DESC').first
+    else
+      @first_activity = nil
+    end
   end
 
   def display_client
