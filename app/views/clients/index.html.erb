@@ -84,8 +84,9 @@
                         <div id="contact-0" class="tab-pane active">
                             <div class="row m-b-lg">
                                 <div class="col-lg-4 text-center">
+                                  <%if current_user.clients.first%>
                                     <h2 id="client_name" ><%=current_user.clients.first.name%></h2>
-
+                                  <%end%>
                                     <div class="m-b-sm">
                                         <img alt="image" class="img-circle" src="<%= image_path('a2.jpg') %>"
                                              style="width: 62px">
@@ -104,9 +105,12 @@
                                     <a type="button" href="/schedule"class="btn btn-primary btn-sm btn-block">
                                         <span class="pull-left"> <i class="fa fa-calendar"></i></span> Schedule
                                     </a>
-                                    <a id="edit_button" href="/clients/<%=@selected_client.id%>/edit" type="button" class="btn btn-success btn-sm btn-block" >
-                                        <span id="span_edit_button"class="pull-left"> <i class="fa fa-gear"></i></span> Edit
-                                    </a>
+                                    <%if @selected_client%>
+                                      <a id="edit_button" href="/clients/<%=@selected_client.id%>/edit" type="button" class="btn btn-success btn-sm btn-block" >
+                                          <span id="span_edit_button"class="pull-left"> <i class="fa fa-gear"></i></span> Edit
+                                      </a>
+                                    <%else%>
+                                    <%end%>
                                 </div>
                             </div>
                             <div class="client-detail">
@@ -122,7 +126,9 @@
                                     </ul>
                                     <strong>Notes</strong>
                                     <p id="cnotes">
-                                        <%=@selected_client.notes%>
+                                        <%if @selected_client%>
+                                          <%=@selected_client.notes%>
+                                        <%end%>
                                         <!-- Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                                         tempor incididunt ut labore et dolore magna aliqua. -->
                                     </p>
