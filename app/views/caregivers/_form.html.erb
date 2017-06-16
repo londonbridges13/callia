@@ -142,8 +142,17 @@
 
 
 
-<div class="actions">
-  <%= f.submit nil, class: "btn btn-success block full-width m-b" %>
-</div>
+    <div class="actions">
+      <%= f.submit nil, class: "btn btn-success block full-width m-b" %>
+    </div>
+
+    <div class="actions">
+      <br/>
+      <%if @caregiver.id%>
+          <%= link_to "Delete Employee", office_path(@caregiver), :method => :delete,  data: {confirm: 'Are you sure?' },
+            :class => "btn btn-danger block half-width m-b btn-outline" %>
+      <%end%>
+    </div>
+
   </div>
 <% end %>

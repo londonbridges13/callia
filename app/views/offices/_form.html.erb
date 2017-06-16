@@ -25,18 +25,17 @@
     </div>
 
 
-    <div class="field">
-      <div class="form-group"><label class="col-sm-2 control-label">Telephone</label>
-      <div class="col-sm-10">
-        <%= f.text_field :telephone, class:"form-control" %>
-        <span class="help-block m-b-none">Enter your Office telephone number. This is optional</span>
-        <br>
-        <br>
 
-      </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Phone</label>
+      <div class="col-sm-10">
+          <%= f.text_field :telephone, class:"form-control", :data => {:mask=> '(999) 999-9999'} %>
+          <span class="help-block">(123) 456-7890   (Optional)</span>
+          <br>
+          <br>
       </div>
     </div>
-
 
     <div class="field">
       <div class="form-group"><label class="col-sm-2 control-label">Select Supervisor</label>
