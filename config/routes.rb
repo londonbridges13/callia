@@ -11,10 +11,13 @@ Rails.application.routes.draw do
       get :show_telephone
     end
   end
-  devise_for :users
+  devise_for :users do
+    resources :locations
+  end
   resources :caregivers
   resources :calls
   resources :dashboard
+  resources :landing
   resources :schedule
 
   #All Routes

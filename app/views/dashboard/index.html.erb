@@ -3,6 +3,7 @@
       <%if current_user.name%>
         <h2>Welcome <%= current_user.name%></h2>
       <%end%>
+      <%if current_user.reminders.count > 0%>
         <small>You have <%=current_user.reminders.where('date > ?', Time.now).count%> reminders.</small>
         <%current_user.reminders.where('date > ?', Time.now).each do |r|%>
             <ul class="list-group clear-list m-t">
@@ -14,6 +15,7 @@
                 </li>
             </ul>
         <%end%>
+      <%end%>
     </div>
     <div class="col-sm-6">
         <div class="flot-chart dashboard-chart">
@@ -37,14 +39,14 @@
 
         </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-sm-3">
       <div class="widget style1 lazur-bg">
           <div class="row vertical-align">
-              <div class="col-xs-3">
-                  <i class="fa fa-phone fa-3x"></i>
+              <div class="col-xs-2">
+                  <i class="fa fa-phone fa-2x"></i>
               </div>
-              <div class="col-md-9 text-right">
-                  <h2 class="font-bold">(314) 832-9210</h2>
+              <div class="col-xs-10 text-center">
+                  <h2 class="font-bold no-margins">(314) 832-9210</h2>
               </div>
           </div>
       </div>
