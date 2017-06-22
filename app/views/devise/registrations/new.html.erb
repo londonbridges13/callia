@@ -1,29 +1,97 @@
-<h2>Sign up</h2>
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+    <div>
+        <div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+            <h1 class="logo-name text-right">Callia</h1>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+        </div>
+        <h3>Register for Callia!</h3>
+        <p>Create account and begin your journey.</p>
+        <div class="m-t" role="form" action="#">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= devise_error_messages! %>
+            <div class="field">
+              <div class="form-group">
+                <%= f.text_field :name, autofocus: true, :class => "form-control", :placeholder => "Administrator's Name" %>
+                  <!-- <input type="text" class="form-control" placeholder="Name" required=""> -->
+              </div>
+            </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+              <div class="form-group">
+                <%= f.email_field :email, autofocus: true, :class => "form-control", :placeholder => "Email",
+                :type => "email" %>
+                  <!-- <input type="email" class="form-control" placeholder="Email" required=""> -->
+              </div>
+              <div class="form-group">
+                  <%= f.password_field :password, autocomplete: "off",:class => "form-control", :placeholder => "Password",
+                  :type => "password" %>
+                  <% if @minimum_password_length %>
+                  <small>(<%= @minimum_password_length %> characters minimum)</small>
+                  <% end %><br />
+              </div>
+              <div class="form-group">
+                  <%= f.password_field :password_confirmation, autocomplete: "off",:class => "form-control", :placeholder => "Confirm Password",
+                  :type => "password" %>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+              </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+              <div class="form-group">
+                  <% if devise_mapping.rememberable? -%>
+                    <div class="checkbox">
+                      <%= f.check_box :remember_me, type:"checkbox" %>
+                      <%= f.label :remember_me %>
+                    </div>
+                    <br/>
+                    <br/>
+                  <% end -%>
+              </div>
 
-<%= render "devise/shared/links" %>
+
+              <h3>Agency Information</h3>
+
+              <div class="form-group">
+                  <%= f.text_field :agency_name, autocomplete: "off",:class => "form-control", :placeholder => "Agency Name" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.text_field :agency_website, autocomplete: "off",:class => "form-control", :placeholder => "Agency Website" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.text_field :agency_telephone, class:"form-control", data: {:mask=> '(999) 999-9999'},
+                 :placeholder => "Agency Telephone"%>
+              </div>
+
+              <div class="form-group">
+                <%= f.number_field :payroll, class:"form-control",
+                 :placeholder => "Pay Roll"%>
+                 <span class="help-block">Enter Pay Roll Frequency. (Optional)</span>
+                 <span class="help-block">Weekly = 7, Bi-weekly = 14</span>
+                 <br/>
+                 <br/>
+              </div>
+
+<!--
+              <h3>Location</h3>
+              <%= f.fields_for :location do |ff| %>
+                <div>
+                  <%= ff.text_field :address %>
+                </div>
+              <% end %> -->
+
+
+              <div class="form-group">
+                  <div class="checkbox"><label> <input type="checkbox"><i></i> Agree the terms and policy </label></div>
+              </div>
+
+              <div class="actions">
+                <%= f.submit "Register", :class => "btn btn-primary block full-width m-b" %>
+              </div>
+
+              <p class="text-muted text-center"><small>Already have an account?</small></p>
+              <a class="btn btn-sm btn-white btn-block" href="#">Login</a>
+          <%end%>
+        </div>
+        <p class="m-t"> <small>Callia &copy; 2017</small> </p>
+    </div>
+</div>

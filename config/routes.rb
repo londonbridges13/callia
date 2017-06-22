@@ -11,9 +11,8 @@ Rails.application.routes.draw do
       get :show_telephone
     end
   end
-  devise_for :users do
-    resources :locations
-  end
+
+  devise_for :users
   resources :caregivers
   resources :calls
   resources :dashboard

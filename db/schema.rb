@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170608202111) do
+ActiveRecord::Schema.define(version: 20170617025803) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "activity"
@@ -182,12 +182,12 @@ ActiveRecord::Schema.define(version: 20170608202111) do
     t.string   "agency_name"
     t.boolean  "is_admin"
     t.string   "agency_website"
-    t.string   "agency_telephone"
     t.integer  "payroll"
     t.date     "next_payroll_day"
     t.string   "call_number"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "agency_telephone"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
