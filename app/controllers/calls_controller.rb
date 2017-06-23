@@ -11,7 +11,7 @@ class CallsController < ApplicationController
   def voice
    from = params['PhoneNumber']
    response = Twilio::TwiML::Response.new do |r|
-     r.Say "Hey there from #{params['From']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
+     r.Say "Hey there, you've called #{params['To']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
         r.Play 'http://linode.rabasa.com/cantina.mp3'
    end
 
