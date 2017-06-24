@@ -85,7 +85,7 @@ class CallsController < ApplicationController
    go back to the main menu, press the star key."
 
    response = Twilio::TwiML::Response.new do |r|
-     r.Gather numDigits: '3', action: get_employee do |g|
+     r.Gather numDigits: '3', action: get_employee_path do |g|
        g.Say message, voice: 'alice', language: 'en-GB', loop:2
      end
    end
