@@ -11,6 +11,7 @@ class Shift < ActiveRecord::Base
   # We'll be using multiple calls to track the amount of calls that a person makes (to charge properly).
   # I handle this so we can go with it (Use one).
   has_many :activities
+  has_many :services
 
   # user created shift
     def save_activity(text, user, shift)

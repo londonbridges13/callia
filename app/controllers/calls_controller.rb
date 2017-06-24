@@ -9,15 +9,102 @@ class CallsController < ApplicationController
 
 
   def voice
-   from = params['PhoneNumber']
-   response = Twilio::TwiML::Response.new do |r|
-     r.Say "Hey there, you've called #{params['To']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
-        r.Play 'http://linode.rabasa.com/cantina.mp3'
+    ask_for_employee_code
+  #  from = params['PhoneNumber']
+  #  response = Twilio::TwiML::Response.new do |r|
+  #    @call = Call.new
+  #    @call.caller_number = params['From']
+  #    @call.called_number = params['To']
+  #    @call.save
+  #    r.Say "Hey there, you've called #{params['To']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
+  #       r.Play 'http://linode.rabasa.com/cantina.mp3'
+
    end
 
    render_twiml response
   end
 
+
+  def find_caller
+    caller_number = params['From']
+
+    if caller_number[0...2] == "+1"
+      caller_number = caller_number[2...caller_number.length]
+    end
+
+    client = find_client(caller_number)
+    if client
+      @call.client = client
+      if client.user
+        @call.user = client.user
+      end
+      @call.save
+    end
+  end
+
+  def clean_the_number(phone_number)
+    # remove whitespaces, ")", etc
+    phone_number.slice!(")")
+    phone_number.slice!(" ")
+    phone_number.slice!("(")
+    phone_number.slice!("-")
+    return phone_number
+  end
+
+  def find_client(caller_number)
+    client = nil
+    clients = Client.all
+    clients.each do |c|
+      # change client's number from (314) 708-9391 to 3147089391
+      # then check with caller number
+      c_number = clean_the_number(c.authorized_phone)
+      if c_number == caller_number
+        client = c
+      end
+    end
+    if client
+      p "Found Client. Client is #{client.name}"
+      return client
+    else
+      p "Couldn't find Client for the caller's number"
+      return nil
+    end
+  end
+
+  def find_employee
+    # Ask for employee_code
+    # then look for employee based on the code
+    # if found employee, link to the call
+
+
+  end
+
+  def ask_for_employee_code
+    message = "To call the planet Broh doe As O G, press 2. To call the planet
+   DuhGo bah, press 3. To call an oober asteroid to your location, press 4. To
+   go back to the main menu, press the star key."
+
+   response = Twilio::TwiML::Response.new do |r|
+     r.Gather numDigits: '3', action: get_employee do |g|
+       g.Say message, voice: 'alice', language: 'en-GB', loop:2
+     end
+   end
+
+   render text: response.text
+  end
+
+  def get_employee
+    code = params[:Digits]
+
+    employee = Caregiver.find_by_employee_code(code)
+    if employee
+      p "Found Employee from code. #{code}"
+      @call.caregiver = employee
+      @call.save
+    else
+      p "Couldn't find Employee from code. #{code}"
+    end
+  end
 
   # GET /calls
   # GET /calls.json

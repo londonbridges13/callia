@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :caregivers
   has_many :reminders
   has_many :calls # easy query for payments
+  has_many :services
 
 
   def first_name

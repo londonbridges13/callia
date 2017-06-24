@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170617025803) do
+ActiveRecord::Schema.define(version: 20170624011834) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "activity"
@@ -140,6 +140,20 @@ ActiveRecord::Schema.define(version: 20170617025803) do
   end
 
   add_index "reminders", ["user_id"], name: "index_reminders_on_user_id"
+
+  create_table "services", force: :cascade do |t|
+    t.text     "service"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.integer  "call_id"
+    t.integer  "shift_id"
+    t.string   "response"
+  end
+
+  add_index "services", ["call_id"], name: "index_services_on_call_id"
+  add_index "services", ["shift_id"], name: "index_services_on_shift_id"
+  add_index "services", ["user_id"], name: "index_services_on_user_id"
 
   create_table "settings", force: :cascade do |t|
     t.string   "first_name"

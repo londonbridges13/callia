@@ -5,6 +5,7 @@ class Call < ActiveRecord::Base
   belongs_to :caregiver
   belongs_to :shift
   has_one :activity
+  has_many :services
 
 
 # caregiver has made call from client's phone, check for shift
