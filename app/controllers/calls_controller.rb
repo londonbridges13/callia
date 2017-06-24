@@ -9,15 +9,14 @@ class CallsController < ApplicationController
 
 
   def voice
-    ask_for_employee_code
-  #  from = params['PhoneNumber']
-  #  response = Twilio::TwiML::Response.new do |r|
-  #    @call = Call.new
-  #    @call.caller_number = params['From']
-  #    @call.called_number = params['To']
-  #    @call.save
-  #    r.Say "Hey there, you've called #{params['To']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
-  #       r.Play 'http://linode.rabasa.com/cantina.mp3'
+   from = params['PhoneNumber']
+   response = Twilio::TwiML::Response.new do |r|
+     @call = Call.new
+     @call.caller_number = params['From']
+     @call.called_number = params['To']
+     @call.save
+     r.Say "Hey there, you've called #{params['To']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
+        r.Play 'http://linode.rabasa.com/cantina.mp3'
 
    end
 
