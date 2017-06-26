@@ -65,6 +65,12 @@
                   <!-- <span class="label label-primary pull-right">NEW</span> -->
                 <% end %>
             </li>
+            <li class="<%= is_active_controller('reports') %>">
+                <%= link_to reports_path do %>
+                <i class="fa fa-file-text-o"></i> <span class="nav-label" data-i18n="nav.layouts">Reports</span>
+                  <!-- <span class="label label-primary pull-right">NEW</span> -->
+                <% end %>
+            </li>
             <li class="<%= is_active_controller('settings') %>">
                 <%= link_to settings_path do %>
                 <i class="fa fa-gear"></i> <span class="nav-label" data-i18n="nav.layouts">Settings</span>

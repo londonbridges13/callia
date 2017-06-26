@@ -14,6 +14,9 @@
   <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
   <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js", "chartjs" %>
 
+  <!-- For Payments -->
+  <%= yield :koudoku %>
+
   <%= csrf_meta_tags %>
 </head>
 <body>

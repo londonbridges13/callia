@@ -43,6 +43,7 @@ GEM
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bluecloth (2.2.0)
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -66,6 +67,8 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.7.0)
+    faraday (0.12.1)
+      multipart-post (>= 1.2, < 3)
     font-awesome-rails (4.7.0.1)
       railties (>= 3.2, < 5.1)
     globalid (0.3.6)
@@ -87,6 +90,11 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     jwt (1.5.6)
+    koudoku (1.2.4)
+      bluecloth
+      rails
+      stripe
+      stripe_event
     local_time (1.0.3)
       coffee-rails
     loofah (2.0.3)
@@ -97,12 +105,17 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.2)
     multi_json (1.12.1)
+    multipart-post (2.0.0)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
     orm_adapter (0.5.0)
+    pdf-core (0.7.0)
     pg (0.18.4)
     pkg-config (1.1.7)
+    prawn (2.2.2)
+      pdf-core (~> 0.7.0)
+      ttfunk (~> 1.5)
     rack (1.6.8)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -159,9 +172,17 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.3.12)
+    stripe (2.12.0)
+      faraday (~> 0.9)
+    stripe_event (1.6.0)
+      activesupport (>= 3.1)
+      stripe (>= 1.6, < 3.0)
+    thinreports (0.10.0)
+      prawn (~> 2.2.0)
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.7)
+    ttfunk (1.5.1)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.3)
@@ -196,6 +217,7 @@ DEPENDENCIES
   groupdate
   jbuilder (~> 2.0)
   jquery-rails
+  koudoku
   local_time
   pg
   rails (= 4.2.6)
@@ -204,10 +226,11 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring
   sqlite3
+  thinreports
   turbolinks
   twilio-ruby
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.12.5
+   1.15.1

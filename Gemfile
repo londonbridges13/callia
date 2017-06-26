@@ -15,7 +15,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 gem 'rails_12factor', group: :production
 
-
+gem 'koudoku'
+gem 'thinreports'
 gem 'twilio-ruby'
 gem 'gon'
 gem 'local_time'
