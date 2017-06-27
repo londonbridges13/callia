@@ -1,5 +1,5 @@
 <% content_for :koudoku do %>
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <% end %>
 
 <%= form_for @subscription, url: url, html: {id: 'payment-form', class: 'form-horizontal'} do |f| %>
@@ -39,13 +39,12 @@
                             </div>
                             <div class="col-md-8">
 
-                                <form role="form" id="payment-form">
                                   <fieldset>
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <div class="form-group">
+                                            <div class="control-group">
                                                 <label>CARD NUMBER</label>
-                                                <div class="input-group">
+                                                <div class="controls">
                                                     <input type="text" class="card-number form-control" name="Number" placeholder="Valid Card Number" required />
                                                     <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
                                                 </div>
@@ -54,21 +53,27 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-2 col-md-2">
-                                            <div class="form-group">
+                                            <div class="control-group">
                                                 <label>MONTH</label>
-                                                <input type="text" class="card-expiry-month form-control" name="Expiry" maxlength="2" placeholder="MM"  required/>
+                                                <div class="controls">
+                                                  <input type="text" class="card-expiry-month form-control" name="Expiry" maxlength="2" placeholder="MM"  required/>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-2 col-md-2">
-                                            <div class="form-group">
+                                            <div class="control-group">
                                               <label>YEAR</label>
+                                              <div class="controls">
                                                 <input type="text" class="card-expiry-year form-control" name="Expiry" maxlength="4" placeholder="YYYY"  required/>
+                                              </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-5 col-md-5 pull-right">
-                                            <div class="form-group">
+                                            <div class="control-group">
                                                 <label>CV CODE</label>
-                                                <input type="text" class="form-control" name="CVC" maxlength="4" placeholder="CVC"  required/>
+                                                <div class="controls">
+                                                  <input type="text" class="card-cvc form-control" name="CVC" maxlength="4" placeholder="CVC"  required/>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -100,7 +105,6 @@
                                           </div>
                                         </div>
                                     </div>
-                                </form>
 
                             </div>
 
