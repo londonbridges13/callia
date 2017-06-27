@@ -32,7 +32,7 @@
 
             <!-- Button in Sidebar -->
             <li class="<%= is_active_controller('dashboards') %>">
-                <%= link_to dashboard_index_path do %>
+                <%= link_to main_app.dashboard_index_path do %>
                 <i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.layouts">Dashboard</span>
                   <!-- <span class="label label-primary pull-right">NEW</span> -->
                 <% end %>
@@ -40,39 +40,39 @@
             <li class="<%= is_active_controller(nil) %>">
                 <a href="#"><i class="fa fa-pencil-square-o"></i> <span class="nav-label" data-i18n="nav.otherpages">Create</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('pages', 'in') %>">
-                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Shift", new_shift_path %> </li>
-                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Client", new_client_path %> </li>
-                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Employee", new_caregiver_path %> </li>
-                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Office", new_office_path %> </li>
+                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Shift", main_app.new_shift_path %> </li>
+                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Client", main_app.new_client_path %> </li>
+                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Employee", main_app.new_caregiver_path %> </li>
+                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Office", main_app.new_office_path %> </li>
 
                 </ul>
             </li>
             <li class="<%= is_active_controller('offices') %>">
-                <%= link_to offices_path do %>
+                <%= link_to main_app.offices_path do %>
                 <i class="fa fa-building"></i> <span class="nav-label" data-i18n="nav.layouts">Offices</span>
                   <!-- <span class="label label-primary pull-right">NEW</span> -->
                 <% end %>
             </li>
             <li class="<%= is_active_controller('clients') %>">
-                <%= link_to clients_path do %>
+                <%= link_to main_app.clients_path do %>
                 <i class="fa fa-group (alias)"></i> <span class="nav-label" data-i18n="nav.layouts">Clients</span>
                   <!-- <span class="label label-primary pull-right">NEW</span> -->
                 <% end %>
             </li>
             <li class="<%= is_active_controller('caregivers') %>">
-                <%= link_to caregivers_path do %>
+                <%= link_to main_app.caregivers_path do %>
                 <i class="fa fa-user-md"></i> <span class="nav-label" data-i18n="nav.layouts">Employees</span>
                   <!-- <span class="label label-primary pull-right">NEW</span> -->
                 <% end %>
             </li>
             <li class="<%= is_active_controller('reports') %>">
-                <%= link_to reports_path do %>
+                <%= link_to main_app.reports_path do %>
                 <i class="fa fa-file-text-o"></i> <span class="nav-label" data-i18n="nav.layouts">Reports</span>
                   <!-- <span class="label label-primary pull-right">NEW</span> -->
                 <% end %>
             </li>
             <li class="<%= is_active_controller('settings') %>">
-                <%= link_to settings_path do %>
+                <%= link_to main_app.settings_path do %>
                 <i class="fa fa-gear"></i> <span class="nav-label" data-i18n="nav.layouts">Settings</span>
                   <!-- <span class="label label-primary pull-right">NEW</span> -->
                 <% end %>

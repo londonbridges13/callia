@@ -7,33 +7,55 @@
   <fieldset>
 
     <legend><%= title %></legend>
-    
+
     <div class="control-group">
       <label class="control-label">Card Number</label>
       <div class="controls">
-        <input type="text" size="20" autocomplete="off" class="card-number"/>
+        <div class="row-sm-10">
+          <div class="col-sm-4">
+            <input type="text"  maxlength="20" autocomplete="off" class="card-number form-control"/>
+          </div>
+        </div>
       </div>
     </div>
 
+    <div class="row">
+      <br/>
+      <br/>
+      <br>
+    </div>
+
     <div class="control-group">
+
       <label class="control-label">Expiration (MM/YYYY)</label>
       <div class="controls">
-        <input type="text" size="2" class="card-expiry-month input-mini"/>
-        <span> / </span>
-        <input type="text" size="4" class="card-expiry-year input-mini"/>
+        <div class="row">
+          <div class="col-sm-10">
+            <div class="col-md-1"><input type="text" size="2" placeholder="09" class="card-expiry-month form-control input-sm" data-mask="99"></div>
+            <div class="col-md-2"><input type="text" size="4" placeholder="2023" class="card-expiry-year form-control input-sm" data-mask="9999"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <br>
+        </div>
+
+        <label class="control-label">CVC New</label>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="col-md-2"><input type="text" maxlength="4" placeholder="999" class="card-cvc form-control input-sm" ></div>
+            </div>
+        </div>
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">CVC</label>
-      <div class="controls">
-        <input type="text" size="4" autocomplete="off" class="card-cvc input-small"/>
-      </div>
+    <div class="row">
+      <br>
     </div>
 
     <div class="alert alert-error payment-errors"></div>
     <%= f.hidden_field :plan_id %>
-    
+
   </fieldset>
 
   <div class="control-group">
@@ -53,7 +75,7 @@
 
   // All this code taken from Stripe's own examples at:
   // https://stripe.com/docs/tutorials/forms .
-  
+
   function stripeResponseHandler(status, response) {
 
       if (response.error) {
@@ -75,10 +97,10 @@
   $(document).ready(function() {
 
     Stripe.setPublishableKey("<%= Koudoku.stripe_publishable_key %>");
-    
+
     // By default, don't show errors.
     $(".payment-errors").hide()
-    
+
     $("#payment-form").submit(function(event) {
 
       // disable the submit button to prevent repeated clicks
@@ -95,5 +117,5 @@
       return false;
     });
   });
-  
+
 </script>
