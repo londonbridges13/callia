@@ -1,59 +1,133 @@
 <% content_for :koudoku do %>
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <% end %>
 
 <%= form_for @subscription, url: url, html: {id: 'payment-form', class: 'form-horizontal'} do |f| %>
 
-  <fieldset>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="pull-right">
+                        <i class="fa fa-cc-amex text-success"></i>
+                        <i class="fa fa-cc-mastercard text-warning"></i>
+                        <i class="fa fa-cc-discover text-danger"></i>
+                    </div>
+                    <h5 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Credit Card</a>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in">
+                    <div class="panel-body">
 
-    <legend><%= title %></legend>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h2>Summary</h2>
+                                <strong>Product:</strong> <%=@subscription.plan.name%> Plan <br/>
+                                <strong>Price:</strong> <span class="text-navy">$<%=@subscription.plan.price%></span>
 
-    <div class="control-group">
-      <label class="control-label"><%= t('koudoku.payment.card_number') %></label>
-      <div class="controls">
-        <input type="text" size="20" autocomplete="off" class="card-number"/>
-      </div>
+                                <p class="m-t">
+                                  <%@subscription.plan.features.split("\n\n").each do |f|%>
+
+                                    • <%=f%>
+                                    <br>
+                                    <br>
+                                  <%end%>
+
+                                </p>
+                            </div>
+                            <div class="col-md-8">
+
+                                  <fieldset>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="control-group">
+                                                <label>CARD NUMBER</label>
+                                                <div class="controls">
+                                                    <input type="text" class="card-number form-control" name="Number" placeholder="Valid Card Number" required />
+                                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-2 col-md-2">
+                                            <div class="control-group">
+                                                <label>MONTH</label>
+                                                <div class="controls">
+                                                  <input type="text" class="card-expiry-month form-control" name="Expiry" maxlength="2" placeholder="MM"  required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2 col-md-2">
+                                            <div class="control-group">
+                                              <label>YEAR</label>
+                                              <div class="controls">
+                                                <input type="text" class="card-expiry-year form-control" name="Expiry" maxlength="4" placeholder="YYYY"  required/>
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-5 col-md-5 pull-right">
+                                            <div class="control-group">
+                                                <label>CV CODE</label>
+                                                <div class="controls">
+                                                  <input type="text" class="card-cvc form-control" name="CVC" maxlength="4" placeholder="CVC"  required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label>NAME OF CARD</label>
+                                                <input type="text" class="form-control" name="nameCard" placeholder="NAME AND SURNAME"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="alert alert-error payment-errors"></div>
+                                    <%= f.hidden_field :plan_id %>
+                                  </fieldset>
+
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                          <div class="control-group">
+                                            <div class="controls">
+                                              <% if Koudoku.free_trial? %>
+                                                <button type="submit" class="btn btn-primary submit-button">Save Billing Information</button>
+                                              <% else %>
+                                                <button type="submit" class="btn btn-primary submit-button">Upgrade Your Account</button>
+                                              <% end %>
+                                              <%= link_to "Cancel", owner_subscriptions_path(@owner), class: 'btn' %>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
-
-    <div class="control-group">
-      <label class="control-label"><%= t('koudoku.payment.expiration') %></label>
-      <div class="controls">
-        <input type="text" size="2" class="card-expiry-month input-mini"/>
-        <span> / </span>
-        <input type="text" size="4" class="card-expiry-year input-mini"/>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <label class="control-label"><%= t('koudoku.payment.cvc') %></label>
-      <div class="controls">
-        <input type="text" size="4" autocomplete="off" class="card-cvc input-small"/>
-      </div>
-    </div>
-
-    <div class="alert alert-error payment-errors"></div>
-    <%= f.hidden_field :plan_id %>
-
-  </fieldset>
-
-  <div class="control-group">
-    <div class="controls">
-      <% if Koudoku.free_trial? %>
-        <button type="submit" class="btn btn-primary submit-button"><%= t('koudoku.payment.save_billing_info') %></button>
-      <% else %>
-        <button type="submit" class="btn btn-primary submit-button"><%= t('koudoku.payment.upgrade_account') %></button>
-      <% end %>
-      <%= link_to t('koudoku.payment.cancel'), owner_subscriptions_path(@owner), class: 'btn' %>
-    </div>
-  </div>
 
 <% end %>
 
+
+
+
 <script type="text/javascript">
+
   // All this code taken from Stripe's own examples at:
   // https://stripe.com/docs/tutorials/forms .
 
   function stripeResponseHandler(status, response) {
+
       if (response.error) {
           // show the errors on the form
           $(".payment-errors").text(response.error.message).show();
@@ -69,24 +143,29 @@
           form$.get(0).submit();
       }
   }
+
   $(document).ready(function() {
+
     Stripe.setPublishableKey("<%= Koudoku.stripe_publishable_key %>");
 
     // By default, don't show errors.
     $(".payment-errors").hide()
 
     $("#payment-form").submit(function(event) {
+
       // disable the submit button to prevent repeated clicks
       $('.submit-button').attr("disabled", "disabled");
+
       Stripe.createToken({
           number: $('.card-number').val(),
           cvc: $('.card-cvc').val(),
           exp_month: $('.card-expiry-month').val(),
           exp_year: $('.card-expiry-year').val()
       }, stripeResponseHandler);
+
       // prevent the form from submitting with the default action
       return false;
     });
   });
 
-</script
+</script>
