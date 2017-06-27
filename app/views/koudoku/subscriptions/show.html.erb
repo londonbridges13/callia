@@ -1,5 +1,5 @@
 <% if @subscription.plan.present? %>
-  <h2>You're Subscribed!</h2>
+  <h2><strong>You're Subscribed!</strong></h2>
   <p>You're currently subscribed to the <%= @subscription.plan.name %> plan.</p>
   <%= link_to 'Choose Another Plan', edit_owner_subscription_path(@owner, @subscription), class: 'btn' %>
 <% else %>
