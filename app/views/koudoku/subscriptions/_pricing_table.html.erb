@@ -1,6 +1,6 @@
 <ul class="thumbnails koudoku-pricing-table">
   <% @plans.each do |plan| %>
-    <li class="span3 plan <%= 'plan-primary' if plan.highlight? %>">
+    <li class="list-group-item span3 plan <%= 'plan-primary' if plan.highlight? %>">
       <div class="thumbnail">
         <div class="caption">
           <h3><%= plan.name %></h3>

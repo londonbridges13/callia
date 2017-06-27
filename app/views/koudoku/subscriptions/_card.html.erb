@@ -4,72 +4,118 @@
 
 <%= form_for @subscription, url: url, html: {id: 'payment-form', class: 'form-horizontal'} do |f| %>
 
-  <fieldset>
-
-    <legend><%= title %></legend>
-
-    <div class="control-group">
-      <label class="control-label">Card Number</label>
-      <div class="controls">
-        <div class="row-sm-10">
-          <div class="col-sm-4">
-            <input type="text"  maxlength="20" autocomplete="off" class="card-number form-control"/>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="row">
-      <br/>
-      <br/>
-      <br>
-    </div>
+        <div class="col-lg-12">
+            <div class="ibox">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="pull-right">
+                        <i class="fa fa-cc-amex text-success"></i>
+                        <i class="fa fa-cc-mastercard text-warning"></i>
+                        <i class="fa fa-cc-discover text-danger"></i>
+                    </div>
+                    <h5 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Credit Card</a>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in">
+                    <div class="panel-body">
 
-    <div class="control-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h2>Summary</h2>
+                                <strong>Product:</strong> <%=@subscription.plan.name%> Plan <br/>
+                                <strong>Price:</strong> <span class="text-navy">$<%=@subscription.plan.price%></span>
 
-      <label class="control-label">Expiration (MM/YYYY)</label>
-      <div class="controls">
-        <div class="row">
-          <div class="col-sm-10">
-            <div class="col-md-1"><input type="text" size="2" placeholder="09" class="card-expiry-month form-control input-sm" data-mask="99"></div>
-            <div class="col-md-2"><input type="text" size="4" placeholder="2023" class="card-expiry-year form-control input-sm" data-mask="9999"></div>
-          </div>
-        </div>
+                                <p class="m-t">
+                                  <%@subscription.plan.features.split("\n\n").each do |f|%>
 
-        <div class="row">
-          <br>
-        </div>
+                                    • <%=f%>
+                                    <br>
+                                    <br>
+                                  <%end%>
 
-        <label class="control-label">CVC New</label>
-        <div class="row">
-            <div class="col-sm-10">
-                <div class="col-md-2"><input type="text" maxlength="4" placeholder="999" class="card-cvc form-control input-sm" ></div>
+                                </p>
+                            </div>
+                            <div class="col-md-8">
+
+                                <form role="form" id="payment-form">
+                                  <fieldset>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label>CARD NUMBER</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="card-number form-control" name="Number" placeholder="Valid Card Number" required />
+                                                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-2 col-md-2">
+                                            <div class="form-group">
+                                                <label>MONTH</label>
+                                                <input type="text" class="card-expiry-month form-control" name="Expiry" maxlength="2" placeholder="MM"  required/>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2 col-md-2">
+                                            <div class="form-group">
+                                              <label>YEAR</label>
+                                                <input type="text" class="card-expiry-year form-control" name="Expiry" maxlength="4" placeholder="YYYY"  required/>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-5 col-md-5 pull-right">
+                                            <div class="form-group">
+                                                <label>CV CODE</label>
+                                                <input type="text" class="form-control" name="CVC" maxlength="4" placeholder="CVC"  required/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label>NAME OF CARD</label>
+                                                <input type="text" class="form-control" name="nameCard" placeholder="NAME AND SURNAME"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="alert alert-error payment-errors"></div>
+                                    <%= f.hidden_field :plan_id %>
+                                  </fieldset>
+
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                          <div class="control-group">
+                                            <div class="controls">
+                                              <% if Koudoku.free_trial? %>
+                                                <button type="submit" class="btn btn-primary submit-button">Save Billing Information</button>
+                                              <% else %>
+                                                <button type="submit" class="btn btn-primary submit-button">Upgrade Your Account</button>
+                                              <% end %>
+                                              <%= link_to "Cancel", owner_subscriptions_path(@owner), class: 'btn' %>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+              </div>
             </div>
         </div>
-      </div>
     </div>
-
-    <div class="row">
-      <br>
-    </div>
-
-    <div class="alert alert-error payment-errors"></div>
-    <%= f.hidden_field :plan_id %>
-
-  </fieldset>
-
-  <div class="control-group">
-    <div class="controls">
-      <% if Koudoku.free_trial? %>
-        <button type="submit" class="btn btn-primary submit-button">Save Billing Information</button>
-      <% else %>
-        <button type="submit" class="btn btn-primary submit-button">Upgrade Your Account</button>
-      <% end %>
-      <%= link_to "Cancel", owner_subscriptions_path(@owner), class: 'btn' %>
-    </div>
-  </div>
 
 <% end %>
+
+
+
 
 <script type="text/javascript">
 
