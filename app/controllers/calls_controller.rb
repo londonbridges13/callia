@@ -10,15 +10,15 @@ class CallsController < ApplicationController
 
   def voice
    from = params['PhoneNumber']
-   message = "To call the planet Broh doe As O G, press 2. To call the planet
-  DuhGo bah, press 3. To call an oober asteroid to your location, press 4. To
-  go back to the main menu, press the star key."
-
-  response = Twilio::TwiML::Response.new do |r|
-    r.Gather finishOnKey: '*', action: get_employee_path do |g|
-      g.Say message, voice: 'alice', language: 'en-GB', loop:2
-    end
-  end
+   response = Twilio::TwiML::Response.new do |r|
+     @call = Call.new
+     @call.caller_number = params['From']
+     @call.called_number = params['To']
+     @call.save
+    #  r.Say "Hey there, you've called #{params['To']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
+        # r.Play 'http://linode.rabasa.com/cantina.mp3'
+    ask_for_employee_code
+   end
 
    render_twiml response
   end
@@ -87,9 +87,7 @@ class CallsController < ApplicationController
   end
 
   def ask_for_employee_code
-    message = "To call the planet Broh doe As O G, press 2. To call the planet
-   DuhGo bah, press 3. To call an oober asteroid to your location, press 4. To
-   go back to the main menu, press the star key."
+    message = "Welcome, enter your code to get started."
 
    response = Twilio::TwiML::Response.new do |r|
      r.Gather finishOnKey: '*', action: get_employee_path do |g|
@@ -100,21 +98,28 @@ class CallsController < ApplicationController
    render text: response.text
   end
 
+  #get_employee_path
   def get_employee
     code = params[:Digits]
-    response = Twilio::TwiML::Response.new do |r|
-      r.Say "Hey there, you've called #{params['To']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
-    end
-    render text: response.text
 
-    # employee = Caregiver.find_by_employee_code(code)
-    # if employee
-    #   p "Found Employee from code. #{code}"
-    #   @call.caregiver = employee
-    #   @call.save
-    # else
-    #   p "Couldn't find Employee from code. #{code}"
-    # end
+    employee = Caregiver.find_by_employee_code(code)
+    if employee
+      p "Found Employee from code. #{code}"
+      response = Twilio::TwiML::Response.new do |r|
+        r.Say "Found you, #{employee.name}. Please say your name.", :voice => 'alice'
+        # more here
+      end
+      render text: response.text
+
+      @call.caregiver = employee
+      @call.save
+    else
+      p "Couldn't find Employee from code. #{code}"
+      response = Twilio::TwiML::Response.new do |r|
+        r.Say "Couldn't find Employee with code: #{code}", :voice => 'alice'
+      end
+      render text: response.text
+    end
   end
 
   # GET /calls
