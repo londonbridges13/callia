@@ -4,7 +4,7 @@ class CallsController < ApplicationController
   include Webhookable
   after_filter :set_header
   skip_before_action :verify_authenticity_token
-  before_action :set_call, only: [:show, :edit, :update, :destroy]
+  before_action :set_call, only: [:show, :edit, :update, :destroy, :get_employee]
 
 
 
@@ -90,7 +90,7 @@ class CallsController < ApplicationController
     message = "Welcome, enter your code to get started."
 
    response = Twilio::TwiML::Response.new do |r|
-     r.Gather finishOnKey: '*', action: get_employee do |g|
+     r.Gather finishOnKey: '*', action: get_employee_path(id: @call.id) do |g|
        g.Say message, voice: 'alice', language: 'en-GB', loop:2
      end
    end
