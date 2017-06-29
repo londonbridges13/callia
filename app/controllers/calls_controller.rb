@@ -27,7 +27,7 @@ class CallsController < ApplicationController
   def caregiver
     response = Twilio::TwiML::Response.new do |r|
       r.Gather finishOnKey: '*', action: planets_path do |g|
-        g.Say "message fart", voice: 'alice', language: 'en-GB', loop:3
+        g.Say "message fart", voice: 'alice', language: 'en-GB'
       end
     end
   end
@@ -94,7 +94,7 @@ class CallsController < ApplicationController
 
    response = Twilio::TwiML::Response.new do |r|
      r.Gather finishOnKey: '*', action: get_employee_path(id: @call.id) do |g|
-       g.Say message, voice: 'alice', language: 'en-GB', loop:2
+       g.Say message, voice: 'alice', language: 'en-GB'
      end
    end
 
@@ -115,7 +115,7 @@ class CallsController < ApplicationController
         # more here
         #verify
         r.Gather finishOnKey: '*', action: verify_caller_path(id: @call.id) do |g|
-          g.Say "Found you, #{employee.name}. Is this correct?", :voice => 'alice' loop:2
+          g.Say "Found you, #{employee.name}. Is this correct?", :voice => 'alice'
         end
         #once verified, record name (record_voice)
 
