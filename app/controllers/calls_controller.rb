@@ -4,7 +4,7 @@ class CallsController < ApplicationController
   include Webhookable
   after_filter :set_header
   skip_before_action :verify_authenticity_token
-  before_action :set_call, only: [:show, :edit, :update, :destroy, :get_employee]
+  before_action :set_call, only: [:show, :edit, :update, :destroy, :get_employee, :verify_caller]
 
 
 
@@ -15,6 +15,7 @@ class CallsController < ApplicationController
      @call.caller_number = params['From']
      @call.called_number = params['To']
      @call.save
+     find_admin
     #  r.Say "Hey there, you've called #{params['To']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
         # r.Play 'http://linode.rabasa.com/cantina.mp3'
     ask_for_employee_code
@@ -78,11 +79,13 @@ class CallsController < ApplicationController
     end
   end
 
-  def find_employee
-    # Ask for employee_code
-    # then look for employee based on the code
-    # if found employee, link to the call
+  def find_admin # the user who moniters this account
+    number = params["To"]
+    @user = User.find_by_call_number(number)
 
+    if @user
+      @call.user = @user
+    end
 
   end
 
@@ -98,16 +101,24 @@ class CallsController < ApplicationController
    render text: response.text
   end
 
+
   #get_employee_path
   def get_employee
     code = params[:Digits]
 
     employee = Caregiver.find_by_employee_code(code)
+
     if employee
       p "Found Employee from code. #{code}. #{employee.name}"
       response = Twilio::TwiML::Response.new do |r|
-        r.Say "Found you, #{employee.name}. Please say your name.", :voice => 'alice'
+        r.Say "Found you, #{employee.name}. Is this correct?", :voice => 'alice'
         # more here
+        #verify
+        r.Gather finishOnKey: '*', action: verify_caller_path(id: @call.id) do |g|
+          g.Say "Found you, #{employee.name}. Is this correct?", :voice => 'alice' loop:2
+        end
+        #once verified, record name (record_voice)
+
       end
       render text: response.text
 
@@ -117,9 +128,94 @@ class CallsController < ApplicationController
       p "Couldn't find Employee from code. #{code}"
       response = Twilio::TwiML::Response.new do |r|
         r.Say "Couldn't find Employee with code: #{code}", :voice => 'alice'
+        ask_for_employee_code #asking again because employee might have entered wrong number
       end
       render text: response.text
     end
+
+    define_call_type
+
+  end
+
+  def verify_caller # verify_caller_path
+    # 1 for yes, record voice and you're done
+    # 2 for no, ask for code again
+
+    user_selection = params[:Digits]
+
+    case user_selection
+    when "1"
+      record_voice
+    when "2"
+      ask_for_employee_code
+    else
+      response = Twilio::TwiML::Response.new do |r|
+        r.Say "Invalid response, Good bye.", :voice => 'alice'
+        r.Hangup
+      end
+      render text: response.text
+    end
+  end
+
+  def record_voice
+    # record the caller's voice as they say their name.
+    #save recordingUrl
+
+    response = Twilio::TwiML::Response.new do |r|
+      r.Say "Please say your name after the beep.", :voice => 'alice'
+      r.Record :maxLength => '5', action: play_voice_path
+    end
+    render text: response.text
+  end
+
+  def play_voice
+    Twilio::TwiML::Response.new do |r|
+      r.Say 'Listen to your voice.'
+      r.Play params['RecordingUrl']
+      r.Say 'Successfully Clocked In. Thank you, Goodbye.'
+      r.Hangup
+    end
+    render text: response.text
+
+  end
+
+  def define_call_type(employee)
+    #clock in or clock out
+    last_call = Call.where(employee: employee).order("created_at").last
+
+    if last_call and last_call.log_type == "Clocked In"
+      # run clocked out
+      clock_out
+    else
+      #run clocked in
+      clock_in
+    end
+  end
+
+  def clock_out
+    # ask for services completed
+    # then save log_type, thank them and be done
+    ask_for_services
+
+    @call.log_type = "Clocked Out"
+    @call.save
+  end
+
+  def clock_in
+    # save call time let user know they have successfully logged in
+    @call.log_type = "Clocked In"
+    @call.save
+
+    response = Twilio::TwiML::Response.new do |r|
+      r.Say "Succefully Clocked In. Thank you, #{@call.employee.name} and have a great day. Good bye.", :voice => 'alice'
+      r.Hangup
+    end
+    render text: response.text
+  end
+
+  def ask_for_services
+    #ask if employee completed each service
+
   end
 
   # GET /calls

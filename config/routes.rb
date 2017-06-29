@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   get "caregivers/show"
   post 'calls/voice' => 'calls#voice'
   match 'calls/get_employee' => 'calls#get_employee', via: [:get, :post], as: 'get_employee'
+  match 'calls/verify_caller' => 'calls#verify_caller', via: [:get, :post], as: 'verify_caller'
+  match 'calls/play_voice' => 'calls#play_voice', via: [:get, :post], as: 'play_voice'
   # get '*path' => redirect('/')
   get 'display_client' => "clients#display_client"
 
