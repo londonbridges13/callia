@@ -90,7 +90,7 @@ class CallsController < ApplicationController
     message = "Welcome, enter your code to get started."
 
    response = Twilio::TwiML::Response.new do |r|
-     r.Gather finishOnKey: '*', action: get_employee_path do |g|
+     r.Gather finishOnKey: '*', action: get_employee do |g|
        g.Say message, voice: 'alice', language: 'en-GB', loop:2
      end
    end
