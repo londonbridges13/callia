@@ -133,7 +133,7 @@ class CallsController < ApplicationController
       render text: response.text
     end
 
-    define_call_type
+    define_call_type(employee)
 
   end
 
