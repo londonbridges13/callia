@@ -102,9 +102,11 @@ class CallsController < ApplicationController
 
   def get_employee
     code = params[:Digits]
+    response = Twilio::TwiML::Response.new do |r|
+      r.Say "Hey there, you've called #{params['To']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
+    end
+    render text: response.text
 
-    render text: "done"
-    
     # employee = Caregiver.find_by_employee_code(code)
     # if employee
     #   p "Found Employee from code. #{code}"
