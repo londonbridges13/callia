@@ -181,7 +181,7 @@ class CallsController < ApplicationController
 
   def define_call_type(employee)
     #clock in or clock out
-    last_call = Call.where(employee: employee).order("created_at").last
+    last_call = Call.where(caregiver: employee).order("created_at").last
 
     if last_call and last_call.log_type == "Clocked In"
       # run clocked out
