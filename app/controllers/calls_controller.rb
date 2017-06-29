@@ -10,15 +10,15 @@ class CallsController < ApplicationController
 
   def voice
    from = params['PhoneNumber']
-   response = Twilio::TwiML::Response.new do |r|
-     @call = Call.new
-     @call.caller_number = params['From']
-     @call.called_number = params['To']
-     @call.save
-     r.Say "Hey there, you've called #{params['To']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
-        r.Play 'http://linode.rabasa.com/cantina.mp3'
+   message = "To call the planet Broh doe As O G, press 2. To call the planet
+  DuhGo bah, press 3. To call an oober asteroid to your location, press 4. To
+  go back to the main menu, press the star key."
 
-   end
+  response = Twilio::TwiML::Response.new do |r|
+    r.Gather finishOnKey: '*', action: get_employee_path do |g|
+      g.Say message, voice: 'alice', language: 'en-GB', loop:2
+    end
+  end
 
    render_twiml response
   end
