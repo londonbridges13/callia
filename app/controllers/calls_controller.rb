@@ -104,7 +104,7 @@ class CallsController < ApplicationController
 
     employee = Caregiver.find_by_employee_code(code)
     if employee
-      p "Found Employee from code. #{code}"
+      p "Found Employee from code. #{code}. #{employee.name}"
       response = Twilio::TwiML::Response.new do |r|
         r.Say "Found you, #{employee.name}. Please say your name.", :voice => 'alice'
         # more here
