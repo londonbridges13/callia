@@ -103,8 +103,8 @@ class CallsController < ApplicationController
   def get_employee
     code = params[:Digits]
 
-    twiml_say("done")
-
+    render text: "done"
+    
     # employee = Caregiver.find_by_employee_code(code)
     # if employee
     #   p "Found Employee from code. #{code}"
