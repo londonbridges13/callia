@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170626030602) do
+ActiveRecord::Schema.define(version: 20170629154222) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "activity"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20170626030602) do
     t.integer  "caregiver_id"
     t.integer  "shift_id"
     t.integer  "user_id"
+    t.string   "log_type"
   end
 
   add_index "calls", ["caregiver_id"], name: "index_calls_on_caregiver_id"

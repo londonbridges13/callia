@@ -15,7 +15,7 @@ class CallsController < ApplicationController
      @call.caller_number = params['From']
      @call.called_number = params['To']
      @call.save
-     find_admin
+    #  find_admin
     #  r.Say "Hey there, you've called #{params['To']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
         # r.Play 'http://linode.rabasa.com/cantina.mp3'
     ask_for_employee_code
