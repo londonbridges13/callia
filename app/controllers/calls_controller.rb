@@ -23,6 +23,14 @@ class CallsController < ApplicationController
    render_twiml response
   end
 
+  def caregiver
+    response = Twilio::TwiML::Response.new do |r|
+      r.Gather finishOnKey: '*', action: planets_path do |g|
+        g.Say "message fart", voice: 'alice', language: 'en-GB', loop:3
+      end
+    end
+  end
+
 
   def find_caller
     caller_number = params['From']
@@ -84,7 +92,7 @@ class CallsController < ApplicationController
    go back to the main menu, press the star key."
 
    response = Twilio::TwiML::Response.new do |r|
-     r.Gather numDigits: '3', action: get_employee_path do |g|
+     r.Gather finishOnKey: '*', action: get_employee_path do |g|
        g.Say message, voice: 'alice', language: 'en-GB', loop:2
      end
    end
@@ -95,14 +103,16 @@ class CallsController < ApplicationController
   def get_employee
     code = params[:Digits]
 
-    employee = Caregiver.find_by_employee_code(code)
-    if employee
-      p "Found Employee from code. #{code}"
-      @call.caregiver = employee
-      @call.save
-    else
-      p "Couldn't find Employee from code. #{code}"
-    end
+    twiml_say("done")
+
+    # employee = Caregiver.find_by_employee_code(code)
+    # if employee
+    #   p "Found Employee from code. #{code}"
+    #   @call.caregiver = employee
+    #   @call.save
+    # else
+    #   p "Couldn't find Employee from code. #{code}"
+    # end
   end
 
   # GET /calls
