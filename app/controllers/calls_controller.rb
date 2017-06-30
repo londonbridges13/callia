@@ -113,11 +113,11 @@ class CallsController < ApplicationController
 
       p "Found Employee from code. #{code}. #{employee.name}"
       response = Twilio::TwiML::Response.new do |r|
-        r.Say "Found you, #{employee.name}. Is this correct?", :voice => 'alice'
+        # r.Say "Found you, #{employee.name}. Is this correct?", :voice => 'alice'
         # more here
         #verify
         r.Gather finishOnKey: '*', action: verify_caller_path(id: @call.id) do |g|
-          g.Say "Found you, #{employee.name}. Is this correct?", :voice => 'alice'
+          g.Say "Found you, #{employee.name}. Is this correct? Press 1 for yes and 2 for no.", :voice => 'alice'
         end
         #once verified, record name (record_voice)
 
@@ -187,7 +187,7 @@ class CallsController < ApplicationController
 
   def define_call_type
     #clock in or clock out
-    last_call = Call.where(caregiver: @call.employee).order("created_at").last
+    last_call = Call.where(caregiver: @call.caregiver).order("created_at").last
 
     if last_call and last_call.log_type == "Clocked In"
       # run clocked out
