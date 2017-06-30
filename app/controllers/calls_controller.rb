@@ -15,6 +15,7 @@ class CallsController < ApplicationController
     @call = Call.new
     @call.caller_number = params['From']
     @call.called_number = params['To']
+    @call.log_type = "Unsuccessful"
     @call.save
     find_admin
   #     r.Say "Hey there, you've called #{params['To']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
@@ -81,7 +82,7 @@ class CallsController < ApplicationController
   end
 
   def ask_for_employee_code
-    message = "Welcome, enter your code to get started, then press pound."
+    message = "Welcome, please enter your code to get started, then press pound."
 
    response = Twilio::TwiML::Response.new do |r|
      r.Gather finishOnKey: '#', action: get_employee_path(id: @call.id) do |g|
@@ -127,7 +128,7 @@ class CallsController < ApplicationController
     else
       p "Couldn't find Employee from code. #{code}"
       response = Twilio::TwiML::Response.new do |r|
-        r.Say "Couldn't find Employee with code: #{code}", :voice => 'alice' , action: ask_for_employee_code_path(id: @call.id)
+        r.Say "Couldn't find Employee with code: #{code}", :voice => 'alice', action: ask_for_employee_code_path(id: @call.id)
          #asking again because employee might have entered wrong number
       end
       render text: response.text
@@ -193,7 +194,7 @@ class CallsController < ApplicationController
 
   def define_call_type
     #clock in or clock out
-    last_call = Call.where(caregiver: @call.caregiver).where(caller_number: @call.caller_number).order("created_at").reverse.second
+    last_call = Call.where(caregiver: @call.caregiver).where(caller_number: @call.caller_number).where("log_type == 'Clocked In' OR log_type == 'Clocked Out'").order("created_at").reverse.second
     p "Printing Last call from this number and caregiver. #{last_call.log_type}"
 
     if last_call and last_call.log_type == "Clocked In"
