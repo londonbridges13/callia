@@ -173,12 +173,20 @@ class CallsController < ApplicationController
 
   def play_voice #play_voice_path
     @call.log_type = "Clocked In"
+    @call.recorded_voice = params['RecordingUrl']
+    if @call.caregiver
+      # set caregiver's initial recording (for comparisons)
+      unless @call.caregiver.initial_recorded_voice
+        @call.caregiver.initial_recorded_voice = params['RecordingUrl']
+        @call.caregiver.save
+      end
+    end
     @call.save
 
     response = Twilio::TwiML::Response.new do |r|
-      r.Say 'Listen to your voice.'
+      r.Say 'Listen to your voice.', :voice => 'alice'
       r.Play params['RecordingUrl']
-      r.Say 'Successfully Clocked In. Thank you, Goodbye.'
+      r.Say 'Successfully Clocked In. Thank you, Goodbye.', :voice => 'alice'
       r.Hangup
     end
     render text: response.text
