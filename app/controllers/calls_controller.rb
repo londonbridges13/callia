@@ -101,7 +101,7 @@ class CallsController < ApplicationController
 
     if employee
       @call.caregiver = employee
-      if caregiver.user
+      if @call.caregiver.user
         @call.user = caregiver.user
       end
       @call.save
