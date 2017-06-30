@@ -128,7 +128,7 @@ class CallsController < ApplicationController
     else
       p "Couldn't find Employee from code. #{code}"
       response = Twilio::TwiML::Response.new do |r|
-        r.Say "Couldn't find Employee with code: #{code}", :voice => 'alice' action: ask_for_employee_code
+        r.Say "Couldn't find Employee with code: #{code}", :voice => 'alice', action: ask_for_employee_code
          #asking again because employee might have entered wrong number
       end
       render text: response.text
