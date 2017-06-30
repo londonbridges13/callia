@@ -171,7 +171,7 @@ class CallsController < ApplicationController
       r.Say 'Listen to your voice.'
       r.Play params['RecordingUrl']
       r.Say 'Successfully Clocked In. Thank you, Goodbye.'
-      r.Hangup
+      # r.Hangup
     end
     render text: response.text
 
@@ -206,7 +206,7 @@ class CallsController < ApplicationController
 
     response = Twilio::TwiML::Response.new do |r|
       r.Say "Succefully Clocked In. Thank you, #{@call.caregiver.name} and have a great day. Good bye.", :voice => 'alice'
-      r.Hangup
+      # r.Hangup
     end
     render text: response.text
   end
