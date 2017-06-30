@@ -82,11 +82,9 @@ class CallsController < ApplicationController
   def find_admin # the user who moniters this account
     number = params["To"]
     @user = User.find_by_call_number(number)
-
     if @user
       @call.user = @user
     end
-
   end
 
   def ask_for_employee_code
@@ -207,7 +205,7 @@ class CallsController < ApplicationController
     @call.save
 
     response = Twilio::TwiML::Response.new do |r|
-      r.Say "Succefully Clocked In. Thank you, #{@call.employee.name} and have a great day. Good bye.", :voice => 'alice'
+      r.Say "Succefully Clocked In. Thank you, #{@call.caregiver.name} and have a great day. Good bye.", :voice => 'alice'
       r.Hangup
     end
     render text: response.text
@@ -215,7 +213,7 @@ class CallsController < ApplicationController
 
   def ask_for_services
     #ask if employee completed each service
-
+    p "ask_for_services"
   end
 
   # GET /calls
