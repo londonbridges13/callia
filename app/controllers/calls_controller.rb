@@ -5,7 +5,7 @@ class CallsController < ApplicationController
   after_filter :set_header
   skip_before_action :verify_authenticity_token
   before_action :set_call, only: [:show, :edit, :update, :destroy, :get_employee, :verify_caller,
-    :clock_out, :clock_in, :play_voice]
+    :clock_out, :clock_in, :play_voice, :ask_for_employee_code]
 
 
 
@@ -127,7 +127,7 @@ class CallsController < ApplicationController
     else
       p "Couldn't find Employee from code. #{code}"
       response = Twilio::TwiML::Response.new do |r|
-        r.Say "Couldn't find Employee with code: #{code}", :voice => 'alice', language: 'en-GB', action: ask_for_employee_code
+        r.Say "Couldn't find Employee with code: #{code}", :voice => 'alice', language: 'en-GB', action: ask_for_employee_code(id: @call.id)
          #asking again because employee might have entered wrong number
       end
       render text: response.text
