@@ -84,7 +84,7 @@ class CallsController < ApplicationController
     message = "Welcome, enter your code to get started, then press pound."
 
    response = Twilio::TwiML::Response.new do |r|
-     r.Gather finishOnKey: '*', action: get_employee_path(id: @call.id) do |g|
+     r.Gather finishOnKey: '#', action: get_employee_path(id: @call.id) do |g|
        g.Say message, voice: 'alice', language: 'en-GB'
      end
    end
@@ -102,7 +102,7 @@ class CallsController < ApplicationController
     if employee
       @call.caregiver = employee
       if @call.caregiver.user
-        @call.user = caregiver.user
+        @call.user = @call.caregiver.user
       end
       @call.save
 
@@ -111,7 +111,7 @@ class CallsController < ApplicationController
         # r.Say "Found you, #{employee.name}. Is this correct?", :voice => 'alice'
         # more here
         #verify
-        r.Gather finishOnKey: '*', action: verify_caller_path(id: @call.id) do |g|
+        r.Gather finishOnKey: '#', action: verify_caller_path(id: @call.id) do |g|
           g.Say "Found you, #{employee.name}. Is this correct? Press 1 for yes and 2 for no.", :voice => 'alice',
            language: 'en-GB'
         end
@@ -161,7 +161,7 @@ class CallsController < ApplicationController
 
     response = Twilio::TwiML::Response.new do |r|
       r.Say "Please say your name, then press pound", :voice => 'alice', language: 'en-GB'
-      r.Record :finishOnKey => '*', action: play_voice_path(id: @call.id)
+      r.Record :finishOnKey => '#', action: play_voice_path(id: @call.id)
     end
     render text: response.text
 
