@@ -175,7 +175,7 @@ class CallsController < ApplicationController
     @call.log_type = "Clocked In"
     @call.save
 
-    Twilio::TwiML::Response.new do |r|
+    response = Twilio::TwiML::Response.new do |r|
       r.Say 'Listen to your voice.'
       r.Play params['RecordingUrl']
       r.Say 'Successfully Clocked In. Thank you, Goodbye.'
