@@ -109,6 +109,9 @@ class CallsController < ApplicationController
 
     if employee
       @call.caregiver = employee
+      if caregiver.user
+        @call.user = caregiver.user
+      end
       @call.save
 
       p "Found Employee from code. #{code}. #{employee.name}"
@@ -197,8 +200,9 @@ class CallsController < ApplicationController
 
   def define_call_type
     #clock in or clock out
-    last_call = Call.where(caregiver: @call.caregiver).where(caller_number: @call.caller_number).order("created_at").last
+    last_call = Call.where(caregiver: @call.caregiver).where(caller_number: @call.caller_number).order("created_at").reverse.second
     p "Printing Last call from this number and caregiver. #{last_call.log_type}"
+
     if last_call and last_call.log_type == "Clocked In"
       # run clocked out
       p "redirecting"
