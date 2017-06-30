@@ -89,7 +89,7 @@ class CallsController < ApplicationController
   end
 
   def ask_for_employee_code
-    message = "Welcome, enter your code to get started."
+    message = "Welcome, enter your code to get started. Then press pound."
 
    response = Twilio::TwiML::Response.new do |r|
      r.Gather finishOnKey: '*', action: get_employee_path(id: @call.id) do |g|
@@ -173,7 +173,9 @@ class CallsController < ApplicationController
 
   def play_voice #play_voice_path
     @call.log_type = "Clocked In"
+    @call.save
     @call.recorded_voice = params['RecordingUrl']
+    @call.save
     if @call.caregiver
       # set caregiver's initial recording (for comparisons)
       unless @call.caregiver.initial_recorded_voice
@@ -195,8 +197,8 @@ class CallsController < ApplicationController
 
   def define_call_type
     #clock in or clock out
-    last_call = Call.where(caregiver: @call.caregiver).order("created_at").last
-
+    last_call = Call.where(caregiver: @call.caregiver).where(caller_number: @call.caller_number).order("created_at").last
+    p "Printing Last call from this number and caregiver. #{last_call.log_type}"
     if last_call and last_call.log_type == "Clocked In"
       # run clocked out
       p "redirecting"
