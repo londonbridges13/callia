@@ -232,6 +232,11 @@ class CallsController < ApplicationController
   def ask_for_services
     #ask if employee completed each service
     p "ask_for_services"
+    response = Twilio::TwiML::Response.new do |r|
+      r.Say "Did you do service?", :voice => 'alice'#, action: play_voice_path(id: @call.id)
+      r.Say "Succefully Clocked Out?", :voice => 'alice'#, action: play_voice_path(id: @call.id)
+    end
+    render text: response.text
 
     @call.log_type = "Clocked Out"
     @call.save
