@@ -108,6 +108,9 @@ class CallsController < ApplicationController
     employee = Caregiver.find_by_employee_code(code)
 
     if employee
+      @call.caregiver = employee
+      @call.save
+
       p "Found Employee from code. #{code}. #{employee.name}"
       response = Twilio::TwiML::Response.new do |r|
         r.Say "Found you, #{employee.name}. Is this correct?", :voice => 'alice'
@@ -121,10 +124,10 @@ class CallsController < ApplicationController
       end
       render text: response.text
 
-      @call.caregiver = employee
-      @call.save
+      # @call.caregiver = employee
+      # @call.save
 
-      define_call_type(employee)
+      # define_call_type(employee)
     else
       p "Couldn't find Employee from code. #{code}"
       response = Twilio::TwiML::Response.new do |r|
@@ -137,14 +140,14 @@ class CallsController < ApplicationController
   end
 
   def verify_caller # verify_caller_path
-    # 1 for yes, record voice and you're done
+    # 1 for yes, determine whether clock in or clock out
     # 2 for no, ask for code again
 
     user_selection = params[:Digits]
 
     case user_selection
     when "1"
-      record_voice
+      define_call_type#record_voice
     when "2"
       ask_for_employee_code
     else
@@ -161,13 +164,17 @@ class CallsController < ApplicationController
     #save recordingUrl
 
     response = Twilio::TwiML::Response.new do |r|
-      r.Say "Please say your name after the beep.", :voice => 'alice'
-      r.Record :maxLength => '5', action: play_voice_path(id: @call.id)
+      r.Say "Please say your name, then press pound", :voice => 'alice'
+      r.Record :finishOnKey => '*', action: play_voice_path(id: @call.id)
     end
     render text: response.text
+
   end
 
   def play_voice #play_voice_path
+    @call.log_type = "Clocked In"
+    @call.save
+
     Twilio::TwiML::Response.new do |r|
       r.Say 'Listen to your voice.'
       r.Play params['RecordingUrl']
@@ -178,45 +185,48 @@ class CallsController < ApplicationController
 
   end
 
-  def define_call_type(employee)
+  def define_call_type
     #clock in or clock out
-    last_call = Call.where(caregiver: employee).order("created_at").last
+    last_call = Call.where(caregiver: @call.employee).order("created_at").last
 
     if last_call and last_call.log_type == "Clocked In"
       # run clocked out
       p "redirecting"
-      redirect_to clock_out_path(id: @call.id)
+      clock_out
     else
       #run clocked in
       p "redirecting"
-      redirect_to clock_in_path(id: @call.id)
+      clock_in
     end
   end
 
-  def clock_out #clock_out_path
+  def clock_out #clock_out_path, didn't use
     # ask for services completed
-    # then save log_type, thank them and be done
+    # then save log_type, thank them and be done (in ask_for_services)
     ask_for_services
 
-    @call.log_type = "Clocked Out"
-    @call.save
   end
 
   def clock_in #clock_in_path
+    #record voice
     # save call time let user know they have successfully logged in
-    @call.log_type = "Clocked In"
-    @call.save
+    record_voice
+    # @call.log_type = "Clocked In"
+    # @call.save
 
-    response = Twilio::TwiML::Response.new do |r|
-      r.Say "Succefully Clocked In. Thank you, #{@call.caregiver.name} and have a great day. Good bye.", :voice => 'alice'
-      r.Hangup
-    end
-    render text: response.text
+    # response = Twilio::TwiML::Response.new do |r|
+    #   r.Say "Succefully Clocked In. Thank you, #{@call.caregiver.name} and have a great day. Good bye.", :voice => 'alice'
+    #   r.Hangup
+    # end
+    # render text: response.text
   end
 
   def ask_for_services
     #ask if employee completed each service
     p "ask_for_services"
+
+    @call.log_type = "Clocked Out"
+    @call.save
   end
 
   # GET /calls
