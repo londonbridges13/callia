@@ -4,7 +4,8 @@ class CallsController < ApplicationController
   include Webhookable
   after_filter :set_header
   skip_before_action :verify_authenticity_token
-  before_action :set_call, only: [:show, :edit, :update, :destroy, :get_employee, :verify_caller]
+  before_action :set_call, only: [:show, :edit, :update, :destroy, :get_employee, :verify_caller,
+  :clock_out, :clock_in, :play_voice,:ask_for_employee_code]
 
 
 
@@ -122,16 +123,16 @@ class CallsController < ApplicationController
 
       @call.caregiver = employee
       @call.save
+
+      define_call_type(employee)
     else
       p "Couldn't find Employee from code. #{code}"
       response = Twilio::TwiML::Response.new do |r|
-        r.Say "Couldn't find Employee with code: #{code}", :voice => 'alice'
-        ask_for_employee_code #asking again because employee might have entered wrong number
+        r.Say "Couldn't find Employee with code: #{code}", :voice => 'alice' action: ask_for_employee_code_path(id: @call.id)
+         #asking again because employee might have entered wrong number
       end
       render text: response.text
     end
-
-    define_call_type(employee)
 
   end
 
@@ -166,12 +167,12 @@ class CallsController < ApplicationController
     render text: response.text
   end
 
-  def play_voice
+  def play_voice #play_voice_path
     Twilio::TwiML::Response.new do |r|
       r.Say 'Listen to your voice.'
       r.Play params['RecordingUrl']
       r.Say 'Successfully Clocked In. Thank you, Goodbye.'
-      # r.Hangup
+      r.Hangup
     end
     render text: response.text
 
@@ -183,14 +184,16 @@ class CallsController < ApplicationController
 
     if last_call and last_call.log_type == "Clocked In"
       # run clocked out
-      clock_out
+      p "redirecting"
+      redirect_to clock_out_path(id: @call.id)
     else
       #run clocked in
-      clock_in
+      p "redirecting"
+      redirect_to clock_in_path(id: @call.id)
     end
   end
 
-  def clock_out
+  def clock_out #clock_out_path
     # ask for services completed
     # then save log_type, thank them and be done
     ask_for_services
@@ -199,14 +202,14 @@ class CallsController < ApplicationController
     @call.save
   end
 
-  def clock_in
+  def clock_in #clock_in_path
     # save call time let user know they have successfully logged in
     @call.log_type = "Clocked In"
     @call.save
 
     response = Twilio::TwiML::Response.new do |r|
       r.Say "Succefully Clocked In. Thank you, #{@call.caregiver.name} and have a great day. Good bye.", :voice => 'alice'
-      # r.Hangup
+      r.Hangup
     end
     render text: response.text
   end
