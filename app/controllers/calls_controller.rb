@@ -194,7 +194,7 @@ class CallsController < ApplicationController
 
   def define_call_type
     #clock in or clock out
-    last_call = Call.where(caregiver: @call.caregiver).where(caller_number: @call.caller_number).where("log_type == 'Clocked In' OR log_type == 'Clocked Out'").order("created_at").reverse.second
+    last_call = Call.where(caregiver: @call.caregiver).where(caller_number: @call.caller_number).where("log_type = 'Clocked In' OR log_type = 'Clocked Out'").order("created_at").reverse.second
     p "Printing Last call from this number and caregiver. #{last_call.log_type}"
 
     if last_call and last_call.log_type == "Clocked In"
