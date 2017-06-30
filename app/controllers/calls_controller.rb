@@ -85,7 +85,7 @@ class CallsController < ApplicationController
 
    response = Twilio::TwiML::Response.new do |r|
      r.Gather finishOnKey: '#', action: get_employee_path(id: @call.id) do |g|
-       g.Say message, voice: 'alice', language: 'en-GB'
+       g.Say message, voice: 'alice'
      end
    end
 
@@ -112,8 +112,8 @@ class CallsController < ApplicationController
         # more here
         #verify
         r.Gather finishOnKey: '#', action: verify_caller_path(id: @call.id) do |g|
-          g.Say "Found you, #{employee.name}. Is this correct? Press 1 for yes and 2 for no.", :voice => 'alice',
-           language: 'en-GB'
+          g.Say "Found you, #{employee.name}. Is this correct? Press 1 for yes and 2 for no.", :voice => 'alice'
+
         end
         #once verified, record name (record_voice)
 
@@ -127,7 +127,7 @@ class CallsController < ApplicationController
     else
       p "Couldn't find Employee from code. #{code}"
       response = Twilio::TwiML::Response.new do |r|
-        r.Say "Couldn't find Employee with code: #{code}", :voice => 'alice', language: 'en-GB', action: ask_for_employee_code(id: @call.id)
+        r.Say "Couldn't find Employee with code: #{code}", :voice => 'alice' , action: ask_for_employee_code(id: @call.id)
          #asking again because employee might have entered wrong number
       end
       render text: response.text
@@ -148,7 +148,7 @@ class CallsController < ApplicationController
       ask_for_employee_code
     else
       response = Twilio::TwiML::Response.new do |r|
-        r.Say "Invalid response, Good bye.", :voice => 'alice', language: 'en-GB'
+        r.Say "Invalid response, Good bye.", :voice => 'alice'
         r.Hangup
       end
       render text: response.text
@@ -160,7 +160,7 @@ class CallsController < ApplicationController
     #save recordingUrl
 
     response = Twilio::TwiML::Response.new do |r|
-      r.Say "Please say your name, then press pound", :voice => 'alice', language: 'en-GB'
+      r.Say "Please say your name, then press pound", :voice => 'alice'
       r.Record :finishOnKey => '#', action: play_voice_path(id: @call.id)
     end
     render text: response.text
@@ -182,9 +182,9 @@ class CallsController < ApplicationController
     @call.save
 
     response = Twilio::TwiML::Response.new do |r|
-      r.Say 'Listen to your voice.', :voice => 'alice', language: 'en-GB'
+      r.Say 'Listen to your voice.', :voice => 'alice'
       r.Play params['RecordingUrl']
-      r.Say 'Successfully Clocked In. Thank you, Goodbye.', :voice => 'alice', language: 'en-GB'
+      r.Say 'Successfully Clocked In. Thank you, Goodbye.', :voice => 'alice'
       r.Hangup
     end
     render text: response.text
