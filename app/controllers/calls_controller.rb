@@ -193,7 +193,6 @@ class CallsController < ApplicationController
       r.Hangup
     end
     render text: response.text
-
   end
 
   def define_call_type
