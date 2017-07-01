@@ -18,6 +18,7 @@ class CallsController < ApplicationController
     @call.log_type = "Unsuccessful"
     @call.save
     find_admin
+    find_caller
   #     r.Say "Hey there, you've called #{params['To']}. Congrats on integrating Twilio into your Rails 4 app.", :voice => 'alice'
   #        r.Play 'http://linode.rabasa.com/cantina.mp3'
     ask_for_employee_code
@@ -234,7 +235,7 @@ class CallsController < ApplicationController
     p "ask_for_services"
     response = Twilio::TwiML::Response.new do |r|
       r.Say "Did you do service?", :voice => 'alice'#, action: play_voice_path(id: @call.id)
-      r.Say "Succefully Clocked Out?", :voice => 'alice'#, action: play_voice_path(id: @call.id)
+      r.Say "You've Succefully Clocked Out!", :voice => 'alice'#, action: play_voice_path(id: @call.id)
     end
     render text: response.text
 
