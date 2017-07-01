@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170629154222) do
+ActiveRecord::Schema.define(version: 20170630022249) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "activity"
@@ -35,13 +35,14 @@ ActiveRecord::Schema.define(version: 20170629154222) do
   create_table "calls", force: :cascade do |t|
     t.string   "caller_number"
     t.string   "called_number"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "client_id"
     t.integer  "caregiver_id"
     t.integer  "shift_id"
     t.integer  "user_id"
     t.string   "log_type"
+    t.string   "recorded_voice"
   end
 
   add_index "calls", ["caregiver_id"], name: "index_calls_on_caregiver_id"
@@ -57,10 +58,11 @@ ActiveRecord::Schema.define(version: 20170629154222) do
     t.string   "state"
     t.string   "status"
     t.date     "birth_date"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "office_id"
     t.integer  "user_id"
+    t.string   "initial_recorded_voice"
   end
 
   add_index "caregivers", ["office_id"], name: "index_caregivers_on_office_id"

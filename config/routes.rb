@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :caregivers
   resources :calls
   resources :dashboard
+  resources :agency_details
   resources :reports
   resources :landing
   resources :schedule

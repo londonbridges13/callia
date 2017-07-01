@@ -37,11 +37,14 @@ class CallsController < ApplicationController
 
     client = find_client(caller_number)
     if client
+      p "Have a Client with the number: #{params['From']}. It's #{client.name}"
       @call.client = client
       if client.user
         @call.user = client.user
       end
       @call.save
+    else
+      p "No Client with this number: #{params['From']}"
     end
   end
 
