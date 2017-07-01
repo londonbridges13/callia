@@ -92,6 +92,7 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
+    redirect_to clients_url
   end
 
   def about_client(client)
@@ -126,7 +127,7 @@ class ClientsController < ApplicationController
     respond_to do |format|
       if @client.save
         save_client
-        format.html { redirect_to @client, notice: 'Client was successfully created.' }
+        format.html { redirect_to clients_path, notice: 'Client was successfully created.' }
         format.json { render :show, status: :created, location: @client }
       else
         format.html { render :new }
@@ -141,7 +142,7 @@ class ClientsController < ApplicationController
     respond_to do |format|
       if @client.update(client_params)
         updated_client_activity
-        format.html { redirect_to @client, notice: 'Client was successfully updated.' }
+        format.html { redirect_to clients_url, notice: 'Client was successfully updated.' }
         format.json { render :show, status: :ok, location: @client }
       else
         format.html { render :edit }

@@ -234,16 +234,90 @@ class CallsController < ApplicationController
   end
 
   def ask_for_services
-    #ask if employee completed each service
+    # create the services for the call
     p "ask_for_services"
-    response = Twilio::TwiML::Response.new do |r|
-      r.Say "Did you do service?", :voice => 'alice'#, action: play_voice_path(id: @call.id)
-      r.Say "You've Succefully Clocked Out!", :voice => 'alice'#, action: play_voice_path(id: @call.id)
-    end
-    render text: response.text
 
-    @call.log_type = "Clocked Out"
-    @call.save
+    @call.user.services.each do |s|
+      service = Service.new
+      service.service = s.service
+      service.save
+      service.call = @call # don't set the service.user, that is for the user to tweak only
+    end
+    service_ids = []
+    @call.services.each do |s|
+      # add id to service_ids
+      service_ids.push s.id
+    end
+    #Use the service_ids in the parameters
+
+    #ask if employee completed each service
+
+    ask(0,service_ids) #asking the first question
+
+  end
+
+
+  def ask(order = nil, service_ids = nil) #ask_path
+    unless order
+      order = params[order]
+    end
+    unless service_ids
+      service_ids = params[:service_ids]
+    end
+    id = service_ids[order]
+
+    service = Service.find_by_id(id)
+    if service
+      response = Twilio::TwiML::Response.new do |r|
+        r.Say "Did you do service?", :voice => 'alice', action: answer_path(id: @call.id)
+      end
+      render text: response.text
+    else
+      #you are finished with Clock out
+      @call.log_type = "Clocked Out"
+      @call.save
+
+      response = Twilio::TwiML::Response.new do |r|
+        r.Say "You've Succefully Clocked Out! Thank you and Goodbye.", :voice => 'alice'
+      end
+      render text: response.text
+    end
+  end
+
+  def answer #answer_path
+    # answer the question and if there is another question ask
+    id = params[:service_ids][params[:order]]
+    order = params[:order]
+    service = Service.find_by_id(id)
+    if service
+      user_selection = params[:Digits]
+
+      case user_selection
+      when "1" #yes
+        # save response change the order +1
+        service.response = "Yes"
+        order += 1
+        ask(order) #asking new question
+      when "2" #no
+        # save response change the order +1
+        service.response = "No"
+        order += 1
+        ask(order) #asking new question
+      else
+        response = Twilio::TwiML::Response.new do |r|
+          r.Say "That is not an option", :voice => 'alice', action: ask_path(id: @call.id, order: order, service_ids: params[:service_ids])
+        end
+        render text: response.text
+      end
+    else
+      @call.log_type = "Clocked Out"
+      @call.save
+
+      response = Twilio::TwiML::Response.new do |r|
+        r.Say "You've Succefully Clocked Out! Goodbye.", :voice => 'alice'#, action: play_voice_path(id: @call.id)
+      end
+      render text: response.text
+    end
   end
 
   # GET /calls
