@@ -9,10 +9,12 @@ class DashboardController < ApplicationController
     if current_user
       @number = "No Number"
       number = current_user.call_number
-      if number[0...2] == "+1"
-        @number = number[2...number.length]
-      end
-      @number = "("+@number[0...3]+") "+@number[3...6]+"-"+@number[6...number.length]
+      if number
+        if number[0...2] == "+1"
+          @number = number[2...number.length]
+        end
+        @number = "("+@number[0...3]+") "+@number[3...6]+"-"+@number[6...number.length]
+      end 
     end
   end
 
