@@ -5,7 +5,7 @@ class CallsController < ApplicationController
   after_filter :set_header
   skip_before_action :verify_authenticity_token
   before_action :set_call, only: [:show, :edit, :update, :destroy, :get_employee, :verify_caller,
-    :clock_out, :clock_in, :play_voice, :ask_for_employee_code]
+    :clock_out, :clock_in, :play_voice, :ask_for_employee_code, :ask, :answer]
 
 
 

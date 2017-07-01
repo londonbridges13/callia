@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   match 'calls/play_voice' => 'calls#play_voice', via: [:get, :post], as: 'play_voice'
   match 'calls/clock_out' => 'calls#clock_out', via: [:get, :post], as: 'clock_out'
   match 'calls/clock_in' => 'calls#clock_in', via: [:get, :post], as: 'clock_in'
+  match 'calls/ask' => 'calls#ask', via: [:get, :post], as: 'ask'
+  match 'calls/answer' => 'calls#answer', via: [:get, :post], as: 'answer'
   match 'calls/ask_for_employee_code' => 'calls#ask_for_employee_code', via: [:get, :post], as: 'ask_for_employee_code'
   # get '*path' => redirect('/')
   get 'display_client' => "clients#display_client"
