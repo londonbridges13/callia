@@ -273,7 +273,7 @@ class CallsController < ApplicationController
     service = Service.find_by_id(id)
     if service
       response = Twilio::TwiML::Response.new do |r|
-        r.Say service.service, :voice => 'alice', action: answer_path(id: @call.id)
+        r.Say service.service, :voice => 'alice', action: answer_path(id: @call.id, order: order, service_ids: service_ids)
       end
       render text: response.text
     else
