@@ -264,7 +264,9 @@ class CallsController < ApplicationController
       service_ids = params[:service_ids]
     end
     id = service_ids[order]
-
+    p "Order: #{order}"
+    p "Service Ids: #{service_ids}"
+    p "The Service Id: #{id}"
     service = Service.find_by_id(id)
     if service
       response = Twilio::TwiML::Response.new do |r|
