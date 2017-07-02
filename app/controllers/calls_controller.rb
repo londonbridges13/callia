@@ -300,7 +300,7 @@ class CallsController < ApplicationController
       service_ids.push n.to_i
     end
     p "Service Ids: #{service_ids}"
-    order = params[:order]
+    order = params[:order].to_i
     p "Order: #{order}"
     id = service_ids[order]
     p "The Service Id: #{id}"
