@@ -242,13 +242,13 @@ class CallsController < ApplicationController
       service.service = s.service
       service.save
       @call.services.push service# don't set the service.user, that is for the user to tweak only
+      # service_ids.push s.id
+    end
+    @call.services.each do |s|
+      # add id to service_ids
       service_ids.push s.id
       p "Added: #{s.id}"
     end
-    # @call.services.each do |s|
-    #   # add id to service_ids
-    #   service_ids.push s.id
-    # end
     #Use the service_ids in the parameters
 
     #ask if employee completed each service
