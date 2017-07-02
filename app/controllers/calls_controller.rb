@@ -292,7 +292,7 @@ class CallsController < ApplicationController
 
   def answer #answer_path
     # answer the question and if there is another question ask
-    service_ids = params[:service_ids][params[:order]]
+    service_ids = params[:service_ids]
     order = params[:order]
     id = service_ids[order]
     p "Order: #{order}"
