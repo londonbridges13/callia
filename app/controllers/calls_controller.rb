@@ -263,7 +263,10 @@ class CallsController < ApplicationController
       order = params[order]
     end
     unless service_ids
-      service_ids = params[:service_ids]
+      service_ids = []
+      params[:service_ids].each do |n|
+        service_ids.push n.to_i
+      end
     end
     id = service_ids[order]
     p "Order: #{order}"
@@ -292,7 +295,10 @@ class CallsController < ApplicationController
 
   def answer #answer_path
     # answer the question and if there is another question ask
-    service_ids = params[:service_ids]
+    service_ids = []#params[:service_ids]
+    params[:service_ids].each do |n|
+      service_ids.push n.to_i
+    end
     p "Service Ids: #{service_ids}"
     order = params[:order]
     p "Order: #{order}"
