@@ -153,7 +153,7 @@ class CallsController < ApplicationController
       ask_for_employee_code
     else
       response = Twilio::TwiML::Response.new do |r|
-        r.Say "Invalid response, Good bye.", :voice => 'alice'
+        r.Say "Invalid response, Try again.", :voice => 'alice', action: get_employee_path(id: @call.id)
         r.Hangup
       end
       render text: response.text
