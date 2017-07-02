@@ -298,7 +298,7 @@ class CallsController < ApplicationController
     p "Order: #{order}"
     p "Service Ids: #{service_ids}"
     p "The Service Id: #{id}"
-    
+
     service = Service.find_by_id(id)
     if service
       user_selection = params[:Digits]
@@ -309,13 +309,13 @@ class CallsController < ApplicationController
         service.response = "Yes"
         service.save
         order += 1
-        ask(order) #asking new question
+        ask(order, service_ids) #asking new question
       when "2" #no
         # save response change the order +1
         service.response = "No"
         service.save
         order += 1
-        ask(order) #asking new question
+        ask(order, service_ids) #asking new question
       else
         response = Twilio::TwiML::Response.new do |r|
           r.Say "That is not an option", :voice => 'alice', action: ask_path(id: @call.id, order: order, service_ids: params[:service_ids])
