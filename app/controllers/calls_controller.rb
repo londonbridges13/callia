@@ -305,7 +305,7 @@ class CallsController < ApplicationController
     id = service_ids[order]
     p "The Service Id: #{id}"
 
-    service = Service.find_by_id(id)
+    service = @call.services[order]#Service.find_by_id(id)
     if service
       user_selection = params[:Digits]
 
