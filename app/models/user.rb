@@ -47,9 +47,9 @@ class User < ActiveRecord::Base
       services.each do |s|
         service = Service.new
         service.service = s
-        service.user = current_user
+        service.user = self
         service.save
-        service.user = current_user
+        service.user = self
       end
 
     end
