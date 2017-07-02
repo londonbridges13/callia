@@ -153,7 +153,7 @@ class CallsController < ApplicationController
       ask_for_employee_code
     else
       response = Twilio::TwiML::Response.new do |r|
-        r.Say "Invalid response, Try again.", :voice => 'alice', action: get_employee_path(id: @call.id)
+        r.Say "Invalid response, Try again.", :voice => 'alice'
         r.Hangup
       end
       render text: response.text
@@ -314,12 +314,14 @@ class CallsController < ApplicationController
         # save response change the order +1
         service.response = "Yes"
         service.save
+        p "Saving Response as #{service.response}"
         order += 1
         ask(order, service_ids) #asking new question
       when "2" #no
         # save response change the order +1
         service.response = "No"
         service.save
+        p "Saving Response as #{service.response}"
         order += 1
         ask(order, service_ids) #asking new question
       else
