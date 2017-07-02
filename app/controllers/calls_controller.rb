@@ -236,7 +236,7 @@ class CallsController < ApplicationController
     # create the services for the call
     p "ask_for_services"
 
-    @call.user.services.each do |s|
+    @call.caregiver.user.services.each do |s|
       service = Service.new
       service.service = s.service
       service.save
@@ -267,6 +267,7 @@ class CallsController < ApplicationController
     p "Order: #{order}"
     p "Service Ids: #{service_ids}"
     p "The Service Id: #{id}"
+
     service = Service.find_by_id(id)
     if service
       response = Twilio::TwiML::Response.new do |r|
