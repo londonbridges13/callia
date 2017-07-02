@@ -292,8 +292,13 @@ class CallsController < ApplicationController
 
   def answer #answer_path
     # answer the question and if there is another question ask
-    id = params[:service_ids][params[:order]]
+    service_ids = params[:service_ids][params[:order]]
     order = params[:order]
+    id = service_ids[order]
+    p "Order: #{order}"
+    p "Service Ids: #{service_ids}"
+    p "The Service Id: #{id}"
+    
     service = Service.find_by_id(id)
     if service
       user_selection = params[:Digits]
@@ -432,6 +437,6 @@ class CallsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def call_params
-      params.require(:call).permit(:caller_number, :called_number)
+      params.require(:call).permit(:caller_number, :called_number, :service_ids, :order)
     end
 end
