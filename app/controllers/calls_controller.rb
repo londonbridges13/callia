@@ -241,7 +241,7 @@ class CallsController < ApplicationController
       service = Service.new
       service.service = s.service
       service.save
-      service.call = @call # don't set the service.user, that is for the user to tweak only
+      @call.services.push service# don't set the service.user, that is for the user to tweak only
       service_ids.push s.id
       p "Added: #{s.id}"
     end
