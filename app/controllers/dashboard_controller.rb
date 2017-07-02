@@ -7,6 +7,8 @@ class DashboardController < ApplicationController
     end
 
     if current_user
+      current_user.set_basic_services #if user just registered, create basic services for the calls
+      
       @number = "No Number"
       number = current_user.call_number
       if number
@@ -14,7 +16,7 @@ class DashboardController < ApplicationController
           @number = number[2...number.length]
         end
         @number = "("+@number[0...3]+") "+@number[3...6]+"-"+@number[6...number.length]
-      end 
+      end
     end
   end
 

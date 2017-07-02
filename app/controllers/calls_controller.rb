@@ -268,7 +268,7 @@ class CallsController < ApplicationController
     service = Service.find_by_id(id)
     if service
       response = Twilio::TwiML::Response.new do |r|
-        r.Say "Did you do service?", :voice => 'alice', action: answer_path(id: @call.id)
+        r.Say service.service, :voice => 'alice', action: answer_path(id: @call.id)
       end
       render text: response.text
     else
@@ -295,11 +295,13 @@ class CallsController < ApplicationController
       when "1" #yes
         # save response change the order +1
         service.response = "Yes"
+        service.save
         order += 1
         ask(order) #asking new question
       when "2" #no
         # save response change the order +1
         service.response = "No"
+        service.save
         order += 1
         ask(order) #asking new question
       else

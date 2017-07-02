@@ -29,6 +29,29 @@ class User < ActiveRecord::Base
     end
   end
 
+  def set_basic_services
+    #Create basic services
+    if self.services.count == 0
+      services = [
+        "Did you wash dishes for the patient?",
+        "Did you feed the patient?",
+        "Did you assisst with bathing the patient?",
+        "Did you do light house keeping?",
+        "Did you assisst patient with grooming?",
+        "Did you do laundry?",
+        "Did you prepare meal for patient?",
+        "Did you remind patient to take medications?",
+        "Did you help patient with mobility or transfer?"
+      ]
+
+      services.each do |s|
+        service = Service.new
+        service.service = s
+        service.save
+        service.user = self
+      end
+    end
+  end
 
 
 end
