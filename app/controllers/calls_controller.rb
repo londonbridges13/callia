@@ -236,17 +236,19 @@ class CallsController < ApplicationController
     # create the services for the call
     p "ask_for_services"
 
+    service_ids = []
     @call.caregiver.user.services.each do |s|
       service = Service.new
       service.service = s.service
       service.save
       service.call = @call # don't set the service.user, that is for the user to tweak only
-    end
-    service_ids = []
-    @call.services.each do |s|
-      # add id to service_ids
       service_ids.push s.id
+      p "Added: #{s.id}"
     end
+    # @call.services.each do |s|
+    #   # add id to service_ids
+    #   service_ids.push s.id
+    # end
     #Use the service_ids in the parameters
 
     #ask if employee completed each service
