@@ -326,7 +326,8 @@ class CallsController < ApplicationController
         ask(order, service_ids) #asking new question
       else
         response = Twilio::TwiML::Response.new do |r|
-          r.Say "That is not an option", :voice => 'alice', action: ask_path(id: @call.id, order: order, service_ids: params[:service_ids])
+          r.Say "That is not an option", :voice => 'alice'
+          ask(order, service_ids)
         end
         render text: response.text
       end
