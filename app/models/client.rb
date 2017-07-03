@@ -1,6 +1,7 @@
 class Client < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :authorized_phone
+  validates_uniqueness_of :authorized_phone #don't want to accidently save call to wrong client
 
   belongs_to :office
   belongs_to :user

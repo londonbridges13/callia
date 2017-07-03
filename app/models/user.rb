@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
       services = [
         "Did you wash dishes for the patient?",
         "Did you feed the patient?",
-        "Did you assisst with bathing the patient?",
+        "Did you assist with bathing the patient?",
         "Did you do light house keeping?",
         "Did you assisst patient with grooming?",
         "Did you do laundry?",
