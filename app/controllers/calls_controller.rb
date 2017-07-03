@@ -277,7 +277,7 @@ class CallsController < ApplicationController
     if service
       response = Twilio::TwiML::Response.new do |r|
         r.Gather numDigits: '1', action: answer_path(id: @call.id, order: order, service_ids: service_ids) do |g|
-          g.Say service.service, voice: 'alice'
+          g.Say "#{service.service} 1 for yes and 2 for no.", voice: 'alice'
         end
       end
       render text: response.text
