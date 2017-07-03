@@ -325,11 +325,11 @@ class CallsController < ApplicationController
         order += 1
         ask(order, service_ids) #asking new question
       else
-        response = Twilio::TwiML::Response.new do |r|
-          r.Say "That is not an option", :voice => 'alice'
+        # response = Twilio::TwiML::Response.new do |r|
+        #   r.Say "That is not an option", :voice => 'alice'
           ask(order, service_ids)
-        end
-        render text: response.text
+        # end
+        # render text: response.text
       end
     else
       @call.log_type = "Clocked Out"
