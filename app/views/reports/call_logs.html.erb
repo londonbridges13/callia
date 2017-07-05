@@ -1,0 +1,145 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Call Logs</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="<%= url_for :controller => 'dashboard', :action => 'index' %>">Dashboard</a>
+            </li>
+            <li>
+                <a href="<%= url_for :controller => 'reports', :action => 'index' %>">Reports</a>
+            </li>
+            <li class="active">
+                <strong>Call Logs</strong>
+            </li>
+    </ol>
+</div>
+<div class="col-lg-2">
+
+</div>
+        </div>
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+<div class="col-lg-12">
+<div class="ibox float-e-margins">
+<div class="ibox-title">
+    <h5>All Employees</h5>
+    <div class="ibox-tools">
+        <a class="collapse-link">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-wrench"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            <li>
+                <a href="#">Config option 1</a>
+            </li>
+            <li>
+                <a href="#">Config option 2</a>
+            </li>
+        </ul>
+        <a class="close-link">
+            <i class="fa fa-times"></i>
+        </a>
+    </div>
+</div>
+<div class="ibox-content">
+
+<table class="table table-striped table-bordered table-hover dataTables-example">
+<thead>
+<tr>
+    <th>Date</th>
+    <th>Employee</th>
+    <th>Client</th>
+    <th>Phone Number</th>
+    <th>Work Duration</th>
+    <th>Log</th>
+</tr>
+</thead>
+<tbody>
+  <% @calls.each do |c| %>
+    <tr class="gradeX">
+        <td class="center"><%=local_time(c.created_at)%></td>
+        <%if c.caregiver%>
+          <td><%= link_to "#{c.caregiver.name} / #{c.caregiver.employee_code}", caregiver_path(c.caregiver) %></td>
+        <%else%>
+          <td></td>
+        <%end%>
+        <%if c.client%>
+          <td><%= link_to c.client.name, client_path(c.client) %></td>
+        <%else%>
+          <td></td>
+        <%end%>
+
+        <td class="center"><%=c.caller_number%></td>
+        <%if c.duration%>
+          <td><%=c.duration %></td>
+        <%else%>
+          <td></td>
+        <%end%>
+
+        <td class="center"><%=c.log_type%></td>
+
+    </tr>
+  <% end %>
+</tbody>
+<tfoot>
+  <tr>
+    <th>Date</th>
+    <th>Employee</th>
+    <th>Client</th>
+    <th>Phone Number</th>
+    <th>Work Duration</th>
+    <th>Log</th>
+  </tr>
+</tfoot>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+$(function() {
+
+    $('.dataTables-example').DataTable({
+        pageLength: 25,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [
+            { extend: 'copy'},
+            {extend: 'csv'},
+            {extend: 'excel', title: 'ExampleFile'},
+            {extend: 'pdf', title: 'ExampleFile'},
+
+            {extend: 'print',
+                customize: function (win){
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+
+                    $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                }
+            }
+        ]
+
+    });
+
+
+});
+
+
+
+</script>
+
+<% end %>
