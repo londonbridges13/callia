@@ -323,7 +323,7 @@ class CallsController < ApplicationController
       time = time + "00"
     end
 
-    @call.duration
+    @call.duration = time
     @call.save
     # return time
   end
