@@ -4,7 +4,7 @@ class CaregiversController < ApplicationController
   # GET /caregivers
   # GET /caregivers.json
   def index
-    @caregivers = Caregiver.all
+    @caregivers = current_user.caregivers#Caregiver.all
   end
 
   # GET /caregivers/1
@@ -53,7 +53,7 @@ class CaregiversController < ApplicationController
     respond_to do |format|
       if @caregiver.save
         save_caregiver
-        format.html { redirect_to @caregiver, notice: 'Caregiver was successfully created.' }
+        format.html { redirect_to caregivers_url, notice: 'Caregiver was successfully created.' }
         format.json { render :show, status: :created, location: @caregiver }
       else
         format.html { render :new }
@@ -69,7 +69,7 @@ class CaregiversController < ApplicationController
       if @caregiver.update(caregiver_params)
         add_options
         updated_employee_activity
-        format.html { redirect_to @caregiver, notice: 'Caregiver was successfully updated.' }
+        format.html { redirect_to caregivers_url, notice: 'Caregiver was successfully updated.' }
         format.json { render :show, status: :ok, location: @caregiver }
       else
         format.html { render :edit }

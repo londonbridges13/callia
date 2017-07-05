@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   match 'calls/ask_for_employee_code' => 'calls#ask_for_employee_code', via: [:get, :post], as: 'ask_for_employee_code'
   # get '*path' => redirect('/')
   get 'display_client' => "clients#display_client"
+  get 'call_logs' => "reports#call_logs", as: 'call_logs'
 
   #User Paths
 
