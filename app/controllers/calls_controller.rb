@@ -293,6 +293,30 @@ class CallsController < ApplicationController
     end
   end
 
+  def save_duration
+    cin = Call.where(caregiver: @call.caregiver).where(caller_number: @call.caller_number).where("log_type = 'Clocked In'").order("created_at").reverse.first.created_at
+    cout = @call.created_at
+
+    time = ""
+    h = (cout - cin) / 3600 # gets time in hours
+    h_rounded = h.round # use this
+    time = h_rounded
+    # now get the minutes
+    a = (cout - cin) / 3600
+    r = a.round
+
+    mm = 0
+    if a > r
+      mm = (a - r) * 60 #the minutes are left over
+    else
+      mm = (r - a) * 60#the minutes are left over
+    end
+
+    if mm > 1 #than minutes are greater than 1 minute use it
+      time = " #{mm}"
+    end
+  end
+
   def answer #answer_path
     # answer the question and if there is another question ask
     service_ids = []#params[:service_ids]
