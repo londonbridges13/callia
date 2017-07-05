@@ -290,6 +290,8 @@ class CallsController < ApplicationController
         r.Say "You've Succefully Clocked Out! Thank you and Goodbye.", :voice => 'alice'
       end
       render text: response.text
+      save_duration
+
     end
   end
 
@@ -300,7 +302,7 @@ class CallsController < ApplicationController
     time = ""
     h = (cout - cin) / 3600 # gets time in hours
     h_rounded = h.round # use this
-    time = h_rounded
+    time = "#{h_rounded}:"
     # now get the minutes
     a = (cout - cin) / 3600
     r = a.round
@@ -311,10 +313,19 @@ class CallsController < ApplicationController
     else
       mm = (r - a) * 60#the minutes are left over
     end
-
     if mm > 1 #than minutes are greater than 1 minute use it
-      time = " #{mm}"
+      if mm > 9
+        time = time + "#{mm}"
+      else
+        time = time + "#{mm}0"
+      end
+    else
+      time = time + "00"
     end
+
+    @call.duration
+    @call.save
+    # return time
   end
 
   def answer #answer_path
@@ -363,6 +374,7 @@ class CallsController < ApplicationController
         r.Say "You've Succefully Clocked Out! Goodbye.", :voice => 'alice'#, action: play_voice_path(id: @call.id)
       end
       render text: response.text
+      save_duration
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630022249) do
+ActiveRecord::Schema.define(version: 20170705002756) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "activity"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20170630022249) do
     t.integer  "user_id"
     t.string   "log_type"
     t.string   "recorded_voice"
+    t.string   "duration"
   end
 
   add_index "calls", ["caregiver_id"], name: "index_calls_on_caregiver_id"
