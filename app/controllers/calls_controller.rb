@@ -313,11 +313,11 @@ class CallsController < ApplicationController
     else
       mm = (r - a) * 60#the minutes are left over
     end
-    if mm > 1 #than minutes are greater than 1 minute use it
-      if mm > 9
-        time = time + "#{mm}"
+    if mm.round > 1 #than minutes are greater than 1 minute use it
+      if mm.round > 9
+        time = time + "#{mm.round}"
       else
-        time = time + "#{mm}0"
+        time = time + "#{mm.round}0"
       end
     else
       time = time + "00"
