@@ -44,7 +44,8 @@ Rails.application.routes.draw do
   # get '*path' => redirect('/')
   get 'display_client' => "clients#display_client"
   get 'call_logs' => "reports#call_logs", as: 'call_logs'
-
+  post 'call_logs' => "reports#call_logs", as: 'search_call_logs'
+  # post 'search_call_logs' => 'reports#search_call_logs', as: 'search_call_logs'
   #User Paths
 
   devise_scope :user do
