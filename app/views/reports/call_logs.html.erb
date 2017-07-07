@@ -77,7 +77,7 @@
 <tbody>
   <% @calls.each do |c| %>
     <tr class="gradeX">
-        <td class="center"><%=local_time(c.created_at)%></td>
+        <td class="center"><div style="font-size:0; color:transparent;"><%= c.created_at%></div> <%=local_time(c.created_at)%></td>
         <%if c.caregiver%>
           <td><%= link_to "#{c.caregiver.name} / #{c.caregiver.employee_code}", caregiver_path(c.caregiver) %></td>
         <%else%>
