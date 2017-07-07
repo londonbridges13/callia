@@ -21,7 +21,7 @@ class ReportSearch
     dto = @date_to
     # convert_to_display @date_from
     # convert_to_display @date_to
-    return Call.where('created_at BETWEEN ? AND ?', dfrom.to_datetime, dto.to_datetime).where(user_id: id) # works
+    return Call.where('created_at BETWEEN ? AND ?', dfrom.to_datetime + 6.hours, dto.to_datetime + 6.hours).where(user_id: id) # works
 
   end
 
