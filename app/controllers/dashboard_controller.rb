@@ -74,7 +74,7 @@ class DashboardController < ApplicationController
 
     calls.each do |c|
       hour = c.to_i
-      p c.datetime
+      p c.to_time
       hours[hour - 1][1] += 1 # add 1 to call count
       p hours
     end
