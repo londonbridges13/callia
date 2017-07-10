@@ -708,7 +708,7 @@ $(function() {
     // ]; // clock out
 
     var data1 = <%=return_call_array(@calls.map{|c| c.created_at})%>//<%=@cin_hours%>
-    var data2 = <%=@cout_hours%>
+    var data2 = [[0,0]]<%=@cout_hours%>
     $("#flot-dashboard-chart").length && $.plot($("#flot-dashboard-chart"), [
         data1, data2
     ],
