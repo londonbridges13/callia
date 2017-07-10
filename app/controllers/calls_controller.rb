@@ -325,6 +325,7 @@ class CallsController < ApplicationController
       time = time + "00"
     end
 
+    @call.clock_in = cin # saving clock in time for timecards
     @call.duration = time
     @call.save
     # return time

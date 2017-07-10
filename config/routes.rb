@@ -45,6 +45,8 @@ Rails.application.routes.draw do
   get 'display_client' => "clients#display_client"
   get 'call_logs' => "reports#call_logs", as: 'call_logs'
   post 'call_logs' => "reports#call_logs", as: 'search_call_logs'
+  get 'timecard_report' => "reports#timecard_report", as: 'timecard_report'
+  post 'timecard_report' => "reports#timecard_report", as: 'search_timecard_report'
   # post 'search_call_logs' => 'reports#search_call_logs', as: 'search_call_logs'
   #User Paths
 
