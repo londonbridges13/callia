@@ -76,7 +76,7 @@
 <tbody>
   <% @calls.each do |c| %>
     <tr class="gradeX">
-        <td class="center"><div style="font-size:0; color:transparent;"><%= c.created_at%></div> <%=local_time(c.created_at, :short)%></td>
+        <td class="center"><div style="font-size:0; color:transparent;"><%= c.created_at%></div> <%=c.strftime("%A, %m/%d")%></td>
         <%if c.client%>
           <td><%= link_to c.client.name, client_path(c.client) %></td>
         <%else%>
@@ -87,9 +87,8 @@
         <%else%>
           <td></td>
         <%end%>
-        <td class="center"><%=c.created_at.strftime("%I:%M%p")%></td>
+        <td class="center"><%=c.created_at.strftime("%I:%M %p")%></td>
 
-        <td class="center"><%=c.caller_number%></td>
         <%if c.duration%>
           <td><%=c.duration %></td>
         <%else%>
