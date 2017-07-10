@@ -301,29 +301,38 @@ class CallsController < ApplicationController
     cin = Call.where(caregiver: @call.caregiver).where(caller_number: @call.caller_number).where("log_type = 'Clocked In'").order("created_at").reverse.first.created_at
     cout = @call.created_at
 
-    time = ""
-    h = (cout - cin) / 3600 # gets time in hours
-    h_rounded = h.round # use this
-    time = "#{h_rounded}:"
-    # now get the minutes
-    a = (cout - cin) / 3600
-    r = a.round
+    time_diff = TimeDifference.between(cin, cout).in_minutes
 
-    mm = 0
-    if a > r
-      mm = (a - r) * 60 #the minutes are left over
-    else
-      mm = (r - a) * 60#the minutes are left over
+    # set hours and minutes will be what is left over
+    while time_diff > 60
+      time_diff - 60
+      hours += 1
     end
-    if mm.round > 1 #than minutes are greater than 1 minute use it
-      if mm.round > 9
-        time = time + "#{mm.round}"
-      else
-        time = time + "#{mm.round}0"
-      end
-    else
-      time = time + "00"
-    end
+
+    time = "#{hours}:time_diff"
+    # time = ""
+    # h = (cout - cin) / 3600 # gets time in hours
+    # h_rounded = h.round # use this
+    # time = "#{h_rounded}:"
+    # # now get the minutes
+    # a = (cout - cin) / 3600
+    # r = a.round
+    #
+    # mm = 0
+    # if a > r
+    #   mm = (a - r) * 60 #the minutes are left over
+    # else
+    #   mm = (r - a) * 60#the minutes are left over
+    # end
+    # if mm.round > 1 #than minutes are greater than 1 minute use it
+    #   if mm.round > 9
+    #     time = time + "#{mm.round}"
+    #   else
+    #     time = time + "#{mm.round}0"
+    #   end
+    # else
+    #   time = time + "00"
+    # end
 
     @call.clock_in = cin # saving clock in time for timecards
     @call.duration = time

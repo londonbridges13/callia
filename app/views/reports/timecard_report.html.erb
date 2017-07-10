@@ -83,11 +83,11 @@
           <td></td>
         <%end%>
         <%if c.clock_in%>
-          <td class="center"><%=c.clock_in.strftime("%I:%M %p")%></td>
+          <td class="center"><%=local_time(c.clock_in, "%I:%M %p")%></td>
         <%else%>
           <td></td>
         <%end%>
-        <td class="center"><%=c.created_at.strftime("%I:%M %p")%></td>
+        <td class="center"><%=local_time(c.created_at, "%I:%M %p")%></td>
 
         <%if c.duration%>
           <td><%=c.duration %></td>
