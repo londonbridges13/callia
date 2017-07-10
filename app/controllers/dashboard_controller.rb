@@ -73,8 +73,9 @@ class DashboardController < ApplicationController
     [13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[20,0],[21,0],[22,0],[23,0],[24,0]]
 
     calls.each do |c|
-      hour = c.to_i
+      hour = c.to_time.strftime("%H").to_i
       p c.to_time
+      p hour
       hours[hour - 1][1] += 1 # add 1 to call count
       p hours
     end
