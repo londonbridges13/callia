@@ -302,7 +302,7 @@ class CallsController < ApplicationController
     cout = @call.created_at
 
     time_diff = TimeDifference.between(cin, cout).in_minutes
-
+    hours = 0
     # set hours and minutes will be what is left over
     while time_diff > 60
       time_diff -= 60
@@ -313,7 +313,7 @@ class CallsController < ApplicationController
     end
     unless time_diff
       time_diff = 0
-    end 
+    end
     time = "#{hours}:#{time_diff}"
     # time = ""
     # h = (cout - cin) / 3600 # gets time in hours

@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   post 'timecard_report' => "reports#timecard_report", as: 'search_timecard_report'
   get 'activity_report' => "reports#activity_report", as: 'activity_report'
   post 'activity_report' => "reports#activity_report", as: 'search_activity_report'
+  post 'update' => "agency_details#update", as: 'update_agency_details'
   # post 'search_call_logs' => 'reports#search_call_logs', as: 'search_call_logs'
   #User Paths
 

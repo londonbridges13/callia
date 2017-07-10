@@ -3,9 +3,11 @@ class AgencyDetailsController < ApplicationController
 
   def index
     # redirect_to edit_user_registration_path
+    @user = current_user
     resource_name
     resource
     devise_mapping
+    
   end
 
   def edit
@@ -16,6 +18,7 @@ class AgencyDetailsController < ApplicationController
   end
 
   def update
+    p params[:name]
     respond_to do |format|
       if current_user.update_attributes(user_params)
         format.html { redirect_to clients_url, notice: 'Client was successfully updated.' }
