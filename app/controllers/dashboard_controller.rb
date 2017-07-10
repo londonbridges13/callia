@@ -79,5 +79,7 @@ class DashboardController < ApplicationController
     return hours
   end
 
-  
+  helper_method :return_call_array(calls)
+
+
 end
