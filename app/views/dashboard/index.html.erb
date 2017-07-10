@@ -707,7 +707,8 @@ $(function() {
     //     [0, 1], [1, 0], [2, 2], [3, 0], [4, 1], [5, 3], [6, 1], [7, 5], [8, 2], [9, 3], [10, 2], [11, 1], [12, 0], [13, 2], [14, 8], [15, 0], [16, 0]
     // ]; // clock out
 
-    var data1 = <%=@cin_hours%>
+    var clock_ins = <%=[20,90]%>
+    var data1 = <%=return_call_array()%>//<%=@cin_hours%>
     var data2 = <%=@cout_hours%>
     $("#flot-dashboard-chart").length && $.plot($("#flot-dashboard-chart"), [
         data1, data2
