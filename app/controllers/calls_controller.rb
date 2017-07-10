@@ -305,11 +305,16 @@ class CallsController < ApplicationController
 
     # set hours and minutes will be what is left over
     while time_diff > 60
-      time_diff - 60
+      time_diff -= 60
       hours += 1
     end
-
-    time = "#{hours}:time_diff"
+    unless hours
+      hours = 0
+    end
+    unless time_diff
+      time_diff = 0
+    end 
+    time = "#{hours}:#{time_diff}"
     # time = ""
     # h = (cout - cin) / 3600 # gets time in hours
     # h_rounded = h.round # use this

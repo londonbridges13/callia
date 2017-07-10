@@ -27,7 +27,7 @@
     <h5>Calls</h5>
 
     <div class="range-query">
-      <%= form_tag url: "/reports/activity_report", method: :get do %>
+      <%= form_tag url: "/reports/activity_report", method: :get do %> <!-- change path to url: "/reports/call_logs"  -->
         <div class="ibox float-e-margins form-group" id="data_5">
           <div class="col-sm-2 pull-right">
             <%= submit_tag "Search", class: "btn btn-success search-button pull-right" %>
@@ -67,24 +67,27 @@
 <thead>
 <tr>
     <th>Date</th>
+    <th>Employee</th>
     <th>Client</th>
-    <th>Clock In</th>
-    <th>Clock Out</th>
-    <th>Duration</th>
+    <th>Phone Number</th>
+    <th>Work Duration</th>
+    <th>Log</th>
 </tr>
 </thead>
 <tbody>
   <% @calls.each do |c| %>
     <tr class="gradeX">
-        <td class="center"><div style="font-size:0; color:transparent;"><%= c.created_at%></div> <%=local_time(c.created_at, :short)%></td>
+        <td class="center"><div style="font-size:0; color:transparent;"><%= c.created_at%></div> <%=local_time(c.created_at)%></td>
+        <%if c.caregiver%>
+          <td><%= link_to "#{c.caregiver.name} / #{c.caregiver.employee_code}", caregiver_path(c.caregiver) %></td>
+        <%else%>
+          <td></td>
+        <%end%>
         <%if c.client%>
           <td><%= link_to c.client.name, client_path(c.client) %></td>
         <%else%>
           <td></td>
         <%end%>
-
-        <td class="center"><%=local_time(c.clock_in)%></td>
-        <td class="center"><%=c.created_at.strftime("%I:%M%p")%></td>
 
         <td class="center"><%=c.caller_number%></td>
         <%if c.duration%>
@@ -93,16 +96,19 @@
           <td></td>
         <%end%>
 
+        <td class="center"><%=c.log_type%></td>
+
     </tr>
   <% end %>
 </tbody>
 <tfoot>
   <tr>
     <th>Date</th>
+    <th>Employee</th>
     <th>Client</th>
-    <th>Clock In</th>
-    <th>Clock Out</th>
-    <th>Duration</th>
+    <th>Phone Number</th>
+    <th>Work Duration</th>
+    <th>Log</th>
   </tr>
 </tfoot>
 </table>
