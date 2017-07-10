@@ -2,7 +2,7 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Timecard Report</h2>
+        <h2>Activity Report</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="<%= url_for :controller => 'dashboard', :action => 'index' %>">Dashboard</a>
@@ -11,7 +11,7 @@
                 <a href="<%= url_for :controller => 'reports', :action => 'index' %>">Reports</a>
             </li>
             <li class="active">
-                <strong>Timecard Report</strong>
+                <strong>Activity Report</strong>
             </li>
     </ol>
 </div>
@@ -27,7 +27,7 @@
     <h5>Calls</h5>
 
     <div class="range-query">
-      <%= form_tag url: "/reports/timecard_report", method: :get do %>
+      <%= form_tag url: "/reports/activity_report", method: :get do %>
         <div class="ibox float-e-margins form-group" id="data_5">
           <div class="col-sm-2 pull-right">
             <%= submit_tag "Search", class: "btn btn-success search-button pull-right" %>
@@ -82,11 +82,8 @@
         <%else%>
           <td></td>
         <%end%>
-        <%if c.clock_in%>
-          <td class="center"><%=local_time(c.clock_in)%></td>
-        <%else%>
-          <td></td>
-        <%end%>
+
+        <td class="center"><%=local_time(c.clock_in)%></td>
         <td class="center"><%=c.created_at.strftime("%I:%M%p")%></td>
 
         <td class="center"><%=c.caller_number%></td>
@@ -131,8 +128,8 @@ $(function() {
         buttons: [
             { extend: 'copy'},
             {extend: 'csv'},
-            {extend: 'excel', title: 'Timecard Report | <%=current_user.agency_name%>'},
-            {extend: 'pdf', title: 'Timecard Report | <%=current_user.agency_name%>'}
+            {extend: 'excel', title: 'Activity Report | <%=current_user.agency_name%>'},
+            {extend: 'pdf', title: 'Activity Report | <%=current_user.agency_name%>'}
 
         ]
 
