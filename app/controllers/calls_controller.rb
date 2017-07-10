@@ -314,7 +314,7 @@ class CallsController < ApplicationController
     unless time_diff
       time_diff = 0
     end
-    time = "#{hours}:#{time_diff}"
+    time = "#{hours}:#{time_diff.to_i}"
     # time = ""
     # h = (cout - cin) / 3600 # gets time in hours
     # h_rounded = h.round # use this
