@@ -411,7 +411,7 @@ $(function() {
     }, 1000);
 
 
-    var clock_ins = <%=Call.where(log_type: "Clocked In").where(user: current_user).where('created_at BETWEEN ? AND ?', start, the_end)%>
+    var clock_ins = [[10,20]]//<%=Call.where(log_type: "Clocked In").where(user: current_user).where('created_at BETWEEN ? AND ?', start, the_end)%>
     var data1 = <%=return_call_array(clock_ins)%>//<%=@cin_hours%>
     var data2 = <%=@cout_hours%>
     $("#flot-dashboard-chart").length && $.plot($("#flot-dashboard-chart"), [
