@@ -20,13 +20,22 @@ class DashboardController < ApplicationController
     end
 
     call_logs # display calls for the data table
-    graph_clock_in
-    graph_clock_out
+    if @calls.count > 0
+      graph_clock_in
+      graph_clock_out
+    else
+      @clock_outs = 0
+      @clock_ins = 0
+      hours = [[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0],
+      [13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[20,0],[21,0],[22,0],[23,0],[24,0]]
+      @cin_hours = hours
+      @cout_hours = hours 
+    end
   end
 
   def call_logs #reports/call_logs
 
-    @calls = Call.where(user: current_user).where("created_at > ?", Time.now - 24.hours)
+    @calls = Call.where(user: current_user).where("created_at > ?", Time.now - 24.hours).reverse
   end
 
   def graph_clock_in
@@ -39,6 +48,7 @@ class DashboardController < ApplicationController
       p hours
     end
     @cin_hours = hours
+    @clock_ins = calls.count
   end
 
   def graph_clock_out
@@ -51,5 +61,6 @@ class DashboardController < ApplicationController
       p hours
     end
     @cout_hours = hours
+    @clock_outs = calls.count
   end
 end

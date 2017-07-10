@@ -3,6 +3,27 @@
       <%if current_user.name%>
         <h2>Welcome <%= current_user.name%></h2>
       <%end%>
+        <div class="widget btn-success style1 lazur-bg col-xs-10">
+            <div class="row vertical-align">
+                <div class="col-xs-12 text-center">
+                    <h2 class="font-bold no-margins">Clock Ins: <%=@clock_ins%></h2>
+                </div>
+            </div>
+        </div>
+        <div class="widget btn-success style1 lazur-bg col-xs-10">
+            <div class="row vertical-align">
+                <div class="col-xs-12 text-center">
+                    <h2 class="font-bold no-margins">Clock Outs: <%=@clock_outs%></h2>
+                </div>
+            </div>
+        </div>
+        <div class="widget btn-success style1 lazur-bg col-xs-10">
+            <div class="row vertical-align">
+                <div class="col-xs-12 text-center">
+                    <h2 class="font-bold no-margins">Calls Made: <%=@calls.count%></h2>
+                </div>
+            </div>
+        </div>
       <%if current_user.reminders.count > 0%>
         <small>You have <%=current_user.reminders.where('date > ?', Time.now).count%> reminders.</small>
         <%current_user.reminders.where('date > ?', Time.now).each do |r|%>
@@ -20,23 +41,6 @@
     <div class="col-sm-6">
         <div class="flot-chart dashboard-chart">
             <div class="flot-chart-content" id="flot-dashboard-chart"></div>
-        </div>
-        <div class="row text-left">
-            <div class="col-xs-4">
-                <div class=" m-l-md">
-                    <span class="h4 font-bold m-t block">$ 406,100</span>
-                    <small class="text-muted m-b block">Sales marketing report</small>
-                </div>
-            </div>
-            <div class="col-xs-4">
-                <span class="h4 font-bold m-t block">$ 150,401</span>
-                <small class="text-muted m-b block">Annual sales revenue</small>
-            </div>
-            <div class="col-xs-4">
-                <span class="h4 font-bold m-t block">$ 16,822</span>
-                <small class="text-muted m-b block">Half-year revenue margin</small>
-            </div>
-
         </div>
     </div>
     <%if current_user.call_number%>
@@ -67,28 +71,7 @@
       </div>
     <%end%>
     <div class="col-sm-3">
-        <div class="statistic-box">
-            <h4>
-                Project Beta progress
-            </h4>
-            <p>
-                You have two project with not compleated task.
-            </p>
-            <div class="row text-center">
-                <div class="col-lg-6">
-                    <canvas id="doughnutChart2" width="80" height="80" style="margin: 18px auto 0"></canvas>
-                    <h5 >Kolter</h5>
-                </div>
-                <div class="col-lg-6">
-                    <canvas id="doughnutChart" width="80" height="80" style="margin: 18px auto 0"></canvas>
-                    <h5 >Maxtor</h5>
-                </div>
-            </div>
-            <div class="m-t">
-                <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-            </div>
-
-        </div>
+        
     </div>
 
 </div>
