@@ -67,27 +67,24 @@
 <thead>
 <tr>
     <th>Date</th>
-    <th>Employee</th>
     <th>Client</th>
-    <th>Phone Number</th>
-    <th>Work Duration</th>
-    <th>Log</th>
+    <th>Clock In</th>
+    <th>Clock Out</th>
+    <th>Duration</th>
 </tr>
 </thead>
 <tbody>
   <% @calls.each do |c| %>
     <tr class="gradeX">
-        <td class="center"><div style="font-size:0; color:transparent;"><%= c.created_at%></div> <%=local_time(c.created_at)%></td>
-        <%if c.caregiver%>
-          <td><%= link_to "#{c.caregiver.name} / #{c.caregiver.employee_code}", caregiver_path(c.caregiver) %></td>
-        <%else%>
-          <td></td>
-        <%end%>
+        <td class="center"><div style="font-size:0; color:transparent;"><%= c.created_at%></div> <%=local_time(c.created_at, :short)%></td>
         <%if c.client%>
           <td><%= link_to c.client.name, client_path(c.client) %></td>
         <%else%>
           <td></td>
         <%end%>
+
+        <td class="center"><%=local_time(c.clock_in)%></td>
+        <td class="center"><%=c.created_at.strftime("%I:%M%p")%></td>
 
         <td class="center"><%=c.caller_number%></td>
         <%if c.duration%>
@@ -96,19 +93,16 @@
           <td></td>
         <%end%>
 
-        <td class="center"><%=c.log_type%></td>
-
     </tr>
   <% end %>
 </tbody>
 <tfoot>
   <tr>
     <th>Date</th>
-    <th>Employee</th>
     <th>Client</th>
-    <th>Phone Number</th>
-    <th>Work Duration</th>
-    <th>Log</th>
+    <th>Clock In</th>
+    <th>Clock Out</th>
+    <th>Duration</th>
   </tr>
 </tfoot>
 </table>
