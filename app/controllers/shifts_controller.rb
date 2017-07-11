@@ -83,6 +83,6 @@ class ShiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shift_params
-      params.require(:shift).permit(:start_time, :end_time, :duration, :notes, :status)
+      params.require(:shift).permit(:start_time, :end_time, :duration, :notes, :status, :client_id, :caregiver_id)
     end
 end

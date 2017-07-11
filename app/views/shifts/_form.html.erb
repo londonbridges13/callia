@@ -30,6 +30,28 @@
   </div>
 
 
+  <div class="field">
+    <div class="form-group"><label class="col-sm-2 control-label">Select Caregiver</label>
+      <div class="row">
+        <div class="col-sm-4">
+          <%= f.collection_select :caregiver_id, current_user.caregivers, :id, :name,
+            {:class => 'prevent_collapse'},:class => "form-control m-b", :include_blank => 'Select' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="form-group"><label class="col-sm-2 control-label">Select Client</label>
+      <div class="row">
+        <div class="col-sm-4">
+          <%= f.collection_select :client_id, current_user.clients, :id, :name,
+            {:class => 'prevent_collapse'},:class => "form-control m-b", :include_blank => 'Select' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <br/>
   <div class="field">
