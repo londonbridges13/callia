@@ -189,7 +189,7 @@ ActiveRecord::Schema.define(version: 20170710063637) do
   create_table "shifts", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.float    "duration"
+    t.float    "duration" #in minutes 
     t.text     "notes"
     t.string   "status"
     t.datetime "created_at",         null: false
