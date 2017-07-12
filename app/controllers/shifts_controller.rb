@@ -44,6 +44,7 @@ class ShiftsController < ApplicationController
   def update
     respond_to do |format|
       if @shift.update(shift_params)
+        @shift.set_duration
         updated_shift_activity
         format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
         format.json { render :show, status: :ok, location: @shift }
@@ -56,13 +57,13 @@ class ShiftsController < ApplicationController
 
   def created_shift_activity
     if @shift.client
-      save_activity("#{current_user.name} created shift for #{@shift.client}", current_user, @shift)
+      @shift.save_activity("#{current_user.name} created shift for #{@shift.client}", current_user, @shift)
     end
   end
 
   def updated_shift_activity
     if @shift.client
-      save_activity("#{current_user.name} updated shift for #{@shift.client}", current_user, @shift)
+      @shift.save_activity("#{current_user.name} updated shift for #{@shift.client}", current_user, @shift)
     end
   end
 
