@@ -24,6 +24,8 @@ class Shift < ActiveRecord::Base
     def set_duration
       if self.start_time and self.end_time
         time_diff = TimeDifference.between(self.start_time, self.end_time).in_minutes
+        self.duration = time_diff
+        self.save
       end
     end
 
