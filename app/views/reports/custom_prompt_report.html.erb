@@ -88,9 +88,12 @@
         <%else%>
           <td></td>
         <%end%>
-
-        <td class="center"><%=local_time(s.call.clock_in)%></td>
-        <td class="center"><%=local_time(s.call.created_at)%></td>
+        <%if s.call.clock_in%>
+          <td class="center"><%=local_time(s.call.clock_in)%></td>
+        <%end%>
+        <%if s.call.created_at%>
+          <td class="center"><%=local_time(s.call.created_at)%></td>
+        <%end%>
         <%if s.call.duration%>
           <td><%=s.call.duration %></td>
         <%else%>
