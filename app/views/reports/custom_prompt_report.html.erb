@@ -90,9 +90,13 @@
         <%end%>
         <%if s.call.clock_in%>
           <td class="center"><%=local_time(s.call.clock_in)%></td>
+        <%else%>
+          <td></td>
         <%end%>
         <%if s.call.created_at%>
           <td class="center"><%=local_time(s.call.created_at)%></td>
+        <%else%>
+          <td></td>
         <%end%>
         <%if s.call.duration%>
           <td><%=s.call.duration %></td>
@@ -100,8 +104,16 @@
           <td></td>
         <%end%>
 
-        <td class="center"><%=s.service%></td>
-        <td class="center"><%=s.response%></td>
+        <%if s.service%>
+          <td class="center"><%=s.service%></td>
+        <%else%>
+          <td></td>
+        <%end%>
+        <%if s.response%>
+          <td class="center"><%=s.response%></td>
+        <%else%>
+          <td></td>
+        <%end%>
 
     </tr>
   <% end %>
@@ -134,7 +146,7 @@
 $(function() {
 
     $('.dataTables-example').DataTable({
-        pageLength: 25,
+        pageLength: 10,
         responsive: true,
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
