@@ -41,6 +41,14 @@ class ReportSearch
     return Call.where('created_at BETWEEN ? AND ?', dfrom.to_datetime + 6.hours, dto.to_datetime + 6.hours).where(user_id: id)
   end
 
+  def scope_custom_prompt(id)
+    dfrom = @date_from
+    dto = @date_to
+    # convert_to_display @date_from
+    # convert_to_display @date_to
+    return Call.where('created_at BETWEEN ? AND ?', dfrom.to_datetime + 6.hours, dto.to_datetime + 6.hours).where(user_id: id)
+  end
+
   def convert_to_display(s = nil)
     s.to_date.strftime("%m/%d/%Y")
   end
