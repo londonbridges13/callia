@@ -57,7 +57,7 @@ class ReportsController < ApplicationController
     @calls = @search.scope_custom_prompt(current_user.id)#current_user.calls.order("created_at DESC")
     services = []
     @calls.each do |c|
-      @calls.services.each do |s|
+      c.services.each do |s|
         services.push s
       end
     end
