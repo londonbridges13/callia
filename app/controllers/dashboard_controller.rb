@@ -75,7 +75,7 @@ class DashboardController < ApplicationController
     calls.each do |c|
       p "below is c"
       p c
-      hour = c.to_time.strftime("%H").to_i
+      hour = c.to_time.localtime.strftime("%H").to_i
       p c.to_time
       p hour
       hours[hour - 1][1] += 1 # add 1 to call count
