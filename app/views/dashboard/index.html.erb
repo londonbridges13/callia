@@ -700,7 +700,7 @@ $(function() {
                 .change()
     }, 1000);
 
-
+    var nothing = <%= get_time_difference(@calls.first.created_at, local_time(@calls.first.created_at))%>;
     var data1 = <%=return_call_array(@calls.map{|c| local_time(c.created_at)})%>//<%=@cin_hours%>
     var data2 = <%=@cout_hours%>
     $("#flot-dashboard-chart").length && $.plot($("#flot-dashboard-chart"), [

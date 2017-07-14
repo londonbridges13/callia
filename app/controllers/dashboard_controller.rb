@@ -73,6 +73,8 @@ class DashboardController < ApplicationController
     [13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[20,0],[21,0],[22,0],[23,0],[24,0]]
 
     calls.each do |c|
+      p "below is c"
+      p c
       hour = c.to_time.strftime("%H").to_i
       p c.to_time
       p hour
@@ -84,5 +86,17 @@ class DashboardController < ApplicationController
 
   helper_method :return_call_array
 
+  def get_the_hour(time)
+    # scrap the string for the hour and then reuturn the hour
+  end
+
+  def get_time_difference(time1, time2)
+    p time1
+    p time2
+    time_diff = TimeDifference.between(time1, time2).in_hours
+    p "time difference: #{time_diff}"
+    return time_diff
+  end
+  helper_method :get_time_difference
 
 end
