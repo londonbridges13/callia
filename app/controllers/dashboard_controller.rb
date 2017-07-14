@@ -95,6 +95,7 @@ class DashboardController < ApplicationController
     p time2
     time_diff = TimeDifference.between(time1, time2).in_hours
     p "time difference: #{time_diff}"
+    p @time_diff
     return time_diff
   end
   helper_method :get_time_difference
