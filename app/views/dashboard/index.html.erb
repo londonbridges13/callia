@@ -13,7 +13,7 @@
         <div class="widget btn-success style1 lazur-bg col-xs-10">
             <div class="row vertical-align">
                 <div class="col-xs-12 text-center">
-                    <h2 class="font-bold no-margins">Clock Outs: <%=@clock_outs%> <%=@calls.first.created_at%>/<%=@time_diff = local_time(@calls.first.created_at)%></h2><%=p "time diff now: #{Time.now.localtime}--#{Time.now}"%>
+                    <h2 class="font-bold no-margins">Clock Outs: <%=@clock_outs%> <%=@calls.first.created_at%>/<%=sleep 1%><%=@time_diff = local_time(@calls.first.created_at)%></h2><%=p "time diff now: #{Time.now.localtime}--#{Time.now}"%>
                 </div>
             </div>
         </div>
