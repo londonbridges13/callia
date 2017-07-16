@@ -19,29 +19,28 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>Responsive transactional HTML email templates</h5>
+                <h5>Reports for your business</h5>
             </div>
             <div class="ibox-content">
                 <p>
-                    Transactional HTML emails. Each template is responsive and each has been tested in all the popular email clients. Credits to <a target="_blank" href="https://github.com/mailgun/transactional-email-templates">Maligun</a>
                 </p>
                 <div class="row">
                     <div class="col-md-4">
-                        <h4>Basic action email</h4>
-                        <a href="<%= url_for :controller => 'reports', :action => 'index' %>" target="_blank">
-                        <img src="<%= image_path('email_1.jpg') %>" class="img-responsive" alt="">
+                        <h4>Custom Prompt Report</h4>
+                        <a href="<%= url_for :controller => 'reports', :action => 'custom_prompt_report' %>">
+                          <img src="<%= image_path('custom_prompt_report.png') %>" class="img-responsive" alt="">
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <h4>Email alert </h4>
-                        <a href="<%= url_for :controller => 'reports', :action => 'index' %>" target="_blank">
-                        <img src="<%= image_path('email_1.jpg') %>" class="img-responsive" alt="">
+                        <h4>Call Logs</h4>
+                        <a href="<%= url_for :controller => 'reports', :action => 'call_logs' %>">
+                        <img src="<%= image_path('call_logs_report.png') %>" class="img-responsive" alt="">
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <h4>Billing email</h4>
-                        <a href="<%= url_for :controller => 'reports', :action => 'index' %>" target="_blank">
-                        <img src="<%= image_path('email_3.jpg') %>" class="img-responsive" alt="">
+                        <h4>Activity Report</h4>
+                        <a href="<%= url_for :controller => 'reports', :action => 'activity_report' %>">
+                        <img src="<%= image_path('Activity_Report.png') %>" class="img-responsive" alt="">
                         </a>
                     </div>
                 </div>
