@@ -21,11 +21,10 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users
+  # devise_for :users
   resources :caregivers
   resources :calls
   resources :dashboard
-  resources :agency_details
   resources :reports
   resources :landing
   resources :schedule
@@ -49,7 +48,6 @@ Rails.application.routes.draw do
   post 'timecard_report' => "reports#timecard_report", as: 'search_timecard_report'
   get 'activity_report' => "reports#activity_report", as: 'activity_report'
   post 'activity_report' => "reports#activity_report", as: 'search_activity_report'
-  post 'update' => "agency_details#update", as: 'update_agency_details'
   get 'custom_prompt_report' => "reports#custom_prompt_report", as: 'custom_prompt_report'
   post 'custom_prompt_report' => "reports#custom_prompt_report", as: 'search_custom_prompt_report'
   # post 'search_call_logs' => 'reports#search_call_logs', as: 'search_call_logs'
@@ -59,7 +57,14 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
     get "/signup"   => "devise/registrations#new"
     get 'login', to: 'devise/sessions#new'
+    get 'agency_details', to: 'devise/registrations#edit'
+    put 'update_agency', to: 'users/registrations#update', as: "update_agency"
+
   end
+
+  devise_for :users, controllers: {
+      registrations: 'users/registrations'
+  }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
