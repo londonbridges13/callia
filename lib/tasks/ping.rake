@@ -13,6 +13,14 @@ namespace :ping do
 
       puts "ping successful..."
 
+      #Check for missed Clocked outs 
+      calls = Call.where()
     end
+  end
+end
+
+def check_for_missed_clock_outs(user)
+  user.calls.where(log_type: "Clocked In").where(clock_out_call).each do |c|
+
   end
 end

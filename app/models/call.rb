@@ -6,6 +6,8 @@ class Call < ActiveRecord::Base
   belongs_to :shift
   has_one :activity
   has_many :services
+  has_one :clock_out_call, :class_name => 'Call', :foreign_key => :clock_out_call_id
+  has_one :clock_in_call, :class_name => 'Call', :foreign_key => :clock_in_call_id
 
 
 # caregiver has made call from client's phone, check for shift
