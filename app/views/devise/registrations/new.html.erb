@@ -62,6 +62,22 @@
                  :placeholder => "Agency Telephone"%>
               </div>
 
+
+
+              <div class="field">
+                <div class="form-group"><label class="col-md-4 control-label pull-left">Time Zone</label>
+                  <div class="col-md-10 pull-left">
+                      <%= f.collection_select :time_zone, ["Central Time (US & Canada)",
+                        "Pacific Time (US & Canada)",
+                        "Alaska",
+                        "Hawaii",
+                        "Mountain Time (US & Canada)",
+                        "Eastern Time (US & Canada)"], :to_s, :to_s,
+                        {:class => 'prevent_collapse'},:class => "form-control m-b" %>
+                  </div>
+                </div>
+              </div>
+
               <div class="form-group">
                 <%= f.number_field :payroll, class:"form-control",
                  :placeholder => "Pay Roll"%>
@@ -81,7 +97,7 @@
 
 
               <div class="form-group">
-                  <div class="checkbox"><label> <input type="checkbox"><i></i> Agree the terms and policy </label></div>
+                  <div><label>By signing up, you agree the terms and conditions </label></div>
               </div>
 
               <div class="actions">

@@ -85,7 +85,7 @@
 <div class="col-lg-12">
 <div class="ibox float-e-margins">
 <div class="ibox-title">
-    <h5>Call Logs</h5>
+    <h5>Today's Call Logs</h5>
 
 
 
@@ -700,7 +700,7 @@ $(function() {
                 .change()
     }, 1000);
 
-    var data1 = <%=return_call_array(@calls.map{|c| local_time(c.created_at)})%>
+    var data1 = <%=@cin_hours%>
     var data2 = <%=@cout_hours%>
     $("#flot-dashboard-chart").length && $.plot($("#flot-dashboard-chart"), [
         data1, data2

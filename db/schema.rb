@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170710063637) do
+ActiveRecord::Schema.define(version: 20170717203755) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "activity"
@@ -189,7 +189,7 @@ ActiveRecord::Schema.define(version: 20170710063637) do
   create_table "shifts", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.float    "duration" #in minutes 
+    t.float    "duration"
     t.text     "notes"
     t.string   "status"
     t.datetime "created_at",         null: false
@@ -238,6 +238,7 @@ ActiveRecord::Schema.define(version: 20170710063637) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "agency_telephone"
+    t.string   "time_zone"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

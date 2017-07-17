@@ -45,7 +45,11 @@ class DashboardController < ApplicationController
     the_end = Date.tomorrow.beginning_of_day
     calls = Call.where(log_type: "Clocked In").where(user: current_user).where('created_at BETWEEN ? AND ?', start, the_end)
     calls.each do |c|
-      hour = c.created_at.strftime("%H").to_i
+      if current_user.time_zone
+        hour = c.created_at.in_time_zone(current_user.time_zone).strftime("%H").to_i
+      else
+        hour = c.created_at.in_time_zone("Central Time (US & Canada)").strftime("%H").to_i
+      end
       hours[hour - 1][1] += 1 # add 1 to call count
       p hours
     end
@@ -60,7 +64,11 @@ class DashboardController < ApplicationController
     the_end = Date.tomorrow.beginning_of_day
     calls = Call.where(log_type: "Clocked Out").where(user: current_user).where('created_at BETWEEN ? AND ?', start, the_end)
     calls.each do |c|
-      hour = c.created_at.strftime("%H").to_i
+      if current_user.time_zone
+        hour = c.created_at.in_time_zone(current_user.time_zone).strftime("%H").to_i
+      else
+        hour = c.created_at.in_time_zone("Central Time (US & Canada)").strftime("%H").to_i
+      end
       hours[hour - 1][1] += 1 # add 1 to call count
       p hours
     end

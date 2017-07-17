@@ -64,6 +64,19 @@
                                     <input id="address" name="address" type="text" class="form-control">
                                 </div>
                             </div>
+                            <div class="col-lg-6">
+                              <div class="form-group"><label class="col-md-4 control-label pull-left">Time Zone</label>
+                                <div class="col-md-10 pull-left">
+                                    <%= f.collection_select :time_zone, ["Eastern Time (US & Canada)",
+                                      "Pacific Time (US & Canada)",
+                                      "Alaska",
+                                      "Hawaii",
+                                      "Mountain Time (US & Canada)",
+                                      "Central Time (US & Canada)"], :to_s, :to_s,
+                                      {:class => 'prevent_collapse'},:class => "form-control m-b" %>
+                                </div>
+                              </div>
+                            </div>
                         </div>
                     </fieldset>
 
