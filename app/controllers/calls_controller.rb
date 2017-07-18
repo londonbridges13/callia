@@ -238,7 +238,7 @@ class CallsController < ApplicationController
         shift.call = call
         shift.save
         call.save
-        call.shift.started_shift_activity("#{call.caregiver.name} started shift at #{call.client.name}", call, shift)
+        shift.started_shift_activity("#{call.caregiver.name} started shift at #{call.client.name}", call, shift)
       end
 
     end
