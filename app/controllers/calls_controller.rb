@@ -235,6 +235,9 @@ class CallsController < ApplicationController
       p "This is shift #{shift.start_time}"
       if shift #link shift to call
         @call.shift = shift
+        shift.call = @call
+        shift.save
+        @call.save 
         @call.shift.started_shift_activity("#{@call.caregiver.name} started shift at #{@call.client.name}", @call, shift)
       end
 
