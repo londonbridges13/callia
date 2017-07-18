@@ -163,14 +163,14 @@ class CallsController < ApplicationController
   def record_voice
     # record the caller's voice as they say their name.
     #save recordingUrl
-    link_to_shift # only in clock in
 
     response = Twilio::TwiML::Response.new do |r|
       r.Say "Please say your name, then press pound", :voice => 'alice'
       r.Record :finishOnKey => '#', action: play_voice_path(id: @call.id)
     end
     render text: response.text
-
+    link_to_shift # only in clock in
+    p "Done-zo"
   end
 
   def play_voice #play_voice_path
