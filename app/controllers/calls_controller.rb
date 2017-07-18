@@ -220,9 +220,9 @@ class CallsController < ApplicationController
 
   def link_calls(cin_call) #timecard, cin_call means clock in call (thats a call with the log_type "clocked in")
     #link the two Calls together
-    cin_call.clock_out_call = @call.id
+    cin_call.clock_out_call = @call
     cin_call.save
-    @call.clock_in_call = cin_call.id
+    @call.clock_in_call = cin_call
     @call.save
   end
 
