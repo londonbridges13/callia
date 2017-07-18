@@ -169,7 +169,7 @@ class CallsController < ApplicationController
       r.Record :finishOnKey => '#', action: play_voice_path(id: @call.id)
     end
     render text: response.text
-    link_to_shift # only in clock in
+    link_to_shift(@call) # only in clock in
     p "Done-zo"
   end
 
@@ -215,9 +215,9 @@ class CallsController < ApplicationController
     end
   end
 
-  def link_to_shift
+  def link_to_shift(call)
     # if there is a shift with this client and caregiver on this day (between 3 hours from now), connect the call to the shift
-    shifts = @call.caregiver.shifts.where(client: @call.client).where('start_time BETWEEN ? AND ?', 3.hours.ago, Time.now + 3.hours)
+    shifts = call.caregiver.shifts.where(client: call.client).where('start_time BETWEEN ? AND ?', 3.hours.ago, Time.now + 3.hours)
     if shifts and shifts.count > 0
       # grab the closest shift to this call (Time.now)
       shift = nil
@@ -234,11 +234,11 @@ class CallsController < ApplicationController
 
       p "This is shift #{shift.start_time}"
       if shift #link shift to call
-        @call.shift = shift
-        shift.call = @call
+        call.shift = shift
+        shift.call = call
         shift.save
-        @call.save 
-        @call.shift.started_shift_activity("#{@call.caregiver.name} started shift at #{@call.client.name}", @call, shift)
+        call.save
+        call.shift.started_shift_activity("#{call.caregiver.name} started shift at #{call.client.name}", call, shift)
       end
 
     end
