@@ -7,7 +7,7 @@ class Shift < ActiveRecord::Base
   belongs_to :client
   belongs_to :caregiver
   belongs_to :recurring_shift
-  has_one :calls #should we have multiple calls for the same shift when everything on it will be the same?
+  has_one :call #should we have multiple calls for the same shift when everything on it will be the same?
   # We'll be using multiple calls to track the amount of calls that a person makes (to charge properly).
   # I handle this so we can go with it (Use one).
   has_many :activities
@@ -18,6 +18,16 @@ class Shift < ActiveRecord::Base
       activity = Activity.new(activity:text)
       activity.user = user
       activity.shift = shift
+      activity.save
+    end
+
+    def started_shift_activity(text, call, shift)
+      activity = Activity.new(activity:text)
+      activity.user = call.user
+      activity.shift = shift
+      activity.call = call
+      activity.client = call.client
+      activity.caregiver = call.caregiver
       activity.save
     end
 

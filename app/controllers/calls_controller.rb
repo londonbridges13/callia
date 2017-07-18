@@ -202,6 +202,7 @@ class CallsController < ApplicationController
       p "Printing Last call from this number and caregiver. #{last_call.log_type}"
     end
 
+
     if last_call and last_call.log_type == "Clocked In"
       # run clocked out
       p "redirecting"
@@ -209,9 +210,37 @@ class CallsController < ApplicationController
     else
       #run clocked in
       p "redirecting"
+      link_to_shift # only in clock in
       clock_in
     end
   end
+
+  def link_to_shift
+    # if there is a shift with this client and caregiver on this day (between 3 hours from now), connect the call to the shift
+    if @call.user
+      shifts = @call.caregiver.shifts.where(client: @call.client).where('start_time BETWEEN ? AND ?', 3.hours.ago, Time.now + 3.hours).where("call IS ?", nil)
+      if shifts.count > 1
+        # grab the closest shift to this call (Time.now)
+        shift = nil
+        shifts.each do |s|
+          if shift
+            if (s.start_time > shift.start_time and s.start_time < Time.now) or (s.start_time < shift.start_time and s.start_time > Time.now)
+              shift = s
+            end
+          else
+            shift = s
+          end
+        end
+
+        if shift #link shift to call
+          @call.shift = shift
+          @call.shift.started_shift_activity("#{@call.caregiver.name} started shift at #{@call.client.name}", @call, shift)
+        end
+
+      end
+    end
+  end
+
 
   def clock_out #clock_out_path, didn't use
     # ask for services completed
