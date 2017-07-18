@@ -207,7 +207,7 @@ class CallsController < ApplicationController
     if last_call and last_call.log_type == "Clocked In"
       # run clocked out
       #first link the two Calls together
-      link_calls(last_call)
+      link_calls(last_call, @call)
       # now run clocked out
       p "redirecting"
       clock_out
@@ -218,12 +218,11 @@ class CallsController < ApplicationController
     end
   end
 
-  def link_calls(cin_call) #timecard, cin_call means clock in call (thats a call with the log_type "clocked in")
+  def link_calls(cin_call, cout_call) #timecard, cin_call means clock in call (thats a call with the log_type "clocked in")
     #link the two Calls together
-    cin_call.clock_out_call = @call
-    cin_call.save
-    @call.clock_in_call = cin_call
-    @call.save
+    cin_call.clock_in_call = cout_call
+    cout_call.clock_out_call = cin_call
+    #I'm still confused as to why this works this way, but it does 
   end
 
   def link_to_shift(call)
