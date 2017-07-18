@@ -163,6 +163,7 @@ class CallsController < ApplicationController
   def record_voice
     # record the caller's voice as they say their name.
     #save recordingUrl
+    link_to_shift # only in clock in
 
     response = Twilio::TwiML::Response.new do |r|
       r.Say "Please say your name, then press pound", :voice => 'alice'
@@ -251,7 +252,6 @@ class CallsController < ApplicationController
   def clock_in #clock_in_path
     #record voice
     # save call time let user know they have successfully logged in
-    link_to_shift # only in clock in
     record_voice
     # @call.log_type = "Clocked In"
     # @call.save
