@@ -198,7 +198,7 @@ class CallsController < ApplicationController
 
   def define_call_type
     #clock in or clock out
-    last_call = Call.where(caregiver: @call.caregiver).where(caller_number: @call.caller_number).where("log_type = 'Clocked In' OR log_type = 'Clocked Out'").order("created_at").reverse.first
+    last_call = Call.where(caregiver: @call.caregiver).where(caller_number: @call.caller_number).where("log_type = 'Clocked In' OR log_type = 'Clocked Out' OR log_type = 'Missed Clock Out'").order("created_at").reverse.first
     if last_call and last_call.log_type
       p "Printing Last call from this number and caregiver. #{last_call.log_type}"
     end
@@ -206,13 +206,24 @@ class CallsController < ApplicationController
 
     if last_call and last_call.log_type == "Clocked In"
       # run clocked out
+      #first link the two Calls together
+      link_calls(last_call)
+      # now run clocked out
       p "redirecting"
       clock_out
-    else
+    else # Clock Out Missed Clock Out
       #run clocked in
       p "redirecting"
       clock_in
     end
+  end
+
+  def link_calls(cin_call) #timecard, cin_call means clock in call (thats a call with the log_type "clocked in")
+    #link the two Calls together
+    cin_call.clock_out_call = @call.id
+    cin_call.save
+    @call.clock_in_call = cin_call.id
+    @call.save
   end
 
   def link_to_shift(call)
