@@ -217,29 +217,27 @@ class CallsController < ApplicationController
 
   def link_to_shift
     # if there is a shift with this client and caregiver on this day (between 3 hours from now), connect the call to the shift
-    if @call.user
-      shifts = @call.caregiver.shifts.where(client: @call.client).where('start_time BETWEEN ? AND ?', 3.hours.ago, Time.now + 3.hours)
-      if shifts and shifts.count > 1
-        # grab the closest shift to this call (Time.now)
-        shift = nil
-        shifts.each do |s|
-          if shift and s.call == nil
-            if (s.start_time > shift.start_time and s.start_time < Time.now) or (s.start_time < shift.start_time and s.start_time > Time.now)
-              shift = s
-              p "This is s #{s.start_time}"
-            end
-          else
+    shifts = @call.caregiver.shifts.where(client: @call.client).where('start_time BETWEEN ? AND ?', 3.hours.ago, Time.now + 3.hours)
+    if shifts and shifts.count > 1
+      # grab the closest shift to this call (Time.now)
+      shift = nil
+      shifts.each do |s|
+        if shift and s.call == nil
+          if (s.start_time > shift.start_time and s.start_time < Time.now) or (s.start_time < shift.start_time and s.start_time > Time.now)
             shift = s
+            p "This is s #{s.start_time}"
           end
+        else
+          shift = s
         end
-
-        p "This is shift #{shift.start_time}"
-        if shift #link shift to call
-          @call.shift = shift
-          @call.shift.started_shift_activity("#{@call.caregiver.name} started shift at #{@call.client.name}", @call, shift)
-        end
-
       end
+
+      p "This is shift #{shift.start_time}"
+      if shift #link shift to call
+        @call.shift = shift
+        @call.shift.started_shift_activity("#{@call.caregiver.name} started shift at #{@call.client.name}", @call, shift)
+      end
+
     end
   end
 
