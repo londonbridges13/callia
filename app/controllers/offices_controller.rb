@@ -10,7 +10,8 @@ class OfficesController < ApplicationController
   # GET /offices/1
   # GET /offices/1.json
   def show
-    set_activities
+    @activities = set_activities
+    @activities.sort_by(&:created_at).reverse
     count_calls # get the amount of calls
     create_contact
   end
@@ -39,8 +40,9 @@ class OfficesController < ApplicationController
       end
       @activities.sort_by(&:created_at).reverse
     end
-    @activities.sort_by(&:created_at).reverse
+    return @activities.sort_by(&:created_at).reverse
 
+    # @activities = Activity.where("client = 'Rails 3' OR activity = 'Rails 4'")
   end
 
 
