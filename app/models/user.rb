@@ -54,5 +54,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def check_for_missed_clock_outs
+    self.calls.where(log_type: "Clocked In").where("clock_out_call IS NULL").each do |c|
+      if c.created_at < 16.hours.ago
+        # this is a unusually long work duration, the caregiver must have forgot to clock out
+        call = Call.new
+        call.log_type = "Missed Clock Out"
+        call.caregiver = c.caregiver
+        call.client = c.client
+        call.clock_in_call = c.id
+        call.save
+      end
+    end
+  end
 
 end
