@@ -210,7 +210,6 @@ class CallsController < ApplicationController
     else
       #run clocked in
       p "redirecting"
-      link_to_shift # only in clock in
       clock_in
     end
   end
@@ -252,6 +251,7 @@ class CallsController < ApplicationController
   def clock_in #clock_in_path
     #record voice
     # save call time let user know they have successfully logged in
+    link_to_shift # only in clock in
     record_voice
     # @call.log_type = "Clocked In"
     # @call.save
