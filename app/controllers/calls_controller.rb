@@ -219,7 +219,7 @@ class CallsController < ApplicationController
     # if there is a shift with this client and caregiver on this day (between 3 hours from now), connect the call to the shift
     if @call.user
       shifts = @call.caregiver.shifts.where(client: @call.client).where('start_time BETWEEN ? AND ?', 3.hours.ago, Time.now + 3.hours).where("call IS ?", nil)
-      if shifts.count > 1
+      if shifts and shifts.count > 1
         # grab the closest shift to this call (Time.now)
         shift = nil
         shifts.each do |s|
