@@ -222,7 +222,8 @@ class CallsController < ApplicationController
     #link the two Calls together
     cin_call.clock_in_call = cout_call
     cout_call.clock_out_call = cin_call
-    #I'm still confused as to why this works this way, but it does 
+    #I'm still confused as to why this works this way, but it does
+    # I believe it should be the opposite
   end
 
   def link_to_shift(call)
