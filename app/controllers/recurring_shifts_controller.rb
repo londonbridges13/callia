@@ -69,6 +69,6 @@ class RecurringShiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recurring_shift_params
-      params.require(:recurring_shift).permit(:frequency, :time_span)
+      params.require(:recurring_shift).permit(:frequency, :time_span, :end_recurrence_date)
     end
 end

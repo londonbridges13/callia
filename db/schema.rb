@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170717224015) do
+ActiveRecord::Schema.define(version: 20170724201727) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "activity"
@@ -151,9 +151,10 @@ ActiveRecord::Schema.define(version: 20170717224015) do
   create_table "recurring_shifts", force: :cascade do |t|
     t.integer  "frequency"
     t.string   "time_span"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "days",       default: "{}"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "days",                default: "{}"
+    t.datetime "end_recurrence_date"
   end
 
   create_table "reminders", force: :cascade do |t|
