@@ -16,7 +16,8 @@ class ShiftsController < ApplicationController
   def new
     @shift = Shift.new
     @recurring_shift = RecurringShift.new
-    @frequencies = [["Daily", 1], ["Weekly", 7], ["Bi-Weekly", 14], ["Monthly", 30]]
+    @frequencies = [["Select", 9999
+      ],["Daily", 1], ["Weekly", 7], ["Bi-Weekly", 14], ["Monthly", 30]]
     det = Date.today + 365.days
     @default_end_time = "#{det.month}/#{det.day}/#{det.year}"
   end
@@ -25,8 +26,15 @@ class ShiftsController < ApplicationController
   def edit
     if @shift.recurring_shift
       @recurring_shift = @shift.recurring_shift
+      det = @recurring_shift.end_recurrence_date
+      @default_end_time = @recurring_shift.time_span
+      @frequencies = [["Select", 9999], ["Daily", 1], ["Weekly", 7], ["Bi-Weekly", 14], ["Monthly", 30]]
+      @selected_frequency = @recurring_shift.frequency
     else
       @recurring_shift = RecurringShift.new
+      det = Date.today + 365.days
+      @default_end_time = "#{det.month}/#{det.day}/#{det.year}"
+      @frequencies = [["Select", 9999], ["Daily", 1], ["Weekly", 7], ["Bi-Weekly", 14], ["Monthly", 30]] # select should never repeat
     end
   end
 
@@ -38,8 +46,9 @@ class ShiftsController < ApplicationController
     respond_to do |format|
       if @shift.save
         @shift.set_duration
+        @shift.office = @shift.caregiver.office
         @recurring_shift.end_recurrence_date = Date.strptime(@recurring_shift.time_span, "%m/%d/%Y")
-        if @recurring_shift.frequency and @recurring_shift.end_recurrence_date
+        if @recurring_shift.frequency and @recurring_shift.end_recurrence_date and (@recurring_shift.frequency < 99)
           @recurring_shift.save
           create_recurring_shifts
         end
@@ -112,6 +121,8 @@ class ShiftsController < ApplicationController
         new_shift.client = latest_shift.client
         new_shift.notes = latest_shift.notes
         new_shift.status = latest_shift.status
+        new_shift.duration = latest_shift.duration
+        new_shift.office = new_shift.caregiver.office
 
         #check if new_shift.start_time < end_date
         if new_shift.start_time < end_date
@@ -143,13 +154,13 @@ class ShiftsController < ApplicationController
 
   def created_shift_activity
     if @shift.client
-      @shift.save_activity("#{current_user.name} created shift for #{@shift.client}", current_user, @shift)
+      @shift.save_activity("#{current_user.name} created shift for #{@shift.client.name} with #{@shift.caregiver.name}", current_user, @shift)
     end
   end
 
   def updated_shift_activity
     if @shift.client
-      @shift.save_activity("#{current_user.name} updated shift for #{@shift.client}", current_user, @shift)
+      @shift.save_activity("#{current_user.name} updated shift for #{@shift.client.name} with #{@shift.caregiver.name}", current_user, @shift)
     end
   end
 

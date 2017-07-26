@@ -12,56 +12,73 @@
       </div>
     <% end %>
 
-    <div class="hr-line-dashed"></div>
-
-    <div class="field">
-      <div class="form-group"><label class="col-sm-2 control-label">Name</label>
-        <div class="row">
-          <div class="col-sm-6">
-            <%= f.text_field :name, class:"form-control" %>
-            <span class="help-block m-b-none">Enter the Name of the Office. May even be the name of your Agency</span>
-            <br>
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+          <h5>Create Office </h5>
+          <div class="ibox-tools">
+              <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+              </a>
+              <a class="close-link">
+                  <i class="fa fa-times"></i>
+              </a>
           </div>
-        </div>
       </div>
-    </div>
-
-
-
-
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Phone</label>
-        <div class="row">
-          <div class="col-sm-4">
-              <%= f.text_field :telephone, class:"form-control", :data => {:mask=> '(999) 999-9999'} %>
-              <span class="help-block">(123) 456-7890   (Optional)</span>
-              <br>
-              <br>
+      <div class="ibox-content">
+          <div class="field">
+            <div class="form-group"><label class="col-sm-2 control-label">Name</label>
+              <div class="row">
+                <div class="col-sm-6">
+                  <%= f.text_field :name, class:"form-control" %>
+                  <span class="help-block m-b-none">Enter the Name of the Office. May even be the name of your Agency</span>
+                  <br>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-    </div>
 
-    <div class="field">
-      <div class="form-group"><label class="col-sm-2 control-label">Select Supervisor</label>
-        <div class="row">
-          <div class="col-sm-4">
-            <%= f.collection_select :supervisor_id, current_user.caregivers, :id, :name,
-              {:class => 'prevent_collapse'},:class => "form-control m-b", :include_blank => 'Select' %>
+
+
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Phone</label>
+              <div class="row">
+                <div class="col-sm-4">
+                    <%= f.text_field :telephone, class:"form-control", :data => {:mask=> '(999) 999-9999'} %>
+                    <span class="help-block">(123) 456-7890   (Optional)</span>
+                    <br>
+                    <br>
+                </div>
+              </div>
           </div>
-        </div>
+
+          <%if current_user.caregivers.count > 0%>
+
+            <div class="field">
+              <div class="form-group"><label class="col-sm-2 control-label">Select Supervisor</label>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <%= f.collection_select :supervisor_id, current_user.caregivers, :id, :name,
+                      {:class => 'prevent_collapse'},:class => "form-control m-b", :include_blank => 'Select' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <%end%>
+
+
+          <div class="actions">
+              <%= f.submit nil, class: "btn btn-primary block full-width m-b" %>
+          </div>
+
+          <div class="actions">
+            <%if @office.id%>
+                <%= link_to "Delete Office", office_path(@office), :method => :delete,  data: {confirm: 'Are you sure?' },
+                  :class => "btn btn-danger block half-width m-b btn-outline" %>
+            <%end%>
+          </div>
       </div>
-    </div>
-
-
-    <div class="actions">
-        <%= f.submit nil, class: "btn btn-primary block full-width m-b" %>
-    </div>
-
-    <div class="actions">
-      <%if @office.id%>
-          <%= link_to "Delete Office", office_path(@office), :method => :delete,  data: {confirm: 'Are you sure?' },
-            :class => "btn btn-danger block half-width m-b btn-outline" %>
-      <%end%>
     </div>
 
   </div>

@@ -18,6 +18,7 @@ class Shift < ActiveRecord::Base
       activity = Activity.new(activity:text)
       activity.user = user
       activity.shift = shift
+      activity.client = shift.client
       activity.save
     end
 
