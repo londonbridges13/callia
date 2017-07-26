@@ -118,7 +118,11 @@
           <div class="row">
             <div class="col-sm-12">
               <label class="font-normal">Would like to repeat this shift in the future?</label><br>
-              <input type="checkbox" class="js-switch_4" />
+              <%if @shift.recurring_shift%>
+                <input type="checkbox" checked class="js-switch_4" />
+              <%else%>
+                <input type="checkbox" class="js-switch_4" />
+              <%end%>
             </div>
           </div>
           <div class="row">
@@ -126,7 +130,7 @@
               <div class="form-group"><label class="col-sm-2 control-label">Frequency</label>
                 <div class="col-sm-5">
                   <%= u.select :frequency, options_for_select(@frequencies, @selected_frequency),
-                  {:class => 'prevent_collapse'},:class => "form-control m-b", :include_blank => 'Select' %>
+                  {:class => 'prevent_collapse', :id => 'frequency-id'},:class => "form-control m-b", :include_blank => 'Select' %>
                 </div>
               </div>
             </div>
@@ -135,8 +139,10 @@
           <div class="form-group" id="data_1">
             <label class="control-label">End Repeat</label>
             <div class="input-group date col-sm-6">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><%= u.text_field :time_span, class:"form-control", value:"#{@default_end_time}"%>
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><%= u.text_field :time_span, class:"form-control", value:"#{@default_end_time}", :id => 'time_span-id'%>
             </div>
+            <a data-toggle="modal" class="btn btn-primary pull-right" href="#modal-form">Save</a>
+            <br>
           </div>
 
         <% end %>
@@ -148,6 +154,32 @@
   <div class="actions">
     <%= f.submit nil, class: "btn btn-success block full-width m-b" %>
   </div>
+
+
+    <div class="ibox-content">
+      <div id="modal-form" class="modal fade" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-body">
+                      <div class="row">
+                          <div class="col-sm-12 b-r"><h3 class="m-t-none m-b pull-center">Update All Future Shifts</h3>
+
+                              <p>Would you like to update all future shifts?</p> <br><br><br>
+
+                              <form role="form">
+                                  <div style="text-align: center" class="col-sm-8">
+                                    <button class="btn btn-md btn-primary m-t-n-sm col-sm-5" type="submit" value="A" onclick="<%update_recurring_shifts%>"><strong>Yes</strong></button>
+                                    <span style="width: 10px"></span>
+                                    <button class="btn btn-md btn-success pull-right m-t-n-sm col-sm-5" value="B" type="submit"><strong>No</strong></button>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
 <% end %>
 
 

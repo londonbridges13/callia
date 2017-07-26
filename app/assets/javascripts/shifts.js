@@ -24,3 +24,13 @@
 //= require typehead/bootstrap3-typeahead.min.js
 //= require codemirror/codemirror.js
 //= require codemirror/mode/javascript/javascript.js
+
+
+
+function update_recurring_shifts() {
+
+}
+
+function has_recurrence_changed() {
+
+}

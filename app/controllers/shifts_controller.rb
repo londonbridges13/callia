@@ -16,8 +16,7 @@ class ShiftsController < ApplicationController
   def new
     @shift = Shift.new
     @recurring_shift = RecurringShift.new
-    @frequencies = [["Select", 9999
-      ],["Daily", 1], ["Weekly", 7], ["Bi-Weekly", 14], ["Monthly", 30]]
+    @frequencies = [["Select", 9999],["Daily", 1], ["Weekly", 7], ["Bi-Weekly", 14], ["Monthly", 30]]
     det = Date.today + 365.days
     @default_end_time = "#{det.month}/#{det.day}/#{det.year}"
   end
@@ -25,12 +24,14 @@ class ShiftsController < ApplicationController
   # GET /shifts/1/edit
   def edit
     if @shift.recurring_shift
+      p "Has RecurringShift"
       @recurring_shift = @shift.recurring_shift
       det = @recurring_shift.end_recurrence_date
       @default_end_time = @recurring_shift.time_span
       @frequencies = [["Select", 9999], ["Daily", 1], ["Weekly", 7], ["Bi-Weekly", 14], ["Monthly", 30]]
       @selected_frequency = @recurring_shift.frequency
     else
+      p "Has no RecurringShift"
       @recurring_shift = RecurringShift.new
       det = Date.today + 365.days
       @default_end_time = "#{det.month}/#{det.day}/#{det.year}"
@@ -68,18 +69,18 @@ class ShiftsController < ApplicationController
     respond_to do |format|
       if @shift.update(shift_params)
         @shift.set_duration
-        if @recurring_shift
-          if @recurring_shift.update(recurring_shift_params)
+        if @shift.recurring_shift
+          @recurring_shift = @shift.recurring_shift
+          p "Updating old Recurring Shift"
+          if @shift.recurring_shift.update(recurring_shift_params)
             update_recurring_shifts
           end
         else
+          p "Creating new Recurring Shift"
           @recurring_shift = RecurringShift.new(recurring_shift_params)
           @recurring_shift.end_recurrence_date = Date.strptime(@recurring_shift.time_span, "%m/%d/%Y")
           @recurring_shift.save
           create_recurring_shifts # must create because there was no recurrence before
-        end
-        unless @recurring_shift.shifts.include? @shift
-          @recurring_shift.shifts.push @shift
         end
         updated_shift_activity
         format.html { redirect_to @shift, notice: 'Shift was successfully updated.' }
@@ -93,6 +94,7 @@ class ShiftsController < ApplicationController
 
 
   def create_recurring_shifts
+    p "Creating multiple Recurring Shifts"
     # here is where the magic happens
     #first add the @shift to the recurring_shift.shifts
     unless @recurring_shift.shifts.include? @shift
@@ -150,7 +152,26 @@ class ShiftsController < ApplicationController
     # ask user in alert as to whether they would like to change the future shifts
     # if yes then delete all future shifts that are linked to this recurring_shift
     # and recreate them with the new frequency and time (run create_recurring_shifts again)
+    p "Updating all future shifts..."
+    p "For Shift: #{@shift.id}"
+
+    
   end
+  helper_method :update_recurring_shifts
+
+  def recurrence_has_changed(frequency = nil, time_span = nil)
+    p frequency
+    p time_span
+    if frequency and time_span
+      if @shift.recurring_shift and  @shift.recurring_shift.frequency == frequency and  @shift.recurring_shift.time_span = time_span
+        return false
+      else #we check for recurring_shift in the form so we should be ok
+        return true
+      end
+    end
+  end
+  helper_method :recurrence_has_changed
+
 
   def created_shift_activity
     if @shift.client
