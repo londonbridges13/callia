@@ -59,7 +59,7 @@
 <tbody>
   <% @caregivers.each do |c| %>
     <tr class="gradeX">
-        <td><%= link_to c.name, caregiver_path(c) %></td>
+        <td><%= link_to c.name, edit_caregiver_path(c) %></td>
         <td class="center"><%=c.employee_code%></td>
         <%if c.office and c.office.name%>
           <td><%=c.office.name%></td>

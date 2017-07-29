@@ -25,12 +25,8 @@
 //= require codemirror/codemirror.js
 //= require codemirror/mode/javascript/javascript.js
 
-
-
-function update_recurring_shifts() {
-
-}
-
-function has_recurrence_changed() {
-
-}
+//= require jeditable/jquery.jeditable.js
+//= require dataTables/datatables.min.js
+//= require jqGrid/i18n/grid.locale-el.js
+//= require jqGrid/jquery.jqGrid.min.js
+//= require footable/footable.all.min.js

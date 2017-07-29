@@ -1,35 +1,148 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Shifts</h1>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Shifts</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="<%= url_for :controller => 'dashboard', :action => 'index' %>">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>Shifts</strong>
+            </li>
+        </ol>
+        <a href="/shifts/new" class="btn btn-w-m btn-success">Create Shift</a>
 
-<table>
-  <thead>
-    <tr>
-      <th>Start time</th>
-      <th>End time</th>
-      <th>Duration</th>
-      <th>Notes</th>
-      <th>Status</th>
-      <th colspan="3"></th>
+</div>
+<div class="col-lg-2">
+
+</div>
+        </div>
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+<div class="col-lg-12">
+<div class="ibox float-e-margins">
+<div class="ibox-title">
+    <h5>All Shifts</h5>
+    <div class="ibox-tools">
+        <a class="collapse-link">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-wrench"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            <li>
+                <a href="#">Config option 1</a>
+            </li>
+            <li>
+                <a href="#">Config option 2</a>
+            </li>
+        </ul>
+        <a class="close-link">
+            <i class="fa fa-times"></i>
+        </a>
+    </div>
+</div>
+<div class="ibox-content">
+
+<table class="table table-striped table-bordered table-hover dataTables-example">
+<thead>
+<tr>
+    <th>Shifts</th>
+    <th>Client</th>
+    <th>Employee</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Duration</th>
+    <th>Notes</th>
+    <th>Status</th>
+</tr>
+</thead>
+<tbody>
+  <% @shifts.each do |s| %>
+    <tr class="gradeX">
+        <td><%= link_to "Edit Shift", edit_shift_path(s)%></td>
+        <%if s.client and s.client.name%>
+          <td><%= link_to s.client.name, edit_client_path(s.client) %></td>
+        <%else%>
+          <td></td>
+        <%end%>
+        <%if s.caregiver and s.caregiver.name%>
+          <td><%= link_to s.caregiver.name, edit_caregiver_path(s.caregiver) %></td>
+        <%else%>
+          <td></td>
+        <%end%>
+        <td class="center"><%=local_time(s.start_time)%></td>
+        <td class="center"><%=local_time(s.end_time)%></td>
+        <td class="center"><%=s.duration%></td>
+        <td class="center"><%=s.notes%></td>
+        <%if s.status%>
+          <td><%= link_to s.status, edit_shift_path(s) %></td>
+        <%else%>
+          <td></td>
+        <%end%>
+
     </tr>
-  </thead>
-
-  <tbody>
-    <% @shifts.each do |shift| %>
-      <tr>
-        <td><%= shift.start_time %></td>
-        <td><%= shift.end_time %></td>
-        <td><%= shift.duration %></td>
-        <td><%= shift.notes %></td>
-        <td><%= shift.status %></td>
-        <td><%= link_to 'Show', shift %></td>
-        <td><%= link_to 'Edit', edit_shift_path(shift) %></td>
-        <td><%= link_to 'Destroy', shift, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+  <% end %>
+</tbody>
+<tfoot>
+  <tr>
+    <th>Shifts</th>
+    <th>Client</th>
+    <th>Employee</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Duration</th>
+    <th>Notes</th>
+    <th>Status</th>
+  </tr>
+</tfoot>
 </table>
 
-<br>
+</div>
+</div>
+</div>
+</div>
 
-<%= link_to 'New Shift', new_shift_path %>
+</div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+$(function() {
+
+    $('.dataTables-example').DataTable({
+        pageLength: 10,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [
+            { extend: 'copy'},
+            {extend: 'csv'},
+            {extend: 'excel', title: 'ExampleFile'},
+            {extend: 'pdf', title: 'ExampleFile'},
+
+            {extend: 'print',
+                customize: function (win){
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+
+                    $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                }
+            }
+        ]
+
+    });
+
+
+});
+
+
+
+</script>
+
+<% end %>

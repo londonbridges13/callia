@@ -54,7 +54,7 @@ class CaregiversController < ApplicationController
       if @caregiver.save
         save_caregiver
         format.html { redirect_to caregivers_url, notice: 'Caregiver was successfully created.' }
-        format.json { render :show, status: :created, location: @caregiver }
+        format.json { render :index, status: :created, location: caregivers_url }
       else
         format.html { render :new }
         format.json { render json: @caregiver.errors, status: :unprocessable_entity }
@@ -70,7 +70,7 @@ class CaregiversController < ApplicationController
         add_options
         updated_employee_activity
         format.html { redirect_to caregivers_url, notice: 'Caregiver was successfully updated.' }
-        format.json { render :show, status: :ok, location: @caregiver }
+        format.json { render :index, status: :ok, location: caregivers_url }
       else
         format.html { render :edit }
         format.json { render json: @caregiver.errors, status: :unprocessable_entity }
