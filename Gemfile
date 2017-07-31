@@ -15,6 +15,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 gem 'rails_12factor', group: :production
 
+gem 'mailgun-ruby', '~>1.1.6'
 gem 'time_difference'
 gem 'koudoku'
 gem 'thinreports'

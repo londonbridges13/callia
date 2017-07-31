@@ -1,3 +1,4 @@
+require 'mailgun'
 class User < ActiveRecord::Base
 # Added by Koudoku.
   has_one :subscription
@@ -52,6 +53,30 @@ class User < ActiveRecord::Base
       end
 
     end
+  end
+
+  def send_welcome_email
+    # using mailgun
+    mg_client = Mailgun::Client.new 'pubkey-95063cbb5dbe178557c030d32473676c' # public api key
+
+    message_params =  { from: 'lyndon@sandbox7df54b75c00741d7b09014408f57254e.mailgun.org',
+                    to:   'lyndonmckay13@gmail.com',
+                    subject: 'Mailgun is awesome!',
+                    text:    'It is really easy to send a message!'
+                  }
+
+    # Send your message through the client
+    mg_client.send_message 'sandbox7df54b75c00741d7b09014408f57254e.mailgun.org', message_params
+
+  end
+
+  def send_simple_message
+
+    RestClient.post "https://api.mailgun.net/v3/sandbox7df54b75c00741d7b09014408f57254e.mailgun.org",
+    :from => "postmaster@sandbox7df54b75c00741d7b09014408f57254e.mailgun.org",
+    :to => "lyndonmckay13@gmail.com",
+    :subject => "Hello",
+    :text => "Testing some Mailgun awesomness!"
   end
 
   def check_for_missed_clock_outs

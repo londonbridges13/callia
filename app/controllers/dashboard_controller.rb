@@ -2,11 +2,13 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
 
   def index
+    # s = Subscription.new
+    # s.load_plans
     unless current_user
       redirect_to :controller => 'landing', :action => 'index'
     end
 
-    if current_user
+    if current_user and current_user.subscription
       current_user.set_basic_services #if user just registered, create basic services for the calls
 
       @number = "No Number"
@@ -17,6 +19,10 @@ class DashboardController < ApplicationController
         end
         @number = "("+@number[0...3]+") "+@number[3...6]+"-"+@number[6...number.length]
       end
+    elsif current_user
+      # there is a user logged in but they don't have a plan
+      # send them to /pricing
+      redirect_to "/pricing"
     end
 
     call_logs # display calls for the data table
