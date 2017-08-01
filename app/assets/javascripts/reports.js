@@ -34,3 +34,8 @@
 //= require codemirror/mode/javascript/javascript.js
 
 //= require_tree ./application
+
+function PlaySound(melody) {
+    var snd = new Audio(melody);
+    snd.play();
+}

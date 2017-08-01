@@ -80,8 +80,3 @@
 //= require codemirror/mode/javascript/javascript.js
 
 //= require wow/wow.min.js
-
-function PlaySound(melody) {
-    var snd = new Audio(melody);
-    snd.play();
-}
