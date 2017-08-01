@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :phone_numbers
   # Added by Koudoku.
   mount Koudoku::Engine, at: 'koudoku'
   scope module: 'koudoku' do
@@ -50,6 +51,8 @@ Rails.application.routes.draw do
   post 'activity_report' => "reports#activity_report", as: 'search_activity_report'
   get 'custom_prompt_report' => "reports#custom_prompt_report", as: 'custom_prompt_report'
   post 'custom_prompt_report' => "reports#custom_prompt_report", as: 'search_custom_prompt_report'
+  get 'evv_recording' => "reports#evv_recording", as: 'evv_recording'
+  post 'evv_recording' => "reports#evv_recording", as: 'search_evv_recording'
   # post 'search_call_logs' => 'reports#search_call_logs', as: 'search_call_logs'
   #User Paths
 
