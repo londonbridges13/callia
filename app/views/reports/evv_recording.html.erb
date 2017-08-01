@@ -89,6 +89,7 @@
           <td></td>
         <%end%>
         <%if c.caregiver and c.caregiver.initial_recorded_voice%>
+          <td>
             <button class="btn btn-default btn-circle" type="button" onclick="PlaySound('<%=c.caregiver.initial_recorded_voice%>')">
               <i class="fa fa-play"></i>
             </button>
