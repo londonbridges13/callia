@@ -96,7 +96,7 @@
               Your browser does not support the audio element.
             </audio>
             </button>
-            <button class="btn btn-default btn-circle" type="button" onclick="PlaySound(<%=c.caregiver.initial_recorded_voice%>)">
+            <button class="btn btn-default btn-circle" type="button" onclick="PlaySound('<%=c.caregiver.initial_recorded_voice%>')">
               <i class="fa fa-play"></i>
             </button>
           </td>
@@ -105,7 +105,7 @@
         <%end%>
         <%if c.recorded_voice%>
           <td>
-            <button class="btn btn-default btn-circle" type="button" onclick="PlaySound(<%=c.recorded_voice%>)">
+            <button class="btn btn-default btn-circle" type="button" onclick="PlaySound('<%=c.recorded_voice%>')">
               <i class="fa fa-play"></i>
             </button>
             <button>
