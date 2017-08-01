@@ -89,11 +89,13 @@
           <td></td>
         <%end%>
         <%if c.caregiver and c.caregiver.initial_recorded_voice%>
+            <button>
             <audio controls>
               <source src="<%=c.caregiver.initial_recorded_voice%>" type="audio/ogg">
               <source src="<%=c.caregiver.initial_recorded_voice%>" type="audio/mpeg">
               Your browser does not support the audio element.
             </audio>
+            </button>
             <button class="btn btn-default btn-circle" type="button" onclick="PlaySound(<%=c.caregiver.initial_recorded_voice%>)">
               <i class="fa fa-play"></i>
             </button>
@@ -105,6 +107,13 @@
           <td>
             <button class="btn btn-default btn-circle" type="button" onclick="PlaySound(<%=c.recorded_voice%>)">
               <i class="fa fa-play"></i>
+            </button>
+            <button>
+            <audio controls>
+              <source src="<%=c.recorded_voice%>" type="audio/ogg">
+              <source src="<%=c.recorded_voice%>" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
             </button>
           </td>
         <%else%>
