@@ -89,7 +89,11 @@
           <td></td>
         <%end%>
         <%if c.caregiver and c.caregiver.initial_recorded_voice%>
-          <td class="center"><%=c.caregiver.initial_recorded_voice%>
+            <audio controls>
+              <source src="<%=c.caregiver.initial_recorded_voice%>" type="audio/ogg">
+              <source src="<%=c.caregiver.initial_recorded_voice%>" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
             <button class="btn btn-default btn-circle" type="button" onclick="PlaySound(<%=c.caregiver.initial_recorded_voice%>)">
               <i class="fa fa-play"></i>
             </button>
@@ -126,6 +130,13 @@
 </tfoot>
 </table>
 
+<script>
+    function PlaySound(melody) {
+        var snd = new Audio(melody);
+        snd.play();
+    }
+</script>
+
 </div>
 </div>
 </div>
@@ -136,10 +147,6 @@
 <% content_for :javascript do %>
 
 <script type="text/javascript">
-  function PlaySound(melody) {
-      var snd = new Audio(melody);
-      snd.play();
-  }
 
 $(function() {
 
