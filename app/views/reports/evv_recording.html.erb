@@ -90,8 +90,8 @@
         <%end%>
         <%if c.caregiver and c.caregiver.initial_recorded_voice%>
           <td class="center"><%=c.caregiver.initial_recorded_voice%>
-            <button class="btn btn-default btn-circle" type="button" onclick="PlaySound(c.caregiver.initial_recorded_voice)">
-              <i class="fa fa-play-circle"></i>
+            <button class="btn btn-default btn-circle" type="button" onclick="PlaySound(<%=c.caregiver.initial_recorded_voice%>)">
+              <i class="fa fa-play"></i>
             </button>
           </td>
         <%else%>
@@ -99,8 +99,8 @@
         <%end%>
         <%if c.recorded_voice%>
           <td>
-            <button class="btn btn-default btn-circle" type="button" onclick="PlaySound(c.recorded_voice)">
-              <i class="fa fa-play-circle"></i>
+            <button class="btn btn-default btn-circle" type="button" onclick="PlaySound(<%=c.recorded_voice%>)">
+              <i class="fa fa-play"></i>
             </button>
           </td>
         <%else%>
@@ -133,12 +133,6 @@
 
 </div>
 
-<script>
-    function PlaySound(melody) {
-        var snd = new Audio(melody);
-        snd.play();
-    }
-</script>
 <% content_for :javascript do %>
 
 <script type="text/javascript">
