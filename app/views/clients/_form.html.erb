@@ -90,6 +90,13 @@
           <div class="actions">
             <%= f.submit nil, class: "btn btn-primary block full-width m-b" %>
           </div>
+
+          <div class="actions">
+            <%if @client.id%>
+                <%= link_to "Delete Client", client_path(@client), :method => :delete,  data: {confirm: 'Are you sure?' },
+                  :class => "btn btn-danger block half-width m-b btn-outline" %>
+            <%end%>
+          </div>
       </div>
     </div>
 

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :admins
   resources :phone_numbers
   # Added by Koudoku.
   mount Koudoku::Engine, at: 'koudoku'

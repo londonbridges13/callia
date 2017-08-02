@@ -163,7 +163,7 @@
           <div class="actions">
             <br/>
             <%if @caregiver.id%>
-                <%= link_to "Delete Employee", office_path(@caregiver), :method => :delete,  data: {confirm: 'Are you sure?' },
+                <%= link_to "Delete Employee", caregiver_path(@caregiver), :method => :delete,  data: {confirm: 'Are you sure?' },
                   :class => "btn btn-danger block half-width m-b btn-outline" %>
             <%end%>
           </div>

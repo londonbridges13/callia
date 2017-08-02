@@ -1,25 +1,70 @@
 <%= form_for(@phone_number) do |f| %>
-  <% if @phone_number.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@phone_number.errors.count, "error") %> prohibited this phone_number from being saved:</h2>
+  <div class="m-t" role="form" >
+    <% if @phone_number.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@phone_number.errors.count, "error") %> prohibited this phone number from being saved:</h2>
 
-      <ul>
-      <% @phone_number.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @phone_number.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+          <h5>Create Phone Number </h5>
+          <div class="ibox-tools">
+              <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+              </a>
+              <a class="close-link">
+                  <i class="fa fa-times"></i>
+              </a>
+          </div>
+      </div>
+      <div class="ibox-content">
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Phone Number</label>
+              <div class="row">
+                <div class="col-sm-4">
+                    <%= f.text_field :number, class:"form-control", :data => {:mask=> '(999) 999-9999'} %>
+                    <span class="help-block">(123) 456-7890   (Optional)</span>
+                    <br>
+                    <br>
+                </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Phone Number</label>
+              <div class="row">
+                <div class="col-sm-4">
+                    <%= f.check_box :is_used, class:"form-control", unchecked:"unchecked", onclick:"return false;" %>
+                    <span class="help-block">Default is false. Cannot Change</span>
+                    <br>
+                    <br>
+                </div>
+              </div>
+          </div>
+
+
+
+          <div class="actions">
+              <%= f.submit nil, class: "btn btn-primary block full-width m-b" %>
+          </div>
+
+          <div class="actions">
+            <%if @phone_number.id%>
+                <%= link_to "Delete Phone Number", phone_number_path(@phone_number), :method => :delete,  data: {confirm: 'Are you sure?' },
+                  :class => "btn btn-danger block half-width m-b btn-outline" %>
+            <%end%>
+          </div>
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :number %><br>
-    <%= f.text_field :number %>
   </div>
-  <div class="field">
-    <%= f.label :is_used %><br>
-    <%= f.check_box :is_used %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
 <% end %>
