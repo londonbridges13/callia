@@ -102,7 +102,7 @@ class CallsController < ApplicationController
   def get_employee
     code = params[:Digits]
 
-    employee = Caregiver.find_by_employee_code(code)
+    employee = @call.user.caregivers.where(employee_code: code)#.find_by_employee_code(code) TEST
 
     if employee
       @call.caregiver = employee
