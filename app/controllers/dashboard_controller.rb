@@ -18,6 +18,9 @@ class DashboardController < ApplicationController
           @number = number[2...number.length]
         end
         @number = "("+@number[0...3]+") "+@number[3...6]+"-"+@number[6...number.length]
+      else
+        #give the user a number
+        add_phone_number_to_user
       end
     elsif current_user
       # there is a user logged in but they don't have a plan
@@ -36,6 +39,27 @@ class DashboardController < ApplicationController
       [13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[20,0],[21,0],[22,0],[23,0],[24,0]]
       @cin_hours = hours
       @cout_hours = hours
+    end
+  end
+
+
+  def add_phone_number_to_user
+    # this means that the user has signed up, selected a plan, and entered credit card info
+    unless current_user.call_number
+      number = PhoneNumber.where(is_used: false).first
+      if number
+        number.user_id = current_user.id
+        current_user.call_number = number.number
+        number.is_used = true
+        number.save
+        current_user.save
+
+        #reload the page
+        redirect_to "/"
+      else
+        #email me to buy a number from twilio
+
+      end
     end
   end
 

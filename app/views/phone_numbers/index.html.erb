@@ -55,7 +55,7 @@
           <td></td>
         <%end%>
         <%if c.user_id %>
-          <td><%= "#{User.find_by_id(user_id).name} / #{User.find_by_id(user_id).agency_name}" %></td>
+          <td><%= "#{User.find_by_id(c.user_id).name} / #{User.find_by_id(c.user_id).agency_name}" %></td>
         <%else%>
           <td>No User</td>
         <%end%>

@@ -30,8 +30,8 @@
             <label class="col-sm-2 control-label">Phone Number</label>
               <div class="row">
                 <div class="col-sm-4">
-                    <%= f.text_field :number, class:"form-control", :data => {:mask=> '(999) 999-9999'} %>
-                    <span class="help-block">(123) 456-7890   (Optional)</span>
+                    <%= f.text_field :number, class:"form-control", :data => {:mask=> '+19999999999'} %>
+                    <span class="help-block">+11234567890 </span>
                     <br>
                     <br>
                 </div>
@@ -39,7 +39,7 @@
           </div>
 
           <div class="form-group">
-            <label class="col-sm-2 control-label">Phone Number</label>
+            <label class="col-sm-2 control-label">Being Used</label>
               <div class="row">
                 <div class="col-sm-4">
                     <%= f.check_box :is_used, class:"form-control", unchecked:"unchecked", onclick:"return false;" %>
