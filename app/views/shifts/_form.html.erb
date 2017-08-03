@@ -141,9 +141,7 @@
             <div class="input-group date col-sm-6">
                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><%= u.text_field :time_span, class:"form-control", value:"#{@default_end_time}", :id => 'time_span-id'%>
             </div>
-            <%if @shift.id and @shift.recurring_shift%>
-              <a data-toggle="modal" class="btn btn-primary pull-right" href="#modal-form">Save</a>
-            <%end%>
+
             <br>
           </div>
 
@@ -170,9 +168,9 @@
 
                               <form role="form">
                                   <div style="text-align: center" class="col-sm-8">
-                                    <button class="btn btn-md btn-primary m-t-n-sm col-sm-5" value="A" onclick="<%=update_recurring_shifts%>"><strong>Yes</strong></button>
+                                    <button class="btn btn-md btn-primary m-t-n-sm col-sm-5" value="A" onclick=""><strong>Yes</strong></button>
                                     <span style="width: 10px"></span>
-                                    <button class="btn btn-md btn-success pull-right m-t-n-sm col-sm-5" value="B" onclick="<%=create_recurring_shifts%>"><strong>No</strong></button>
+                                    <button class="btn btn-md btn-success pull-right m-t-n-sm col-sm-5" value="B" onclick=""><strong>No</strong></button>
                                   </div>
                               </form>
                           </div>
@@ -200,21 +198,6 @@
     var elem_4 = document.querySelector('.js-switch_4');
     var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
 
-    function update_recurring_shifts() {
-      <%if @count == 61%>
-        var thth = "<%=update_recurring_shifts%>";
-      <%end%>
-    };
-    function create_new_recurring_shifts(){
-      <%if @count == 61%>
-        <%if @shift.id and @shift.recurring_shift%>
-          var thth = '<%@recurring_shift = @shift.recurring_shift%>';
-          var ththu = '<%create_recurring_shifts%>';
-        <%end%>
-      <%end%>
-      var bvj = "<%@count += 1 %>"
-      var yuyu = "<%p "Goddy:#{@count}"%>";
-    };
   });
 
 

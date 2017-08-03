@@ -24,7 +24,7 @@ class ShiftsController < ApplicationController
   def new
     @shift = Shift.new
     @recurring_shift = RecurringShift.new
-    @frequencies = [["Select", 9999],["Daily", 1], ["Weekly", 7], ["Bi-Weekly", 14], ["Monthly", 30]]
+    @frequencies = [["Select", 9999],["Daily", 1], ["Weekly", 7], ["Bi-Weekly", 14], ["Monthly", 28]]
     det = Date.today + 365.days
     @default_end_time = "#{det.month}/#{det.day}/#{det.year}"
     @count = 0
@@ -38,14 +38,14 @@ class ShiftsController < ApplicationController
       @recurring_shift = @shift.recurring_shift
       det = @recurring_shift.end_recurrence_date
       @default_end_time = @recurring_shift.time_span
-      @frequencies = [["Select", 9999], ["Daily", 1], ["Weekly", 7], ["Bi-Weekly", 14], ["Monthly", 30]]
+      @frequencies = [["Select", 9999], ["Daily", 1], ["Weekly", 7], ["Bi-Weekly", 14], ["Monthly", 28]]
       @selected_frequency = @recurring_shift.frequency
     else
       p "Has no RecurringShift"
       @recurring_shift = RecurringShift.new
       det = Date.today + 365.days
       @default_end_time = "#{det.month}/#{det.day}/#{det.year}"
-      @frequencies = [["Select", 9999], ["Daily", 1], ["Weekly", 7], ["Bi-Weekly", 14], ["Monthly", 30]] # select should never repeat
+      @frequencies = [["Select", 9999], ["Daily", 1], ["Weekly", 7], ["Bi-Weekly", 14], ["Monthly", 28]] # select should never repeat
     end
   end
 
@@ -82,8 +82,8 @@ class ShiftsController < ApplicationController
         if @shift.recurring_shift
           @recurring_shift = @shift.recurring_shift
           p "Updating old Recurring Shift"
-          if @shift.recurring_shift.update(recurring_shift_params)
-          end
+          # has this changed?
+          update_recurring_shift_value # if possible
         else
           p "Creating new Recurring Shift"
           @recurring_shift = RecurringShift.new(recurring_shift_params)
@@ -103,7 +103,6 @@ class ShiftsController < ApplicationController
 
 
   def create_recurring_shifts
-    if @count == 1
       p "Creating multiple Recurring Shifts"
       # here is where the magic happens
       #first add the @shift to the recurring_shift.shifts
@@ -154,25 +153,69 @@ class ShiftsController < ApplicationController
       else
         p "missing frequency or end_recurrence_date"
       end
-    end
   end
   helper_method :create_recurring_shifts
 
   def update_recurring_shifts
-    # for when the user updates the recurring_shifts
-    # you may need to update the rest of the shifts
-    # ask user in alert as to whether they would like to change the future shifts
-    # if yes then delete all future shifts that are linked to this recurring_shift
-    # and recreate them with the new frequency and time (run create_recurring_shifts again)
-    p "Goddy:#{@count}"
-    if @count == 1
+    # delete all future shifts that are link to this recurring shift
+    # create new shifts
+    p "Updating all future shifts..."
+    p "For Shift: #{@shift.id}"
 
-      p "Updating all future shifts..."
-      p "For Shift: #{@shift.id}"
+    delete_all_future_shifts
 
+    end_date = @recurring_shift.end_recurrence_date
+    latest_shift = @shift
+    frequency = @recurring_shift.frequency
+
+    if frequency and end_date
+      p "(Good) not missing frequency or end_recurrence_date"
+      while (latest_shift.start_time < end_date)
+        #create new shift
+        #check if new_shift.start_time < end_date
+        # if so, save new_shift and set as latest_shift
+        # if not, just set as latest_shift so that the loop can end
+
+        #create new shift
+        new_shift = Shift.new
+        new_shift.start_time = latest_shift.start_time + frequency.days #test
+        new_shift.end_time = latest_shift.end_time + frequency.days #test
+        new_shift.caregiver = latest_shift.caregiver
+        new_shift.client = latest_shift.client
+        new_shift.notes = latest_shift.notes
+        new_shift.status = latest_shift.status
+        new_shift.set_duration
+        new_shift.office = new_shift.caregiver.office
+
+        #check if new_shift.start_time < end_date
+        if new_shift.start_time < end_date
+          # if so, save new_shift and set as latest_shift
+          p "new_shift"
+          new_shift.save
+          latest_shift = new_shift
+          unless @recurring_shift.shifts.include? new_shift
+            @recurring_shift.shifts.push new_shift
+          end
+        else
+          # if not, just set as latest_shift so that the loop can end
+          p "no new_shift"
+          latest_shift = new_shift
+        end
+      end #end of loop
+    else
+      p "missing frequency or end_recurrence_date"
     end
   end
-  helper_method :update_recurring_shifts
+
+  def delete_all_future_shifts
+    date = @shift.start_time
+
+    future_shifts = Shift.all.where(recurring_shift: @shift.recurring_shift).where("start_time > ?", date)
+    future_shifts.each do |s|
+      s.delete
+    end 
+  end
+
 
   def recurrence_has_changed(frequency = nil, time_span = nil)
     p frequency
@@ -187,6 +230,30 @@ class ShiftsController < ApplicationController
   end
   helper_method :recurrence_has_changed
 
+  def update_recurring_shift_value
+    # take the params and use them for the recurring_shift
+    p "take the params and use them for the recurring_shift"
+    new_recurring_shift = RecurringShift.new(recurring_shift_params)
+    if new_recurring_shift
+      # compare old to the params
+      p "compare old to the params"
+      if (new_recurring_shift.frequency == @recurring_shift.frequency) and (new_recurring_shift.time_span == @recurring_shift.time_span)
+        #they are the same, do nothing
+        p "they are the same, do nothing"
+      else
+        # update the @recurring_shift attributes
+        # then run update all future shifts
+        if @shift.recurring_shift.update(recurring_shift_params)
+          # then run update all future shifts
+          p "then run update all future shifts"
+          update_recurring_shifts
+        end
+      end
+    else
+      # else this should have been created
+      p "else this should have been created"
+    end
+  end
 
   def created_shift_activity
     if @shift.client
