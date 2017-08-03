@@ -99,7 +99,7 @@ class CallsController < ApplicationController
     else
      # this is not an authorized number
      response = Twilio::TwiML::Response.new do |r|
-       r.Say "No Client with this number: #{@call.caller_number}"
+       r.Say "This number, #{@call.caller_number}, is not authorized to make this call"
      end
      render text: response.text
     end
