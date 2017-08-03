@@ -86,15 +86,23 @@ class CallsController < ApplicationController
   end
 
   def ask_for_employee_code
-    message = "Welcome, please enter your code to get started, then press pound."
+    if @call.client
+      message = "Welcome, please enter your code to get started, then press pound."
 
-   response = Twilio::TwiML::Response.new do |r|
-     r.Gather finishOnKey: '#', action: get_employee_path(id: @call.id) do |g|
-       g.Say message, voice: 'alice'
+      response = Twilio::TwiML::Response.new do |r|
+        r.Gather finishOnKey: '#', action: get_employee_path(id: @call.id) do |g|
+          g.Say message, voice: 'alice'
+        end
+      end
+
+     render text: response.text
+    else
+     # this is not an authorized number
+     response = Twilio::TwiML::Response.new do |r|
+       r.Say "No Client with this number: #{@call.caller_number}"
      end
-   end
-
-   render text: response.text
+     render text: response.text
+    end
   end
 
 
