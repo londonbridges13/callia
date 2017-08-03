@@ -99,7 +99,7 @@ class CallsController < ApplicationController
     else
      # this is not an authorized number
      response = Twilio::TwiML::Response.new do |r|
-       r.Say "This number, #{@call.caller_number}, is not authorized to make this call"
+       r.Say "This number, #{@call.caller_number.gsub(/(.{1})(?=.)/, '\1 \2')}, is not authorized to make this call", voice: 'alice'
      end
      render text: response.text
     end
