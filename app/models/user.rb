@@ -52,21 +52,29 @@ class User < ActiveRecord::Base
         self.services.push service
       end
 
+      self.send_welcome_email #this should only happen once
     end
   end
 
   def send_welcome_email
     # using mailgun
-    mg_client = Mailgun::Client.new 'pubkey-95063cbb5dbe178557c030d32473676c' # public api key
+    name = self.first_name
+    email = self.email
+    mail = Mail.deliver do
+      to      "#{email}" # change to self.email
+      from    'Serena Jay <serena@support.callia.us>'
+      subject 'Welcome to Callia'
 
-    message_params =  { from: 'lyndon@sandbox7df54b75c00741d7b09014408f57254e.mailgun.org',
-                    to:   'lyndonmckay13@gmail.com',
-                    subject: 'Mailgun is awesome!',
-                    text:    'It is really easy to send a message!'
-                  }
-
-    # Send your message through the client
-    mg_client.send_message 'sandbox7df54b75c00741d7b09014408f57254e.mailgun.org', message_params
+      text_part do
+        body "Hi #{name},\n"+
+        "Thanks for signing up. I'm so excited to get started.\n\n" +
+        "To help you get going, I've added a link to a Quick Start Guide.\n\n" +
+        "www.callia.us/quickstart \n" +
+        "Callia is easy use and this Quick Start Guide is the perfect place to start!\n\n" +
+        "Thanks,\n" +
+        "Serena"
+      end
+    end
 
   end
 

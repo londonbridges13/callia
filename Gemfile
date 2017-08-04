@@ -16,6 +16,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'rails_12factor', group: :production
 
 gem 'mailgun-ruby', '~>1.1.6'
+gem 'mail'
 gem 'time_difference'
 gem 'koudoku'
 gem 'thinreports'
