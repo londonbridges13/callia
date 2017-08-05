@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170802121622) do
+ActiveRecord::Schema.define(version: 20170805114201) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "activity"
@@ -100,6 +100,11 @@ ActiveRecord::Schema.define(version: 20170802121622) do
     t.integer  "office_id"
     t.integer  "user_id"
     t.text     "notes"
+    t.string   "location"
+    t.string   "address"
+    t.string   "postcode"
+    t.string   "state"
+    t.string   "city"
   end
 
   add_index "clients", ["office_id"], name: "index_clients_on_office_id"

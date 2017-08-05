@@ -97,8 +97,8 @@ function find_selected_client(id){
   var selected_client =
   gon.clients_info.forEach(function generateList(client){
     if (client[0] == id){// this works
-      if (Array.isArray(client[4])){
-        display_client_activities(client[4]);
+      if (Array.isArray(client[5])){
+        display_client_activities(client[5]);
         set_edit_button(id);
       }
       if (client[2]!= ""){
@@ -107,6 +107,9 @@ function find_selected_client(id){
 
       if (client[3]!= ""){
         document.getElementById('cnotes').innerHTML = client[3];
+      }
+      if (client[4] != ""){
+        document.getElementById('caddress').innerHTML = client[4];
       }
       // set the edit button link
 

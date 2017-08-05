@@ -36,6 +36,14 @@ class ClientsController < ApplicationController
       else
         array.push ""
       end
+
+      if c.address
+        str = "#{c.address}\n #{c.city}, #{c.state} #{c.postcode}"
+        array.push str
+      else
+        array.push ""
+      end
+
       activities = c.activities.limit(5).order('created_at DESC')
       if activities and activities.count > 0
         activity_array = []
@@ -76,6 +84,8 @@ class ClientsController < ApplicationController
     @selected_client = current_user.clients.first
     if @selected_client
       @about_selected_client = about_client @selected_client
+      @str = "#{@selected_client.address}\n #{@selected_client.city}, #{@selected_client.state} #{@selected_client.postcode}"
+
     else
       @about_selected_client = ''
     end
@@ -192,6 +202,6 @@ class ClientsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
       params.require(:client).permit(:name, :client_code, :authorized_phone, :status, :notes,
-      :office, :office_id)
+      :office, :office_id, :location, :state, :city, :postcode, :address)
     end
 end
