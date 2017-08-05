@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
 
+  resources :tutorials
   resources :services
   resources :activities
   resources :settings

@@ -1,0 +1,81 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>Calendar</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="<%= url_for :controller => 'dashboard', :action => 'index' %>">Dashboard</a>
+        </li>
+        <li class="active">
+            <strong>Schedule</strong>
+        </li>
+    </ol>
+</div>
+        </div>
+<div class="wrapper wrapper-content">
+<div class="row animated fadeInDown">
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <h2>Stay Organized</h2>
+                Keep track of all your Clients and Caregivers.
+                <br><br>Your Shifts are displayed here.
+                <p>
+                    <a href="/shifts/new" target="_blank">Create a Shift</a>
+                </p>
+            </div>
+        </div>
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <a href="/shifts" class="btn btn-block btn-primary">View All Shifts</a>
+                <a href="/shifts/new" class="btn btn-block btn-success">Create Shift</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <%if current_user.agency_name[current_user.agency_name.length - 1] == 's'%>
+                  <h5><%=current_user.agency_name%>' Schedule</h5>
+                <%else%>
+                  <h5><%=current_user.agency_name%>'s Schedule</h5>
+                <%end%>
+
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="#">Config option 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Config option 2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+</script>
+
+<% end %>
