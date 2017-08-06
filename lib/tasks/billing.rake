@@ -5,8 +5,6 @@ namespace :billing do
   task :start do
     puts "Staring Billing"
 
-
-    #Check for missed Clocked outs
     users = User.all
     users.each do |u|
       u.check_on_subscription #handles billing
