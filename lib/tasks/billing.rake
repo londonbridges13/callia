@@ -2,7 +2,6 @@ require 'net/http'
 
 namespace :billing do
   desc "Add Call Invoice for Accounts that are about to pay"
-  task :start do
     puts "Staring Billing"
 
 
@@ -13,5 +12,4 @@ namespace :billing do
       u.update_next_billing_date #updates next billing date
     end
     puts "billing successful..."
-  end
 end
