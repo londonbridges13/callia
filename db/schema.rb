@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170805114201) do
+ActiveRecord::Schema.define(version: 20170806160434) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "activity"
@@ -273,8 +273,11 @@ ActiveRecord::Schema.define(version: 20170805114201) do
     t.string   "call_number"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.integer  "agency_telephone"
     t.string   "time_zone"
+    t.string   "agency_telephone"
+    t.string   "address"
+    t.integer  "calls_this_month",       default: 0
+    t.datetime "next_billing_date"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

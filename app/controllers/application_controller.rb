@@ -16,7 +16,8 @@ class ApplicationController < ActionController::Base
 
    def configure_permitted_parameters
      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :agency_name, :agency_website, :agency_telephone, :payroll,:time_zone,:current_password])
-     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :agency_name, :agency_website, :agency_telephone, :payroll,:time_zone])
+     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :agency_name, :agency_website, :agency_telephone, :payroll,:time_zone, :address,
+       :calls_this_month, :next_billing_date])
    end
 
 

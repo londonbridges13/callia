@@ -78,13 +78,92 @@ class User < ActiveRecord::Base
 
   end
 
-  def send_simple_message
+  def charge_for_calls
+    if self.subscription
+      customer_id = self.subscription.stripe_id
+      number_of_calls = self.call_counter
+      ppc = self.price_per_call
+      cost = (number_of_calls * 0.15) * 100
+      if customer_id
+        charge = Stripe::Charge.create(
+          :amount => 1500, # $15.00 this time
+          :currency => "usd",
+          :customer => customer_id, # Previously stored, then retrieved
+        )
+      end
+    end
+  end
 
-    RestClient.post "https://api.mailgun.net/v3/sandbox7df54b75c00741d7b09014408f57254e.mailgun.org",
-    :from => "postmaster@sandbox7df54b75c00741d7b09014408f57254e.mailgun.org",
-    :to => "lyndonmckay13@gmail.com",
-    :subject => "Hello",
-    :text => "Testing some Mailgun awesomness!"
+  def check_on_subscription
+    if self.subscription and self.next_billing_date and (Time.now > self.next_billing_date - 1.day)
+      sid = self.subscription.stripe_id
+      if sid
+        # user has subscription
+        p "user has subscription"
+        #get the plan id
+        plan_id = Stripe::Customer.retrieve(sid).subscriptions.first.plan.id
+        if plan_id
+          find_cpc(plan_id) # cost per call
+        end
+      end
+    else
+      p "user has no subscription"
+    end
+  end
+
+  def find_cpc(plan_id)
+    if self.calls_this_month and self.calls_this_month > 0
+      if plan_id == "starter-plan-1599"
+        cpc = 0.15 # cost per call
+        free_calls = 25
+        create_invoice(cpc, free_calls)
+      elsif plan_id == "standard-plan-2399"
+        cpc = 0.10
+        free_calls = 50
+        create_invoice(cpc, free_calls)
+      elsif plan_id == "enterprise-plan-5999"
+        cpc = 0.05
+        free_calls = 250
+        create_invoice(cpc, free_calls)
+      end
+    end
+  end
+
+  def create_invoice(cpc, free_calls)
+    amount = 0
+    amount = ((cpc * (self.calls_this_month - free_calls)) * 100)
+    if self.subscription and amount > 0
+      Stripe::InvoiceItem.create(
+        :customer => self.subscription.stripe_id,
+        :amount => amount,
+        :currency => "usd",
+        :description => "Number of Calls (#{self.calls_this_month}). We've subtracted your free calls. Free Calls: #{free_calls}",
+      )
+      reset_the_calls
+    else
+      reset_the_calls
+    end
+  end
+
+  def reset_the_calls
+    self.calls_this_month = 0
+    self.save
+  end
+
+  def update_next_billing_date
+    if (!self.next_billing_date) or (Time.now > next_billing_date)
+      # Get NBD
+      if self.subscription
+        subs = Stripe::Customer.retrieve(sid).subscriptions
+        if subs
+          if subs.first
+            self.next_billing_date = Time.at(subs.first.current_period_end)
+            p "updated Billing Date"
+            self.save
+          end
+        end
+      end
+    end
   end
 
   def check_for_missed_clock_outs

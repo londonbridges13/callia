@@ -85,8 +85,23 @@ class CallsController < ApplicationController
     end
   end
 
+  def update_calls_this_month
+    # update the user's calls_this_month
+    user = @call.client.user
+    if user and user.calls_this_month
+      user.calls_this_month += 1
+      user.save
+    elsif user and !user.calls_this_month
+      user.calls_this_month = 0
+      user.save
+    end
+  end
+
   def ask_for_employee_code
     if @call.client
+      # update the user's calls_this_month
+      update_calls_this_month
+
       message = "Welcome, please enter your code to get started, then press pound."
 
       response = Twilio::TwiML::Response.new do |r|
