@@ -1,8 +1,6 @@
-require 'net/http'
-
 namespace :billing do
   desc "Add Call Invoice for Accounts that are about to pay"
-  task :start do
+  task :start => :environment do
     puts "Staring Billing"
 
     users = User.all

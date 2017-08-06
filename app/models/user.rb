@@ -137,7 +137,7 @@ class User < ActiveRecord::Base
         :customer => self.subscription.stripe_id,
         :amount => amount.to_i,
         :currency => "usd",
-        :description => "Number of Calls (#{self.calls_this_month}). We've subtracted your free calls. Free Calls: #{free_calls}",
+        :description => "Number of Calls (#{self.calls_this_month}).Free Calls: #{free_calls}. (We've subtracted your free calls)",
       )
       reset_the_calls
     else
