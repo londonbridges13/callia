@@ -92,7 +92,7 @@ class CallsController < ApplicationController
       user.calls_this_month += 1
       user.save
     elsif user and !user.calls_this_month
-      user.calls_this_month = 0
+      user.calls_this_month = 1
       user.save
     end
   end

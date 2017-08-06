@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
         end
       end
     else
-      p "user has no subscription or Missing Next Billing Date"
+      p "User has no subscription or Missing Next Billing Date"
     end
   end
 
@@ -135,7 +135,7 @@ class User < ActiveRecord::Base
     if self.subscription and amount > 0
       Stripe::InvoiceItem.create(
         :customer => self.subscription.stripe_id,
-        :amount => amount,
+        :amount => amount.to_i,
         :currency => "usd",
         :description => "Number of Calls (#{self.calls_this_month}). We've subtracted your free calls. Free Calls: #{free_calls}",
       )
