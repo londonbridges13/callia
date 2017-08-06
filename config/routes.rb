@@ -57,6 +57,10 @@ Rails.application.routes.draw do
   post 'evv_recording' => "reports#evv_recording", as: 'search_evv_recording'
   # post 'search_call_logs' => 'reports#search_call_logs', as: 'search_call_logs'
   #User Paths
+  get 'quickstart' => "tutorials#quickstart", as: 'quickstart'
+  get 'quickstart_step2' => "tutorials#quickstart_step2", as: 'quickstart_step2'
+  get 'quickstart_step3' => "tutorials#quickstart_step3", as: 'quickstart_step3'
+
 
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
