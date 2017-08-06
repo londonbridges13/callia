@@ -131,7 +131,7 @@
         <small>Callia</small>
         <h2>Home Care has never been so easy! </h2>
         <p>Callia is designed with simplicity in mind.<br> Simple for you, your caregivers, and your clients.</p>
-        <a href="" class="btn btn-primary">Learn more</a>
+        <a href="/signup" class="btn btn-primary">Get Started</a>
     </div>
     <div class="col-lg-6 text-right wow fadeInRight">
         <img src="<%= image_path('landing/dashboard.png') %>" alt="dashboard" class="img-responsive pull-right">
@@ -198,7 +198,7 @@
     </div>
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
-            <h3>Here at Callia, We are passionate about community. </h3>
+            <h3>Here at Callia, We are passionate about our community. </h3>
               <h3>Join our community and grow your business today!</h3>
         </div>
     </div>
@@ -217,7 +217,7 @@
         <div class="col-lg-3 features-text wow fadeInLeft">
             <h2>Designed for You</h2>
             <p>You and your busy schedule. Now you can access your dashboard on the go. Get Check Ins and Reports in Real Time.</p>
-            <a href="" class="btn btn-primary">Learn more</a>
+            <a href="/signup" class="btn btn-primary">Sign Up</a>
         </div>
         <div class="col-lg-6 text-right m-t-n-lg wow zoomIn">
             <img src="<%= image_path('landing/iphone.jpg') %>" class="img-responsive" alt="dashboard">
@@ -263,7 +263,6 @@
                         <h2>Decision</h2>
                         <p>After using our service for 14 days, you can decide whether to continue using Callia.
                         </p>
-                        <a href="#" class="btn btn-xs btn-primary"> More info</a>
                         <span class="vertical-date"> <%= (Date.today + 14.days).strftime('%B %d')%>  <br/> <small>(14 days later)</small> </span>
                     </div>
                 </div>
@@ -276,7 +275,6 @@
                     <div class="vertical-timeline-content">
                         <h2>Community</h2>
                         <p>Join Callia and our growing community of Entrepreneurs. We are creating a communtiy of Home Care Business. Here you can discuss new ways of growing your business, management techniques, and giving back. </p>
-                        <a href="#" class="btn btn-xs btn-primary"> More info</a>
                         <span class="vertical-date"> <%= (Date.today + 15.days).strftime('%B %d')%> <br/> <small>(15 days Later)</small> </span>
                     </div>
                 </div>
@@ -356,8 +354,7 @@
                     Save up to 20% / Month
                 </li>
                 <li>
-                    <!-- "<a class="btn btn-primary btn-xs" href="#">Signup</a>" -->
-                    <%= link_to "Sign up", main_app.pricing_path, :class => "btn btn-primary btn-xs" %>
+                    <a class="btn btn-primary btn-xs" href="/signup">Signup</a>
                 </li>
             </ul>
         </div>
@@ -389,7 +386,7 @@
                     <strong>Save up to 25% / Month </strong>
                 </li>
                 <li class="plan-action">
-                    <a class="btn btn-primary btn-xs" href="#">Signup</a>
+                    <a class="btn btn-primary btn-xs" href="/signup">Signup</a>
                 </li>
             </ul>
         </div>
@@ -421,7 +418,7 @@
                     Save up to 30% / Month
                 </li>
                 <li>
-                    <a class="btn btn-primary btn-xs" href="#">Signup</a>
+                    <a class="btn btn-primary btn-xs" href="/signup">Signup</a>
                 </li>
             </ul>
         </div>
@@ -464,9 +461,9 @@
                 Or follow us on social platform
             </p>
             <ul class="list-inline social-icon">
-                <li><a href="facebook.com"><i class="fa fa-facebook"></i></a>
+                <li><a href="http://facebook.com"><i class="fa fa-facebook"></i></a>
                 </li>
-                <li><a href="linkedin.com"><i class="fa fa-linkedin"></i></a>
+                <li><a href="http://linkedin.com"><i class="fa fa-linkedin"></i></a>
                 </li>
             </ul>
         </div>

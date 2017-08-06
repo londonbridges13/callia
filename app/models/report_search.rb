@@ -6,7 +6,7 @@ class ReportSearch
   def initialize(params)
     params ||= {}
     @date_from = parsed_date(covert_to_scope(params[:date_from]), 7.days.ago.to_date.to_s)#parsed_date(params[:date_from], 17.days.ago.to_date.strftime("%m/%d/%Y"))
-    @date_to = parsed_date(covert_to_scope(params[:date_to]), Date.today.to_s)
+    @date_to = parsed_date(covert_to_scope(params[:date_to]), (Time.now).to_s)
 
     p params[:date_from]
     p params[:date_to]
