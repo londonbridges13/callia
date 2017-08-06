@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
         end
       end
     else
-      p "user has no subscription"
+      p "user has no subscription or Missing Next Billing Date"
     end
   end
 
@@ -154,6 +154,7 @@ class User < ActiveRecord::Base
     if (!self.next_billing_date) or (Time.now > next_billing_date)
       # Get NBD
       if self.subscription
+        sid = self.subscription.stripe_id
         subs = Stripe::Customer.retrieve(sid).subscriptions
         if subs
           if subs.first
