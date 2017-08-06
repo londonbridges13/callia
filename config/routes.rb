@@ -81,13 +81,6 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'dashboard#index'
 
-  #ERROR Pages
-  if Rails.env.production?
-    get '404', to: 'page#not_found_error'
-    get '422', to: 'page#internal_server_error'
-    get '500', to:  'page#internal_server_error'
-  end
-
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
