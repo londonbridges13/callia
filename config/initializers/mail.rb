@@ -1,7 +1,7 @@
 require 'mail'
 
 Mail.defaults do
-  if ENV[:mailgunpw]
+  if ENV['mailgunpw']
     delivery_method :smtp, {
       :port      => 587,
       :address   => "smtp.mailgun.org",
