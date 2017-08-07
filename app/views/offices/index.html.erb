@@ -31,8 +31,8 @@
                     <h5> <%= o.name%> </h5>
                 </div>
                 <div class="ibox-content">
-                    <%if o.location and o.location.address%>
-                      <h4><%= o.location.address%></h4>
+                    <%if o.address%>
+                      <h4><%= o.address%></h4>
                     <% else %>
                     <h4>No Address</h4>
                     <% end %>

@@ -154,6 +154,7 @@ class OfficesController < ApplicationController
     end
   end
 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_office
@@ -162,6 +163,7 @@ class OfficesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def office_params
-      params.require(:office).permit(:name, :telephone, :office_code, :email, :supervisor_id)
+      params.require(:office).permit(:name, :telephone, :office_code, :email, :supervisor_id,
+       :location, :state, :city, :postcode, :address)
     end
 end

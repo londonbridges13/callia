@@ -116,6 +116,10 @@ class ClientsController < ApplicationController
   def new
     @client = Client.new
     present_options
+
+    if current_user.offices.count == 0
+      redirect_to "/offices/new"
+    end
   end
 
   def save_client

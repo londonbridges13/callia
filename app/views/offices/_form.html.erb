@@ -47,7 +47,6 @@
                     <%= f.text_field :telephone, class:"form-control", :data => {:mask=> '(999) 999-9999'} %>
                     <span class="help-block">(123) 456-7890   (Optional)</span>
                     <br>
-                    <br>
                 </div>
               </div>
           </div>
@@ -66,6 +65,102 @@
             </div>
 
           <%end%>
+
+
+
+                    <div class="field row">
+                      <div class="col-lg-12">
+                        <div class="form-group"><label class="col-sm-2 control-label">Address</label>
+                        <div class="col-sm-7">
+                          <%= f.text_field :address, class:"form-control" %>
+                          <br>
+                          <br>
+                        </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+                    <div class="field row">
+                      <div class="col-lg-12">
+                        <div class="form-group"><label class="col-sm-2 control-label">City</label>
+                        <div class="col-sm-6">
+                          <%= f.text_field :city, class:"form-control" %>
+                          <br>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="field row">
+                      <div class="col-lg-12">
+                      <div class="form-group"><label class="col-md-2 control-label">State</label>
+                        <div class="col-md-4">
+                            <%= f.collection_select :state, ["Alaska",
+                                      "Alabama",
+                                      "Arkansas",
+                                      "American Samoa",
+                                      "Arizona",
+                                      "California",
+                                      "Colorado",
+                                      "Connecticut",
+                                      "District of Columbia",
+                                      "Delaware",
+                                      "Florida",
+                                      "Georgia",
+                                      "Guam",
+                                      "Hawaii",
+                                      "Iowa",
+                                      "Idaho",
+                                      "Illinois",
+                                      "Indiana",
+                                      "Kansas",
+                                      "Kentucky",
+                                      "Louisiana",
+                                      "Massachusetts",
+                                      "Maryland",
+                                      "Maine",
+                                      "Michigan",
+                                      "Minnesota",
+                                      "Missouri",
+                                      "Mississippi",
+                                      "Montana",
+                                      "North Carolina",
+                                      " North Dakota",
+                                      "Nebraska",
+                                      "New Hampshire",
+                                      "New Jersey",
+                                      "New Mexico",
+                                      "Nevada",
+                                      "New York",
+                                      "Ohio",
+                                      "Oklahoma",
+                                      "Oregon",
+                                      "Pennsylvania",
+                                      "Puerto Rico",
+                                      "Rhode Island",
+                                      "South Carolina",
+                                      "South Dakota",
+                                      "Tennessee",
+                                      "Texas",
+                                      "Utah",
+                                      "Virginia",
+                                      "Virgin Islands",
+                                      "Vermont",
+                                      "Washington",
+                                      "Wisconsin",
+                                      "West Virginia",
+                                      "Wyoming"], :to_s, :to_s,
+                                      {:class => 'prevent_collapse'},:class => "form-control m-b" %>
+                                      <br><br><br><br>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
 
 
           <div class="actions">

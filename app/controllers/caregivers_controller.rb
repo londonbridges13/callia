@@ -16,6 +16,10 @@ class CaregiversController < ApplicationController
   def new
     @caregiver = Caregiver.new
     present_options
+
+    if current_user.offices.count == 0
+      redirect_to "/offices/new"
+    end
   end
 
   def present_options
