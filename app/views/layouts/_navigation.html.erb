@@ -42,7 +42,7 @@
                 <ul class="nav nav-second-level collapse <%= is_active_controller('pages', 'in') %>">
                     <li class="<%= is_active_action('new') %>"><%= link_to "Create Shift", main_app.new_shift_path %> </li>
                     <li class="<%= is_active_action('new') %>"><%= link_to "Create Client", main_app.new_client_path %> </li>
-                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Employee", main_app.new_caregiver_path %> </li>
+                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Caregiver", main_app.new_caregiver_path %> </li>
                     <li class="<%= is_active_action('new') %>"><%= link_to "Create Office", main_app.new_office_path %> </li>
 
                 </ul>
@@ -61,7 +61,7 @@
             </li>
             <li class="<%= is_active_controller('caregivers') %>">
                 <%= link_to main_app.caregivers_path do %>
-                <i class="fa fa-user-md"></i> <span class="nav-label" data-i18n="nav.layouts">Employees</span>
+                <i class="fa fa-user-md"></i> <span class="nav-label" data-i18n="nav.layouts">Caregivers</span>
                   <!-- <span class="label label-primary pull-right">NEW</span> -->
                 <% end %>
             </li>
