@@ -54,12 +54,39 @@ class DashboardController < ApplicationController
   end
 
   def display_free_calls
-    if current_user.free_calls and current_user.calls_this_month
-      free_calls_left = current_user.free_calls - self.calls_this_month
-      unless free_calls_left > 0
-        free_calls_left = 0
+    if current_user.subscription
+      sid = current_user.subscription.stripe_id
+      if sid
+        # user has subscription
+        p "user has subscription"
+        #get the plan id
+        plan_id = Stripe::Customer.retrieve(sid).subscriptions.first.plan.id
+        if plan_id
+          find_free_calls(plan_id) # cost per call
+        end
       end
-      @free_calls_left = free_calls_left
+    else
+      p "User has no subscription or Missing Next Billing Date"
+    end
+
+  end
+
+  def find_free_calls(plan_id)
+    if current_user.calls_this_month and current_user.calls_this_month > 0
+      if plan_id == "starter-plan-1599"
+        free_calls = 25
+      elsif plan_id == "standard-plan-2399"
+        free_calls = 50
+      elsif plan_id == "enterprise-plan-5999"
+        free_calls = 250
+      end
+      if free_calls and current_user.calls_this_month
+        free_calls_left = free_calls - current_user.calls_this_month
+        unless free_calls_left > 0
+          free_calls_left = 0
+        end
+        @free_calls_left = free_calls_left
+      end
     end
   end
 
