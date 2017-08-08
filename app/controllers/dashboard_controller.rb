@@ -50,6 +50,14 @@ class DashboardController < ApplicationController
       @cin_hours = hours
       @cout_hours = hours
     end
+
+    if current_user.free_calls and current_user.calls_this_month
+      free_calls_left = current_user.free_calls - self.calls_this_month 
+      unless free_calls_left > 0
+        free_calls_left = 0
+      end
+      @free_calls_left = free_calls_left
+    end
   end
 
 

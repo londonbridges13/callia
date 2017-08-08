@@ -175,7 +175,7 @@ class User < ActiveRecord::Base
         call.log_type = "Missed Clock Out"
         call.caregiver = c.caregiver
         call.client = c.client
-        call.clock_in_call = c.id
+        call.clock_in_call = c
         call.user = self
         call.save
       end

@@ -471,7 +471,9 @@ $(function() {
 
 <div class="footer">
     <div class="pull-right">
-        10 of <strong>50 Calls</strong> Free.
+      <%if @free_calls_left%>
+        <strong><%=@free_calls_left %> Free Calls Left</strong>
+      <%end%>
     </div>
     <div>
         <strong>Copyright</strong> Callia &copy; 2014-2017
