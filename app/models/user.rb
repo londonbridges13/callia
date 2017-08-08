@@ -178,6 +178,8 @@ class User < ActiveRecord::Base
         call.clock_in_call = c
         call.user = self
         call.save
+        c.clock_out_call = call
+        c.save
       end
     end
   end
