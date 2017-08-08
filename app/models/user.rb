@@ -175,6 +175,7 @@ class User < ActiveRecord::Base
         call.log_type = "Missed Clock Out"
         call.caregiver = c.caregiver
         call.client = c.client
+        call.caller_number = c.caller_number
         call.clock_out_call = c # AGAIN SOMETHING WIERD IS HAPPENING WITH THE clock_out_call AND clock_in_call (MUST BE IN THE MODEL/SCHEME/MIGRATION)
         call.user = self
         call.save
