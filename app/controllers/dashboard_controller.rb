@@ -18,6 +18,7 @@ class DashboardController < ApplicationController
           @number = number[2...number.length]
         end
         @number = "("+@number[0...3]+") "+@number[3...6]+"-"+@number[6...number.length]
+        display_free_calls
       else
         #give the user a number
         add_phone_number_to_user
@@ -36,31 +37,31 @@ class DashboardController < ApplicationController
     elsif current_user and current_user.clients.count == 0
       # go to quickstart
       redirect_to "/quickstart_step3"
-    else
-      # Open Dashboard
-      call_logs # display calls for the data table
-      if @calls.count > 0
-        graph_clock_in
-        graph_clock_out
-      else
-        @clock_outs = 0
-        @clock_ins = 0
-        hours = [[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0],
-        [13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[20,0],[21,0],[22,0],[23,0],[24,0]]
-        @cin_hours = hours
-        @cout_hours = hours
-      end
+    end
 
-      if current_user.free_calls and current_user.calls_this_month
-        free_calls_left = current_user.free_calls - self.calls_this_month
-        unless free_calls_left > 0
-          free_calls_left = 0
-        end
-        @free_calls_left = free_calls_left
-      end
+    call_logs # display calls for the data table
+    if @calls.count > 0
+      graph_clock_in
+      graph_clock_out
+    else
+      @clock_outs = 0
+      @clock_ins = 0
+      hours = [[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0],
+      [13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[20,0],[21,0],[22,0],[23,0],[24,0]]
+      @cin_hours = hours
+      @cout_hours = hours
     end
   end
 
+  def display_free_calls
+    if current_user.free_calls and current_user.calls_this_month
+      free_calls_left = current_user.free_calls - self.calls_this_month
+      unless free_calls_left > 0
+        free_calls_left = 0
+      end
+      @free_calls_left = free_calls_left
+    end
+  end
 
   def add_phone_number_to_user
     # this means that the user has signed up, selected a plan, and entered credit card info
