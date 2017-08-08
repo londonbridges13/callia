@@ -234,7 +234,7 @@ class CallsController < ApplicationController
       # now run clocked out
       p "redirecting"
       clock_out
-    else # Clock Out Missed Clock Out
+    else # Clock Out or Missed Clock Out
       #run clocked in
       p "redirecting"
       clock_in

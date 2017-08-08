@@ -176,6 +176,7 @@ class User < ActiveRecord::Base
         call.caregiver = c.caregiver
         call.client = c.client
         call.clock_in_call = c.id
+        call.user = self
         call.save
       end
     end
