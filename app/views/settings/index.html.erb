@@ -33,7 +33,11 @@
   <div class="vote-item">
       <div class="row">
           <div class="col-md-10">
+            <%if current_user%>
+              <a href="<%=koudoku.owner_subscriptions_path(current_user)%>" class="vote-title">
+            <%else%>
               <a href="/pricing" class="vote-title">
+            <%end%>
                   Payment Method
               </a>
           </div>
