@@ -4,7 +4,12 @@ class OfficesController < ApplicationController
   # GET /offices
   # GET /offices.json
   def index
-    @offices = Office.all
+    @offices = current_user.offices
+    if current_user.caregivers.count == 0
+      redirect_to "/caregivers/new"
+    elsif current_user.clients.count == 0
+      redirect_to "/clients/new"
+    end
   end
 
   # GET /offices/1
