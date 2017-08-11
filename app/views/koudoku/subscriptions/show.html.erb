@@ -19,8 +19,13 @@
   <br><br>
 
   <h4><strong>Cancel Subscription</strong></h4>
-  <div class="col-sm-8">
-    <%= link_to "End Subscription and Delete Account", cancel_owner_subscription_path(@owner, @subscription), method: :post,  data: {confirm: 'Are you sure?' },
-      :class => "btn btn-danger block half-width m-b btn-outline" %>
+  <div class="row">
+    <div class="col-sm-4">
+      <%= link_to "End Subscription and Delete Account", cancel_owner_subscription_path(@owner, @subscription), method: :post,  data: {confirm: 'Are you sure?' },
+        :class => "btn btn-danger block half-width m-b btn-outline" %>
+    </div>
   </div>
+
+  <br><br>
+
 </div>
