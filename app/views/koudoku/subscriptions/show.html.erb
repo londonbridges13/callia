@@ -16,10 +16,11 @@
   <%= link_to 'Update Payment Information', edit_owner_subscription_path(@owner, @subscription, update: 'card'), class: 'btn' %>
 
   <br><br>
+  <br><br>
 
-  <h4><strong>Payment Information</strong></h4>
-  <div class="col-sm-6">
-    <%= link_to "End Subscription", edit_owner_subscription_path(@owner, @subscription), :method => :delete,  data: {confirm: 'Are you sure?' },
+  <h4><strong>Cancel Subscription</strong></h4>
+  <div class="col-sm-8">
+    <%= link_to "End Subscription and Delete Account", cancel_owner_subscription_path(@owner, @subscription), method: :post,  data: {confirm: 'Are you sure?' },
       :class => "btn btn-danger block half-width m-b btn-outline" %>
   </div>
 </div>

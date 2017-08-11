@@ -17,6 +17,7 @@ namespace :ping do
       users = User.all
       users.each do |u|
         u.check_for_missed_clock_outs # function moved to model
+        u.remove_if_subscription_has_ended
       end
     end
   end

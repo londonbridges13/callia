@@ -185,4 +185,68 @@ class User < ActiveRecord::Base
     end
   end
 
+  def remove_if_subscription_has_ended
+    #these would be the users that ended their subscription with our service
+    # if they have been existed for more than 21 days remove their acounts and free up their numbers
+    # if they haven't, just remove their subscription
+
+    if self.subscription
+      # test subscription
+      sid = self.last.subscription.stripe_id
+      plan_id = Stripe::Customer.retrieve(sid).subscriptions.first.plan.id
+
+      unless plan_id
+        # there is no plan_id
+        subscriptions = Stripe::Customer.retrieve(sid).subscriptions
+        if !subscriptions
+          # this user has canceled subscriptions
+          total_count = Stripe::Customer.retrieve(sid).subscriptions.total_count
+          if total_count == 0
+            # STRIPE WORKS, THERE IS NO SYSTEM FAILURE, THIS USER HAS NO SUBSCRIPTION WITH STRIPE
+            # REMOVE THEIR SUBSCRIPTION FROM CALLIA.
+            #THAT IS ALL
+            self.subscription.delete
+          end
+        end
+      end
+    elsif self.created_at > 21.days.ago and !self.subscription
+      #user has no subscription for 21 days, remove this user and free the number
+      if self.call_number
+        number = PhoneNumber.where(user_id: self.id).first
+        if number
+          number.is_used = false
+          number.user_id = nil
+          number.save
+
+          # delete the user
+          self.clients.each do |c|
+            c.delete
+          end
+          self.caregivers.each do |c|
+            c.delete
+          end
+          self.offices.each do |c|
+            c.delete
+          end
+          self.calls.each do |c|
+            c.delete
+          end
+          self.services.each do |c|
+            c.delete
+          end
+          if self.subscription
+            self.subscription.delete
+          end
+          self.shifts.each do |c|
+            c.delete
+          end
+          self.activities.each do |c|
+            c.delete
+          end
+          self.delete
+        end
+      end
+    end
+  end
+
 end
