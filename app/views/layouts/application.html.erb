@@ -2,6 +2,7 @@
 <html ng-app>
 <head>
   <title>Callia</title>
+  <%= favicon_link_tag 'favicon.ico' %>
   <%= Gon::Base.render_data %>
   <!-- Include style per-controller - vendor plugins -->
   <%= stylesheet_link_tag params[:controller] if ::Rails.application.assets.find_asset("#{params[:controller]}.css") %>
