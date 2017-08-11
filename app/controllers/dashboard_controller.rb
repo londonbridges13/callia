@@ -114,7 +114,7 @@ class DashboardController < ApplicationController
   def call_logs #reports/call_logs
     start = Date.today.beginning_of_day
     the_end = Date.tomorrow.beginning_of_day
-    @calls = Call.where(user: current_user).where('created_at BETWEEN ? AND ?', start.in_time_zone(current_user.time_zone), the_end.in_time_zone(current_user.time_zone)).reverse
+    @calls = Call.where(user: current_user).where('created_at BETWEEN ? AND ?', start, the_end).reverse
   end
 
   def graph_clock_in
