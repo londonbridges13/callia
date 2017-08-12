@@ -1,7 +1,6 @@
 class ReportsController < ApplicationController
 
   def index # changed for the ajax search for the reports pages
-    # @search = Call.all.first#CallSearch.new(params[:search])
     # @calls = @search.scope
   end
 

@@ -155,6 +155,12 @@
     <%= f.submit nil, class: "btn btn-success block full-width m-b" %>
   </div>
 
+  <div class="actions">
+    <%if @shift.id%>
+        <%= link_to "Delete Shift", shift_path(@shift), :method => :delete,  data: {confirm: 'Are you sure?' },
+          :class => "btn btn-danger block half-width m-b btn-outline" %>
+    <%end%>
+  </div>
 
     <div class="ibox-content">
       <div id="modal-form" class="modal fade" aria-hidden="true">
