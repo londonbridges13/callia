@@ -9,4 +9,6 @@ class TutorialsController < ApplicationController
   def quickstart_step3
   end
 
+  def terms_and_conditions
+  end 
 end

@@ -60,7 +60,7 @@ Rails.application.routes.draw do
   get 'quickstart' => "tutorials#quickstart", as: 'quickstart'
   get 'quickstart_step2' => "tutorials#quickstart_step2", as: 'quickstart_step2'
   get 'quickstart_step3' => "tutorials#quickstart_step3", as: 'quickstart_step3'
-
+  get 'terms_and_conditions' => "tutorials#terms_and_conditions", as: 'terms_and_conditions'
 
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
