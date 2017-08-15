@@ -36,6 +36,20 @@
           </div>
 
           <div class="field">
+            <div class="form-group"><label class="col-sm-2 control-label">Authorized Phone Number</label>
+              <div class="row">
+                <div class="col-sm-6">
+                  <%= f.text_field :phone_number, class:"form-control", :data => {:mask=> '(999) 999-9999'} %>
+                  <span class="help-block m-b-none">This number will be used for your Caregiver to Clock-in.</span>
+                  <br>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="field">
             <div class="col-md-12">
               <br/>
             </div>
