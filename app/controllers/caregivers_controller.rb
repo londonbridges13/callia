@@ -110,6 +110,12 @@ class CaregiversController < ApplicationController
   end
 
   def clear_all_connections
+    current_user.offices.each do |o|
+      if o.supervisor == @caregiver
+        o.supervisor = nil
+        o.save
+      end 
+    end
     @caregiver.shifts.clear
     @caregiver.activities.clear
     @caregiver.calls.clear
