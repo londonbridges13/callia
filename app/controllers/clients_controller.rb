@@ -193,10 +193,19 @@ class ClientsController < ApplicationController
   # DELETE /clients/1
   # DELETE /clients/1.json
   def destroy
+    clear_all_connections
     @client.destroy
     respond_to do |format|
       format.html { redirect_to clients_url, notice: 'Client was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def clear_all_connections
+    @client.shifts.clear
+    @client.calls.clear
+    @client.activities.clear
+    @client.shifts.each do |s|
     end
   end
 

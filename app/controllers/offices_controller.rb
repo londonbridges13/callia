@@ -5,7 +5,7 @@ class OfficesController < ApplicationController
   # GET /offices.json
   def index
     @offices = current_user.offices
-    
+
     if current_user.caregivers.count == 0
       redirect_to "/caregivers/new"
     elsif current_user.clients.count == 0
@@ -132,12 +132,24 @@ class OfficesController < ApplicationController
   # DELETE /offices/1
   # DELETE /offices/1.json
   def destroy
+    clear_all_connections
     @office.destroy
     respond_to do |format|
       format.html { redirect_to offices_url, notice: 'Office was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
+
+
+  def clear_all_connections
+    @office.shifts.clear
+    @office.caregivers.clear
+    @office.activities.clear
+    @office.clients.clear
+    @office.supervisor = nil
+    @office.save
+  end
+
 
   def save_office
     @office.set_code(current_user)

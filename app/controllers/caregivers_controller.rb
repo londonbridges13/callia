@@ -99,11 +99,22 @@ class CaregiversController < ApplicationController
   # DELETE /caregivers/1
   # DELETE /caregivers/1.json
   def destroy
+    name = @caregiver.name
+    @caregiver.save_activity("#{current_user.name} deleted employee: #{name}", current_user, @caregiver)
+    clear_all_connections
     @caregiver.destroy
     respond_to do |format|
       format.html { redirect_to caregivers_url, notice: 'Caregiver was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def clear_all_connections
+    @caregiver.shifts.clear
+    @caregiver.activities.clear
+    @caregiver.calls.clear
+    @caregiver.supervisor = nil
+    @caregiver.save
   end
 
   private
