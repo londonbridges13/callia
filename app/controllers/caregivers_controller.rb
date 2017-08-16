@@ -10,7 +10,7 @@ class CaregiversController < ApplicationController
     elsif current_user.clients.count == 0
       redirect_to "/clients/new"
     end
-    @result = request.location
+    @result = request.remote_addr
     p "Result is #{@result}"
   end
 
