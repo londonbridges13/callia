@@ -14,7 +14,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'rails_12factor', group: :production
-
+gem 'geokit'
 gem 'mailgun-ruby', '~>1.1.6'
 gem 'mail'
 gem 'time_difference'
@@ -27,6 +27,8 @@ gem 'chartkick'
 gem 'groupdate'
 gem 'angularjs-rails'
 gem 'devise'
+gem 'geocoder'
+
 # gem 'chartjs-ror'
 gem 'font-awesome-rails', '4.7.0.1'
 gem 'bootstrap-sass'
