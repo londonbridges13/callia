@@ -30,7 +30,7 @@ class DigitalSignatureController < ApplicationController
   def timesheet #4
     id = params[:id]
     verify = params[:verify]
-    code = params[:code]
+    code = params[:anything][:code]
     caregiver = Caregiver.all.where(id: id).first
 
     unless code == params

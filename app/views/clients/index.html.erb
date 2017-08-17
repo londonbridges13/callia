@@ -1,5 +1,5 @@
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
+    <div class="col-sm-10">
         <h2>Clients</h2>
         <ol class="breadcrumb">
             <li>
@@ -12,7 +12,7 @@
         <a href="/clients/new" class="btn btn-w-m btn-success">Create Client</a>
 
     </div>
-    <div class="col-lg-2">
+    <div class="col-sm-2">
 
     </div>
 </div>
@@ -86,19 +86,19 @@
                         <div id="contact-0" class="tab-pane active">
                             <div class="row m-b-lg">
                                 <div class="row">
-                                  <div class="col-lg-12 text-center">
+                                  <div class="col-sm-12 text-center">
                                     <%if current_user.clients.first%>
                                       <h2 id="client_name" ><%=current_user.clients.first.name%></h2>
                                     <%end%>
                                   </div>
                                 </div>
-                                <div class="col-lg-4 text-center">
+                                <div class="col-sm-4 text-center">
                                     <div class="m-b-sm">
                                         <img alt="image" class="img-circle" src="<%= image_path('office_building.jpg') %>"
                                              style="width: 62px; height: 62px;">
                                     </div>
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-sm-8">
                                     <strong>
                                         About me
                                     </strong>
