@@ -33,7 +33,7 @@ class DigitalSignatureController < ApplicationController
     code = params[:anything][:code]
     caregiver = Caregiver.all.where(id: id).first
 
-    unless code == params
+    unless code == verify
       #redirect to invalid page
       redirect_to "/verify?id=#{id}"
     end
