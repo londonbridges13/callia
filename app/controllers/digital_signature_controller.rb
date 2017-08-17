@@ -45,6 +45,7 @@ class DigitalSignatureController < ApplicationController
     #send caregiver a text to verify themselves
     if c.phone_number and c.user
       #send text
+      p "sending text"
 
       client = Twilio::REST::Client.new(
         ENV['TWILIO_ACCOUNT_SID'], #set these two
@@ -58,6 +59,9 @@ class DigitalSignatureController < ApplicationController
         body: "Verification code: #{code}"
       )
       return code
+    else
+      p "not sending text"
+      p "#{c.phone_number} | #{c.user}"
     end
   end
 
