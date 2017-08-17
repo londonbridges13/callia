@@ -125,6 +125,6 @@ class CaregiversController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def caregiver_params
       params.require(:caregiver).permit(:name, :employee_code, :address, :city, :state, :status, :birth_date,
-       :office, :office_id)
+       :office, :office_id, :phone_number)
     end
 end
