@@ -19,6 +19,7 @@ class DigitalSignatureController < ApplicationController
   def verify #3
     # send a text to this number to verify number
     id = params[:id]
+    @id = params[:id]
     caregiver = Caregiver.all.where(id: id).first
     @code = send_text(caregiver)
 
@@ -28,7 +29,6 @@ class DigitalSignatureController < ApplicationController
 
   def timesheet #4
     id = params[:id]
-    @id = params[:id]
     verify = params[:verify]
     code = params[:code]
     caregiver = Caregiver.all.where(id: id).first
