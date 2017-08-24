@@ -167,6 +167,7 @@ $(function() {
 $(document).load(function(){
   verify_location();
 });
+
 function getLocation(){
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -179,6 +180,10 @@ function getLocation(){
 function showPosition(position) {
     var x = document.getElementById("demo");
     x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+    var result = <%= verify_location(position.coords.longitude,position.coords.latitude)%>;
+    if (result == 1){
+      x.innerHTML = "Verified";
+    }
 }
 </script>
 

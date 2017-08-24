@@ -70,10 +70,12 @@ class DigitalSignatureController < ApplicationController
   def verify_location(long,lat)
     # compare long/lat to the long/lat of the Client's address
     # The Caregiver must be at the Client's/Patient's Address in order to get money
+    # 1 == true
+    # 0 == false
 
     p "#{long}"
     p "#{lat}"
-
+    return 1
   end
 
 

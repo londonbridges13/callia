@@ -63,7 +63,6 @@
 
 
 
-
 function verify_location(long,lat){
 
 }
