@@ -62,7 +62,7 @@
 //= require codemirror/mode/javascript/javascript.js
 
 
-function getLocation() {
+function getLocation(){
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     } else {
@@ -73,13 +73,9 @@ function getLocation() {
 
 function showPosition(position) {
     var x = document.getElementById("demo");
-    x.innerHTML = "Latitude: " + position.coords.latitude +
-    "<br>Longitude: " + position.coords.longitude;
+    x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
 }
 
 function verify_location(long,lat){
-  var result = <%=verify_location(long,lat)%>;
-  if (result == 1){
 
-  }
 }
