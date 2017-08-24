@@ -79,7 +79,7 @@ function showPosition(position) {
 
 function verify_location(long,lat){
   var result = <%=verify_location(long,lat)%>;
-  if (result == true){
+  if (result == 1){
 
   }
 }
