@@ -27,7 +27,8 @@ class DigitalSignatureController < ApplicationController
 
   end
 
-  def timesheet #4
+  def select_client
+    # make sure to send the caregiver info for the user
     id = params[:id]
     verify = params[:verify]
     code = params[:anything][:code]
@@ -38,7 +39,27 @@ class DigitalSignatureController < ApplicationController
       #redirect to invalid page
       redirect_to "/verify?id=#{id}"
     end
+    caregiver = Caregiver.all.where(id: id).first
+    @clients = caregiver.user.clients
+
+  end
+
+  def timesheet #4
+    id = params[:id]
+    # verify = params[:verify]
+    # code = params[:anything][:code]
+    caregiver = Caregiver.all.where(id: id).first
+
+    # @company_name = caregiver.office.user.agency_name
+    # unless code == verify
+    #   #redirect to invalid page
+    #   redirect_to "/verify?id=#{id}"
+    # end
     #display the timesheet form and verify location
+
+    if params[:client_id]
+      get_client_location
+    end
 
   end
 
@@ -66,6 +87,14 @@ class DigitalSignatureController < ApplicationController
     end
   end
 
+  def get_client_location
+    client = Client.find_by_id(params[:client_id])
+
+    res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode "#{client.address} #{client.postcode}"
+
+    @client_lat = res.latitude
+    @client_long = res.longitude
+  end
 
   def verify_location(long,lat)
     # compare long/lat to the long/lat of the Client's address

@@ -180,7 +180,17 @@ function getLocation(){
 function showPosition(position) {
     var x = document.getElementById("demo");
     x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
-    var result = <%= verify_location(position.coords.longitude,position.coords.latitude)%>;
+    var client_lat = <%= @client_lat %>;
+    var client_long = <%= @client_long %>;
+    var current_lat = position.coords.latitude ;
+    var current_long = position.coords.longitude;
+
+    if ((current_lat > (client_lat - 0.001)) || (current_lat < (client_lat- 0.001)) || (current_lat < (client_lat - 0.001))){
+      if ((current_long > (client_long - 0.001)) || (current_long < (client_long - 0.001)) || (current_long < (client_long - 0.001))){
+        // This means that the user is there
+      }
+    }
+
     if (result == 1){
       x.innerHTML = "Verified";
     }
