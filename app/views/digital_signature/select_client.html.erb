@@ -38,9 +38,8 @@
 <thead>
 <tr>
     <th>Name</th>
-    <th>Employee Code</th>
-    <th>Office</th>
     <th>Address</th>
+    <th>Office</th>
     <th>Confirm</th>
 </tr>
 </thead>
@@ -48,13 +47,12 @@
   <% @clients.each do |c| %>
     <tr class="gradeX">
         <td><%= link_to c.name, timesheet_path(client_id: c.id, id: @id) %></td>
-        <td class="center"><%=c.employee_code%></td>
+        <td class="center"><%=c.address%></td>
         <%if c.office and c.office.name%>
           <td><%=c.office.name%></td>
         <%else%>
           <td>No Office</td>
         <%end%>
-        <td class="center"><%=c.address%></td>
         <td><%= link_to "Select", timesheet_path(client_id: c.id, id: @id) %></td>
     </tr>
   <% end %>
@@ -62,9 +60,8 @@
 <tfoot>
   <tr>
       <th>Name</th>
-      <th>Employee Code</th>
-      <th>Office</th>
       <th>Address</th>
+      <th>Office</th>
       <th>Confirm</th>
   </tr>
 </tfoot>
