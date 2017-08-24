@@ -65,10 +65,11 @@ Rails.application.routes.draw do
   # digital_signature
   match 'digital_signature/confirm' => 'digital_signature#confirm', via: [:get, :post], as: 'confirm'
   match 'digital_signature/select_client' => 'digital_signature#select_client', via: [:get, :post], as: 'select_client'
-  match 'digital_signature/timesheet' => 'digital_signature#timesheet', via: [:get, :post], as: 'timesheet'
+  # match 'digital_signature/timesheet' => 'digital_signature#timesheet', via: [:get, :post], as: 'timesheet'
   # get 'confirm' => "digital_signature#confirm", as: 'confirm'
   get 'employee_code' => "digital_signature#employee_code", as: 'employee_code'
   get 'verify' => "digital_signature#verify", as: 'verify'
+  get 'timesheet' => "digital_signature#timesheet", as: 'timesheet'
   # get 'select_client' => "digital_signature#select_client", as: 'select_client'
 
   devise_scope :user do
