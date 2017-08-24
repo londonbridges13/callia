@@ -60,3 +60,26 @@
 //= require typehead/bootstrap3-typeahead.min.js
 //= require codemirror/codemirror.js
 //= require codemirror/mode/javascript/javascript.js
+
+
+var x = document.getElementById("demo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude +
+    "<br>Longitude: " + position.coords.longitude;
+}
+
+function verify_location(long,lat){
+  var result = <%=verify_location(long,lat)%>;
+  if (result == true){
+
+  }
+}

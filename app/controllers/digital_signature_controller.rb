@@ -71,6 +71,8 @@ class DigitalSignatureController < ApplicationController
     # compare long/lat to the long/lat of the Client's address
     # The Caregiver must be at the Client's/Patient's Address in order to get money
 
+    p long
+    p lat 
 
   end
 
