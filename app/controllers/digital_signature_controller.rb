@@ -45,8 +45,8 @@ class DigitalSignatureController < ApplicationController
   end
 
   def timesheet #4
-    id = params[:id]
-    @id = params[:id]
+    id = params[:c_id]
+    @id = params[:c_id]
     # verify = params[:verify]
     # code = params[:anything][:code]
     caregiver = Caregiver.all.where(id: id).first
