@@ -58,7 +58,6 @@
         if ((current_long > (client_long - 0.001) && (current_long < client_long)) || ((current_long < (client_long- 0.001)) && (current_long > client_long)) || (current_long == (client_long - 0.001))){
           // This means that the user is there
           x.innerHTML = "Verified";
-          var segue = <%= verified_location%>;
 
         }else{
           x.innerHTML = "UnVerified" + "<br>" + "You don't seem to be located at <%=@client.address%>";
