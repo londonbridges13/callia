@@ -45,7 +45,6 @@
   }
 
   function showPosition(position) {
-      var count = <%=@count%>;
       var x = document.getElementById("demo");
       x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
       var client_lat = <%= @client_lat %>;
@@ -57,10 +56,7 @@
         if (((current_long >= (client_long - 0.001)) && (current_long <= client_long)) || ((current_long <= (client_long + 0.001)) && (current_long >= client_long)) || (current_long == (client_long - 0.001))){
           // This means that the user is there
           x.innerHTML = "Verified";
-          if count == 1{
-            var segue = "<%= verified_location%>"; //Doesnt work
-          }
-
+          window.location = "/timesheet?client_id=<%=@client.id%>&id=<%=@id%>"
         }else{
           x.innerHTML = "UnVerified Longitude" + "<br>" + "You don't seem to be located at <%=@client.address%>" +
           "<br>" + current_lat + current_long + "<br>" + client_lat + client_long;
@@ -69,7 +65,6 @@
         x.innerHTML = "UnVerified Latitude" + "<br>" + "You don't seem to be located at <%=@client.address%>" +
         "<br>" + current_lat + current_long + "<br>" + client_lat + client_long;
       }
-      var doo = <%=@count = 1%>;
 
   }
   </script>
