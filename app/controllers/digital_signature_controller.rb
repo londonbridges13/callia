@@ -112,9 +112,9 @@ class DigitalSignatureController < ApplicationController
 
   def verified_location
     p @count
-    if @count == 1
+    # if @count == 1
       redirect_to :action => "timesheet", client_id: @client.id, id: @id
-    end
+    # end
     @count += 1
   end
   helper_method :verified_location
