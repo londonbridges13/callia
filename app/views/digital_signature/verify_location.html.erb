@@ -60,10 +60,12 @@
 
 
         }else{
-          x.innerHTML = "UnVerified" + "<br>" + "You don't seem to be located at <%=@client.address%>";
+          x.innerHTML = "UnVerified" + "<br>" + "You don't seem to be located at <%=@client.address%>" +
+          "<br>" + current_lat + current_long + "<br>" + client_lat + client_long;
         }
       }else{
-        x.innerHTML = "UnVerified" + "<br>" + "You don't seem to be located at <%=@client.address%>";
+        x.innerHTML = "UnVerified" + "<br>" + "You don't seem to be located at <%=@client.address%>" +
+        "<br>" + current_lat + current_long + "<br>" + client_lat + client_long;
       }
 
   }
