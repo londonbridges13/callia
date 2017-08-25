@@ -185,13 +185,13 @@ function showPosition(position) {
     var current_lat = position.coords.latitude ;
     var current_long = position.coords.longitude;
 
-    if ((current_lat > (client_lat - 0.001)) || (current_lat < (client_lat- 0.001)) || (current_lat < (client_lat - 0.001))){
-      if ((current_long > (client_long - 0.001)) || (current_long < (client_long - 0.001)) || (current_long < (client_long - 0.001))){
+    if ((current_lat > (client_lat - 0.001) && (current_lat < client_lat)) || ((current_lat < (client_lat- 0.001)) && (current_lat > client_lat)) || (current_lat == (client_lat - 0.001))){
+      if ((current_long > (client_long - 0.001) && (current_long < client_long)) || ((current_long < (client_long- 0.001)) && (current_long > client_long)) || (current_long == (client_long - 0.001))){
         // This means that the user is there
         x.innerHTML = "Verified";
       }
     }else{
-      x.innerHTML = "UnVerified";
+      x.innerHTML = "UnVerified" + current_long + " , " + client_long;
 
     }
 
