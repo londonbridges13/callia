@@ -64,6 +64,8 @@
         }
       }else{
         x.innerHTML = "UnVerified" + "<br>" + "You don't seem to be located at <%=@client.address%>";
+        var segue = "<%= verified_location%>"; //Doesnt work
+
       }
 
   }
