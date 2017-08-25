@@ -91,7 +91,7 @@ class DigitalSignatureController < ApplicationController
     client = Client.find_by_id(params[:client_id])
     @client = client
 
-    res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode "#{client.address} #{client.postcode}"
+    res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode "#{client.address} #{client.city},  #{client.state}"
 
     @client_lat = res.latitude
     @client_long = res.longitude
