@@ -56,8 +56,11 @@
         if (((current_long >= (client_long - 0.001)) && (current_long <= client_long)) || ((current_long <= (client_long + 0.001)) && (current_long >= client_long)) || (current_long == (client_long - 0.001))){
           // This means that the user is there
           x.innerHTML = "Verified";
-          var segue = "<%= verified_location%>"; //Doesnt work
-
+          var count = <%=@count%>
+          if count == 1{
+            var segue = "<%= verified_location%>"; //Doesnt work
+          }
+          var doo = <%=@count = 1%>
 
         }else{
           x.innerHTML = "UnVerified Longitude" + "<br>" + "You don't seem to be located at <%=@client.address%>" +
