@@ -17,10 +17,8 @@
       <div class="ibox-content">
 
 
-          <div class="actions">
-              <button id="verify_location" name="verify_location" onclick="getLocation();" data-style="slide-right" class="ladda-button btn btn-primary block full-width m-b">Verify Location</button>
-              <p id="demo"></p>
-          </div>
+        <button id="verify_location" name="verify_location" onclick="getLocation();" data-style="slide-right" class="ladda-button btn btn-primary block full-width m-b">Verify Location</button>
+        <p id="demo"></p>
 
       </div>
     </div>
@@ -58,8 +56,8 @@
         if ((current_long > (client_long - 0.001) && (current_long < client_long)) || ((current_long < (client_long- 0.001)) && (current_long > client_long)) || (current_long == (client_long - 0.001))){
           // This means that the user is there
           x.innerHTML = "Verified";
-          var segue = <%= verified_location%>; Doesnt work
-          
+          var segue = <%= verified_location%>; //Doesnt work
+
 
         }else{
           x.innerHTML = "UnVerified" + "<br>" + "You don't seem to be located at <%=@client.address%>";
