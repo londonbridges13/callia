@@ -101,6 +101,7 @@ class DigitalSignatureController < ApplicationController
     id = params[:id]
     @id = id
     caregiver = Caregiver.all.where(id: id).first
+    @count = 0
 
     if params[:client_id]
       get_client_location
@@ -110,7 +111,11 @@ class DigitalSignatureController < ApplicationController
   end
 
   def verified_location
-    redirect_to :action => "timesheet", client_id: @client.id, id: @id
+    p @count
+    if @count == 1
+      redirect_to :action => "timesheet", client_id: @client.id, id: @id
+    end
+    @count += 1
   end
   helper_method :verified_location
 
