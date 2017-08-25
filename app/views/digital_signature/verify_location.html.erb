@@ -1,0 +1,73 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <div class="m-t" role="form" >
+
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+          <h5>Verify your Location </h5>
+          <div class="ibox-tools">
+              <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+              </a>
+              <a class="close-link">
+                  <i class="fa fa-times"></i>
+              </a>
+          </div>
+      </div>
+      <div class="ibox-content">
+
+
+          <div class="actions">
+              <button id="verify_location" name="verify_location" onclick="getLocation();" data-style="slide-right" class="ladda-button btn btn-primary block full-width m-b">Verify Location</button>
+              <p id="demo"></p>
+          </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <% content_for :javascript do %>
+
+  <script type="text/javascript">
+
+  $(document).load(function(){
+    verify_location();
+  });
+
+  function getLocation(){
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+          var x = document.getElementById("demo");
+          x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+  }
+
+  function showPosition(position) {
+      var x = document.getElementById("demo");
+      x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+      var client_lat = <%= @client_lat %>;
+      var client_long = <%= @client_long %>;
+      var current_lat = position.coords.latitude ;
+      var current_long = position.coords.longitude;
+
+      if ((current_lat > (client_lat - 0.001) && (current_lat < client_lat)) || ((current_lat < (client_lat- 0.001)) && (current_lat > client_lat)) || (current_lat == (client_lat - 0.001))){
+        if ((current_long > (client_long - 0.001) && (current_long < client_long)) || ((current_long < (client_long- 0.001)) && (current_long > client_long)) || (current_long == (client_long - 0.001))){
+          // This means that the user is there
+          x.innerHTML = "Verified";
+          var segue = <%= verified_location%>;
+
+        }else{
+          x.innerHTML = "UnVerified" + "<br>" + "You don't seem to be located at <%=@client.address%>";
+        }
+      }else{
+        x.innerHTML = "UnVerified" + "<br>" + "You don't seem to be located at <%=@client.address%>";
+      }
+
+  }
+  </script>
+
+  <% end %>

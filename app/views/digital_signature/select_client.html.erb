@@ -46,14 +46,14 @@
 <tbody>
   <% @clients.each do |c| %>
     <tr class="gradeX">
-        <td><%= link_to c.name, timesheet_path(client_id: c.id, id: @id) %></td>
+        <td><%= link_to c.name, verify_location_path(client_id: c.id, id: @id) %></td>
         <td class="center"><%=c.address%></td>
         <%if c.office and c.office.name%>
           <td><%=c.office.name%></td>
         <%else%>
           <td>No Office</td>
         <%end%>
-        <td><%= link_to "Select", timesheet_path(client_id: c.id, id: @id) %></td>
+        <td><%= link_to "Select", verify_location_path(client_id: c.id, id: @id) %></td>
     </tr>
   <% end %>
 </tbody>

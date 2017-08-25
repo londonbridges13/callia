@@ -89,6 +89,7 @@ class DigitalSignatureController < ApplicationController
 
   def get_client_location
     client = Client.find_by_id(params[:client_id])
+    @client = client
 
     res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode "#{client.address} #{client.postcode}"
 
@@ -96,22 +97,39 @@ class DigitalSignatureController < ApplicationController
     @client_long = res.longitude
   end
 
-  def verify_location(long,lat)
-    # compare long/lat to the long/lat of the Client's address
-    # The Caregiver must be at the Client's/Patient's Address in order to get money
-    # 1 == true
-    # 0 == false
+  def verify_location
+    id = params[:id]
+    @id = id
+    caregiver = Caregiver.all.where(id: id).first
 
-    p "#{long}"
-    p "#{lat}"
-    return 1
+    if params[:client_id]
+      get_client_location
+    end
+
+
   end
 
+  def verified_location
+    redirect_to :action => "timesheet", client_id: @client.id, id: @id
+  end
+  helper_method :verified_location
 
   def update_timesheet
     # create call, save services to the call, save caregiver and client to the call
+    @timesheet = Call.new(call_params)
+
+    if @timesheet.save
+      redirect_to "/congrats"
+    end
   end
 
 
+  def service_params
+    params.require(:service).permit(:service, :response)
+  end
+
+  def call_params
+    params.require(:call).permit(:caller_number, :called_number, :service_ids, :order)
+  end
 
 end
