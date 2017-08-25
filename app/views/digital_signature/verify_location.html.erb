@@ -52,7 +52,7 @@
       var current_lat = position.coords.latitude ;
       var current_long = position.coords.longitude;
 
-      if ((current_lat > (client_lat - 0.001) && (current_lat < client_lat)) || ((current_lat < (client_lat- 0.001)) && (current_lat > client_lat)) || (current_lat == (client_lat - 0.001))){
+      if (((current_lat > (client_lat - 0.001)) && (current_lat < client_lat)) || ((current_lat < (client_lat- 0.001)) && (current_lat > client_lat)) || (current_lat == (client_lat - 0.001))){
         if ((current_long > (client_long - 0.001) && (current_long < client_long)) || ((current_long < (client_long- 0.001)) && (current_long > client_long)) || (current_long == (client_long - 0.001))){
           // This means that the user is there
           x.innerHTML = "Verified";
@@ -60,11 +60,11 @@
 
 
         }else{
-          x.innerHTML = "UnVerified" + "<br>" + "You don't seem to be located at <%=@client.address%>" +
+          x.innerHTML = "UnVerified Longitude" + "<br>" + "You don't seem to be located at <%=@client.address%>" +
           "<br>" + current_lat + current_long + "<br>" + client_lat + client_long;
         }
       }else{
-        x.innerHTML = "UnVerified" + "<br>" + "You don't seem to be located at <%=@client.address%>" +
+        x.innerHTML = "UnVerified Latitude" + "<br>" + "You don't seem to be located at <%=@client.address%>" +
         "<br>" + current_lat + current_long + "<br>" + client_lat + client_long;
       }
 
