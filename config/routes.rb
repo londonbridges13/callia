@@ -70,6 +70,8 @@ Rails.application.routes.draw do
   get 'employee_code' => "digital_signature#employee_code", as: 'employee_code'
   get 'verify' => "digital_signature#verify", as: 'verify'
   get 'timesheet' => "digital_signature#timesheet", as: 'timesheet'
+  put 'update_timesheet', to: 'digital_signature#update_timesheet', as: "update_timesheet"
+
   # get 'select_client' => "digital_signature#select_client", as: 'select_client'
 
   devise_scope :user do
