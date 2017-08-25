@@ -189,10 +189,11 @@ function showPosition(position) {
       if ((current_long > (client_long - 0.001) && (current_long < client_long)) || ((current_long < (client_long- 0.001)) && (current_long > client_long)) || (current_long == (client_long - 0.001))){
         // This means that the user is there
         x.innerHTML = "Verified";
+      }else{
+        x.innerHTML = "UnVerified" + current_long + " , " + client_long;
       }
     }else{
       x.innerHTML = "UnVerified" + current_lat + " , " + client_lat;
-
     }
 
 }
