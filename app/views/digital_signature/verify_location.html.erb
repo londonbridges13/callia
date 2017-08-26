@@ -52,8 +52,8 @@
       var current_lat = position.coords.latitude ;
       var current_long = position.coords.longitude;
 
-      if (((current_lat >= (client_lat - 0.001)) && (current_lat <= client_lat)) || ((current_lat <= (client_lat + 0.001)) && (current_lat >= client_lat)) || (current_lat == (client_lat - 0.001))){
-        if (((current_long >= (client_long - 0.001)) && (current_long <= client_long)) || ((current_long <= (client_long + 0.001)) && (current_long >= client_long)) || (current_long == (client_long - 0.001))){
+      if (((current_lat >= (client_lat - 0.0019)) && (current_lat <= client_lat)) || ((current_lat <= (client_lat + 0.0019)) && (current_lat >= client_lat)) || (current_lat == (client_lat - 0.0019))){
+        if (((current_long >= (client_long - 0.0019)) && (current_long <= client_long)) || ((current_long <= (client_long + 0.0019)) && (current_long >= client_long)) || (current_long == (client_long - 0.0019))){
           // This means that the user is there
           x.innerHTML = "Verified";
           window.location = "/timesheet?client_id=<%=@client.id%>&c_id=<%=@id%>"
