@@ -30,6 +30,7 @@ class DigitalSignatureController < ApplicationController
   def select_client
     # make sure to send the caregiver info for the user
     id = params[:id]
+    @id = params[:id]
     verify = params[:verify]
     code = params[:anything][:code]
     caregiver = Caregiver.all.where(id: id).first
