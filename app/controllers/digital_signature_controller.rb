@@ -160,7 +160,7 @@ class DigitalSignatureController < ApplicationController
 
   def display_question
 
-    order = params[:order]
+    order = params[:order].to_i
     @order = order
 
     id = params[:c_id]
