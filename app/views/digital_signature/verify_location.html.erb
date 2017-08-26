@@ -58,12 +58,12 @@
           x.innerHTML = "Verified";
           window.location = "/timesheet?client_id=<%=@client.id%>&c_id=<%=@id%>"
         }else{
-          x.innerHTML = "UnVerified Longitude" + "<br>" + "You don't seem to be located at <%=@client.address%>" +
-          "<br>" + current_lat + current_long + "<br>" + client_lat + client_long;
+          x.innerHTML = "UnVerified Longitude" + "<br>" + "You don't seem to be located at <%=@client.address%>";// +
+          // "<br>" + current_lat + current_long + "<br>" + client_lat + client_long;
         }
       }else{
-        x.innerHTML = "UnVerified Latitude" + "<br>" + "You don't seem to be located at <%=@client.address%>" +
-        "<br>" + current_lat + current_long + "<br>" + client_lat + client_long;
+        x.innerHTML = "UnVerified Latitude" + "<br>" + "You don't seem to be located at <%=@client.address%>";// +
+        // "<br>" + current_lat + current_long + "<br>" + client_lat + client_long;
       }
 
   }

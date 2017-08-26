@@ -29,19 +29,14 @@
                                     <input id="userName" name="userName" type="text" class="form-control required">
                                 </div>
                                 <div class="form-group">
-                                    <label>Password *<%= @id%></label>
+                                    <label>Password *</label>
                                     <input id="password" name="password" type="text" class="form-control required">
                                 </div>
                                 <div class="form-group">
                                     <label>Confirm Password *</label>
                                     <input id="confirm" name="confirm" type="text" class="form-control required">
                                 </div>
-                                <div class="form-group">
-                                    <label>Verify Location *</label>
-                                    <button id="verify_location" name="verify_location" onclick="getLocation();" class="btn btn-primary"></button>
-                                    <p id="demo"></p>
 
-                                </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="text-center">
@@ -57,26 +52,35 @@
                     <fieldset>
                         <h2>Profile Information</h2>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>First name *</label>
-                                    <input id="name" name="name" type="text" class="form-control required">
+                          <% @services.each do |service| %>
+                            <%= form_for [service] do |f| %>
+
+
+                                <div class="field">
+                                    <br>
+                                    <div class="form-group row">
+                                    <div class="col-sm-6">
+                                      <%= f.text_area :service, class:"form-control" %>
+                                      <span class="help-block m-b-none">This is what your employee hears in a phone call</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                      <div class="actions">
+                                        <%= f.submit nil, class: "btn btn-success block full-width m-b pull-right" %>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                      <div class="actions">
+                                        <%= link_to "Delete", service_path(service), :method => :delete,  data: {confirm: 'Are you sure?' },
+                                          :class => "btn btn-danger full-width m-b btn-outline pull-left" %>
+                                      </div>
+                                    </div>
+                                    </div>
+                                    <br>
                                 </div>
-                                <div class="form-group">
-                                    <label>Last name *</label>
-                                    <input id="surname" name="surname" type="text" class="form-control required">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>Email *</label>
-                                    <input id="email" name="email" type="text" class="form-control required email">
-                                </div>
-                                <div class="form-group">
-                                    <label>Address *</label>
-                                    <input id="address" name="address" type="text" class="form-control">
-                                </div>
-                            </div>
+
+
+                            <% end %>
+                          <% end %>
                         </div>
                     </fieldset>
 
@@ -168,35 +172,6 @@ $(document).load(function(){
   verify_location();
 });
 
-function getLocation(){
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        var x = document.getElementById("demo");
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-
-function showPosition(position) {
-    var x = document.getElementById("demo");
-    x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
-    var client_lat = <%= @client_lat %>;
-    var client_long = <%= @client_long %>;
-    var current_lat = position.coords.latitude ;
-    var current_long = position.coords.longitude;
-
-    if ((current_lat > (client_lat - 0.001) && (current_lat < client_lat)) || ((current_lat < (client_lat- 0.001)) && (current_lat > client_lat)) || (current_lat == (client_lat - 0.001))){
-      if ((current_long > (client_long - 0.001) && (current_long < client_long)) || ((current_long < (client_long- 0.001)) && (current_long > client_long)) || (current_long == (client_long - 0.001))){
-        // This means that the user is there
-        x.innerHTML = "Verified";
-      }else{
-        x.innerHTML = "UnVerified" + current_long + " , " + client_long;
-      }
-    }else{
-      x.innerHTML = "UnVerified" + current_lat + " , " + client_lat;
-    }
-
-}
 </script>
 
 <% end %>

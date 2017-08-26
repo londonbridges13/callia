@@ -51,7 +51,10 @@ class DigitalSignatureController < ApplicationController
     # verify = params[:verify]
     # code = params[:anything][:code]
     caregiver = Caregiver.all.where(id: id).first
+    @caregiver = caregiver
 
+    client = Client.find_by_id(params[:client_id])
+    @client = client
     # @company_name = caregiver.office.user.agency_name
     # unless code == verify
     #   #redirect to invalid page
@@ -59,9 +62,19 @@ class DigitalSignatureController < ApplicationController
     # end
     #display the timesheet form and verify location
 
-    if params[:client_id]
-      get_client_location
-    end
+    # if params[:client_id]
+    #   get_client_location
+    # end
+
+    @timesheet = Call.new
+    @timesheet.log_type = "Timesheet: Incomplete"
+    @timesheet.user = caregiver.user
+    @timesheet.caregiver = caregiver
+    @timesheet.client = client
+    @timesheet.save
+    set_services
+    @services = @timesheet.services
+
 
   end
 
@@ -127,8 +140,20 @@ class DigitalSignatureController < ApplicationController
     # create call, save services to the call, save caregiver and client to the call
     @timesheet = Call.new(call_params)
 
+    @timesheet.log_type = "Digital Timesheet"
     if @timesheet.save
       redirect_to "/congrats"
+    end
+  end
+
+  def set_services
+    # use in the timesheet func
+    @caregiver.user.services.each do |s|
+      service = Service.new
+      service.service = s.service
+      service.save
+      @timesheet.services.push service# don't set the service.user, that is for the user to tweak only
+      # service_ids.push s.id
     end
   end
 
