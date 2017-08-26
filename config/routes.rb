@@ -70,6 +70,7 @@ Rails.application.routes.draw do
   get 'employee_code' => "digital_signature#employee_code", as: 'employee_code'
   get 'verify' => "digital_signature#verify", as: 'verify'
   get 'timesheet' => "digital_signature#timesheet", as: 'timesheet'
+  get 'display_question' => "digital_signature#display_question", as: 'display_question'
   get 'verify_location' => "digital_signature#verify_location", as: 'verify_location'
   put 'update_timesheet', to: 'digital_signature#update_timesheet', as: "update_timesheet"
   get 'congrats' => "digital_signature#congrats", as: 'congrats'

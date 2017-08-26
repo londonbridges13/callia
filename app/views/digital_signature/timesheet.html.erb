@@ -52,42 +52,9 @@
                     <fieldset>
                         <h2>Profile Information</h2>
                         <div class="row">
-
+                            
                         </div>
                     </fieldset>
-
-
-                    <% @services.each do |service| %>
-                      <%= form_for [service] do |f| %>
-
-                          <h1>Timesheet</h1>
-                          <fieldset>
-                            <h2>Profile Information</h2>
-
-                              <br>
-                              <div class="form-group row">
-                              <div class="col-sm-6">
-                                <%= f.text_area :service, class:"form-control" %>
-                                <span class="help-block m-b-none">This is what your employee hears in a phone call</span>
-                              </div>
-                              <div class="col-sm-2">
-                                <div class="actions">
-                                  <%= f.submit nil, class: "btn btn-success block full-width m-b pull-right" %>
-                                </div>
-                              </div>
-                              <div class="col-sm-2">
-                                <div class="actions">
-                                  <%= link_to "Delete", service_path(service), :method => :delete,  data: {confirm: 'Are you sure?' },
-                                    :class => "btn btn-danger full-width m-b btn-outline pull-left" %>
-                                </div>
-                              </div>
-                              </div>
-                              <br>
-                          </fieldset>
-
-
-                      <% end %>
-                    <% end %>
 
                     <h1>Warning</h1>
                     <fieldset>
