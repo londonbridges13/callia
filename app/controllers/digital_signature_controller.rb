@@ -164,7 +164,7 @@ class DigitalSignatureController < ApplicationController
     @order = order
 
     id = params[:c_id]
-    @id = params[:c_id] #caregiver id 
+    @id = params[:c_id] #caregiver id
 
     caregiver = Caregiver.all.where(id: id).first
     @caregiver = caregiver
@@ -172,7 +172,7 @@ class DigitalSignatureController < ApplicationController
     client = Client.find_by_id(params[:client_id])
     @client = client
 
-    unless order == 0
+    if order > 0 and t_id
       t_id = params[:t_id] #timesheet id
       @t_id = id
       @timesheet = Call.find_by_id(t_id)
