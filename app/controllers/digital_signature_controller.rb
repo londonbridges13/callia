@@ -183,8 +183,12 @@ class DigitalSignatureController < ApplicationController
     if response
       # Set answer, go to next question
       service = Service.find_by_id(@service_ids[order])
-      service.response = response
-      service.save
+      p @service_ids[order]
+      p service
+      if service
+        service.response = response
+        service.save
+      end
 
       @next_url = "/display_question?client_id=#{client.id}&c_id=#{@id}&order=#{order + 1}&t_id=#{@t_id}&service_ids=#{service_ids}"
       redirect_to @next_url
