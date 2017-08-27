@@ -1,4 +1,4 @@
-<%= form_for :anything, url: "digital_signature/display_question?order=#{@order}&t_id=#{@id}" do |f| %>
+<%= form_for :anything, url: "display_question?order=#{@order}&t_id=#{@id}" do |f| %>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <div class="m-t" role="form" >
@@ -21,8 +21,10 @@
             <label class="col-sm-2 control-label"><%=@question%></label>
               <div class="row">
                 <div class="col-sm-4">
-                    <%= f.text_field :code, class:"form-control" %>
-                    <span class="help-block"> </span>
+                    <div class="actions">
+                      <%= f.submit "Yes", name: "response", value: "Yes", class: "btn btn-success block full-width m-b" %>
+                      <%= f.submit "No", name: "response", value: "No", class: "btn btn-danger block full-width m-b" %>
+                    </div>
                     <br>
                     <br>
                 </div>
@@ -32,9 +34,6 @@
 
 
 
-          <div class="actions">
-              <%= f.submit "Continue", class: "btn btn-primary block full-width m-b" %>
-          </div>
 
       </div>
     </div>

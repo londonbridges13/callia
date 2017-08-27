@@ -163,8 +163,8 @@ class DigitalSignatureController < ApplicationController
     order = params[:order].to_i
     @order = order
 
-    id = params[:c_id]
-    @id = params[:c_id] #caregiver id
+    id = params[:c_id].to_i
+    @id = params[:c_id].to_i #caregiver id
 
     caregiver = Caregiver.all.where(id: id).first
     @caregiver = caregiver
@@ -172,35 +172,51 @@ class DigitalSignatureController < ApplicationController
     client = Client.find_by_id(params[:client_id])
     @client = client
 
-    if order > 0 and t_id
-      t_id = params[:t_id] #timesheet id
-      @t_id = id
-      @timesheet = Call.find_by_id(t_id)
+    t_id = params[:t_id].to_i #timesheet id
 
-      if @timesheet.services[order]
-        @question = @timesheet.services[order].service
-      else
-        # done, redirect to timesheet
-        redirect_to "/timesheet?client_id=#{@timesheet.client}.id&c_id=#{@timesheet.caregiver.id}"
-      end
+    response = params[:anything][:response]
+
+    if response
+      # Set answer, go to next question
+      service = @timesheet.services[order]
+      service.response = response
+      service.save
+
+      @next_url = "/display_question?client_id=#{client.id}&c_id=#{@id}&order=#{order + 1}&t_id=#{@t_id}"
+      redirect_to @next_url
     else
-      # order == 0
-      # create timesheet here then continue to display the first question
-      # send t_id through, send order through
+      # display_question
+      if order > 0 and t_id
+        @t_id = t_id
+        @timesheet = Call.find_by_id(t_id)
 
-      @timesheet = Call.new
-      @timesheet.log_type = "Timesheet: Incomplete"
-      @timesheet.user = caregiver.user
-      @timesheet.caregiver = caregiver
-      @timesheet.client = client
-      @timesheet.save
-      set_services
-      @services = @timesheet.services
+        if @timesheet.services.order("id").[order] #test
+          @question = @timesheet.services[order].service
 
-      if @timesheet.services[0] #should be 0
-        @question = @timesheet.services[0].service
+          @next_url = "/display_question?client_id=#{client.id}&c_id=#{@id}&order=#{order + 1}&t_id=#{@t_id}"
+        else
+          # done, redirect to timesheet
+          redirect_to "/timesheet?client_id=#{@timesheet.client}.id&c_id=#{@timesheet.caregiver.id}"
+        end
+      else
+        # order == 0
+        # create timesheet here then continue to display the first question
+        # send t_id through, send order through
+
+        @timesheet = Call.new
+        @timesheet.log_type = "Timesheet: Incomplete"
+        @timesheet.user = caregiver.user
+        @timesheet.caregiver = caregiver
+        @timesheet.client = client
+        @timesheet.save
+        set_services
+        @services = @timesheet.services
+
+        if @timesheet.services[0] #should be 0
+          @question = @timesheet.services[0].service
+        end
+
       end
-
     end
   end
 
