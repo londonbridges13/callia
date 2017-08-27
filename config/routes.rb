@@ -65,7 +65,7 @@ Rails.application.routes.draw do
   # digital_signature
   match 'digital_signature/confirm' => 'digital_signature#confirm', via: [:get, :post], as: 'confirm'
   match 'digital_signature/select_client' => 'digital_signature#select_client', via: [:get, :post], as: 'select_client'
-  match 'digital_signature/display_question' => 'digital_signature#display_question', via: [:get, :post], as: 'display_question'
+  match 'display_question' => 'digital_signature#display_question', via: [:get, :post], as: 'display_question'
   # match 'digital_signature/timesheet' => 'digital_signature#timesheet', via: [:get, :post], as: 'timesheet'
   # get 'confirm' => "digital_signature#confirm", as: 'confirm'
   get 'employee_code' => "digital_signature#employee_code", as: 'employee_code'
