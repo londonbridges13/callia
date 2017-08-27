@@ -178,7 +178,7 @@ class DigitalSignatureController < ApplicationController
 
     if response
       # Set answer, go to next question
-      service = @timesheet.services[order]
+      service = @timesheet.services.order("id")[order]
       service.response = response
       service.save
 
@@ -190,8 +190,8 @@ class DigitalSignatureController < ApplicationController
         @t_id = t_id
         @timesheet = Call.find_by_id(t_id)
 
-        if @timesheet.services.order("id").[order] #test
-          @question = @timesheet.services[order].service
+        if @timesheet.services.order("id")[order] #test
+          @question = @timesheet.services.order("id")[order].service
 
           @next_url = "/display_question?client_id=#{client.id}&c_id=#{@id}&order=#{order + 1}&t_id=#{@t_id}"
         else
@@ -210,10 +210,10 @@ class DigitalSignatureController < ApplicationController
         @timesheet.client = client
         @timesheet.save
         set_services
-        @services = @timesheet.services
+        @services = @timesheet.order("id").services
 
-        if @timesheet.services[0] #should be 0
-          @question = @timesheet.services[0].service
+        if @timesheet.services.order("id")[0] #should be 0
+          @question = @timesheet.services.order("id")[0].service
         end
 
       end
