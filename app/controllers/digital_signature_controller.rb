@@ -204,7 +204,7 @@ class DigitalSignatureController < ApplicationController
           @next_url = "/display_question?client_id=#{client.id}&c_id=#{@id}&order=#{order + 1}&t_id=#{@t_id}&service_ids=#{service_ids}"
         else
           # done, redirect to timesheet
-          redirect_to "/timesheet?client_id=#{@timesheet.client}.id&c_id=#{@timesheet.caregiver.id}"
+          redirect_to "/timesheet?client_id=#{@timesheet.client.id}.id&c_id=#{@timesheet.caregiver.id}"
         end
       else
         # order == 0
@@ -221,7 +221,7 @@ class DigitalSignatureController < ApplicationController
 
         set_services
         @services = @timesheet.services
-        @t_id = @timesheet.id 
+        @t_id = @timesheet.id
         if @service_ids[0] #should be 0
           @question = Service.find_by_id(@service_ids[0]).service
         end
