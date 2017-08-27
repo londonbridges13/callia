@@ -175,7 +175,7 @@ class DigitalSignatureController < ApplicationController
 
     t_id = params[:t_id].to_i #timesheet id
 
-    @service_ids = [:service_ids].to_i
+    @service_ids = [:service_ids]
 
     something = params[:anything]
     response = nil
