@@ -221,7 +221,7 @@ class DigitalSignatureController < ApplicationController
 
         set_services
         @services = @timesheet.services
-
+        @t_id = @timesheet.id 
         if @service_ids[0] #should be 0
           @question = Service.find_by_id(@service_ids[0]).service
         end
