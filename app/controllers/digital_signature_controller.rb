@@ -178,8 +178,8 @@ class DigitalSignatureController < ApplicationController
     @service_ids = [:service_ids]
 
 
-    response = [:response]
-    
+    response = params[:response]
+
     if response
       # Set answer, go to next question
       service = Service.find_by_id(@service_ids[order])
