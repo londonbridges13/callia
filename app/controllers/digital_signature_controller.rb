@@ -148,12 +148,13 @@ class DigitalSignatureController < ApplicationController
 
   def set_services
     # use in the timesheet func
+    @service_ids = []
     @caregiver.user.services.each do |s|
       service = Service.new
       service.service = s.service
       service.save
       @timesheet.services.push service# don't set the service.user, that is for the user to tweak only
-      # service_ids.push s.id
+      @service_ids.push s.id
     end
   end
 
@@ -174,6 +175,8 @@ class DigitalSignatureController < ApplicationController
 
     t_id = params[:t_id].to_i #timesheet id
 
+    @service_ids = [:service_ids]
+
     something = params[:anything]
     response = nil
     if something
@@ -182,11 +185,11 @@ class DigitalSignatureController < ApplicationController
 
     if response
       # Set answer, go to next question
-      service = @timesheet.services.sort_by("id")[order]
+      service = Service.find_by_id(@service_ids[order])
       service.response = response
       service.save
 
-      @next_url = "/display_question?client_id=#{client.id}&c_id=#{@id}&order=#{order + 1}&t_id=#{@t_id}"
+      @next_url = "/display_question?client_id=#{client.id}&c_id=#{@id}&order=#{order + 1}&t_id=#{@t_id}&service_ids=#{service_ids}"
       redirect_to @next_url
     else
       # display_question
@@ -194,10 +197,10 @@ class DigitalSignatureController < ApplicationController
         @t_id = t_id
         @timesheet = Call.find_by_id(t_id)
 
-        if @timesheet.services.sort_by("id")[order] #test
-          @question = @timesheet.services.sort_by("id")[order].service
+        if @service_ids[order] #test
+          @question = Service.find_by_id(@service_ids[order]).service
 
-          @next_url = "/display_question?client_id=#{client.id}&c_id=#{@id}&order=#{order + 1}&t_id=#{@t_id}"
+          @next_url = "/display_question?client_id=#{client.id}&c_id=#{@id}&order=#{order + 1}&t_id=#{@t_id}&service_ids=#{service_ids}"
         else
           # done, redirect to timesheet
           redirect_to "/timesheet?client_id=#{@timesheet.client}.id&c_id=#{@timesheet.caregiver.id}"
@@ -214,10 +217,10 @@ class DigitalSignatureController < ApplicationController
         @timesheet.client = client
         @timesheet.save
         set_services
-        @services = @timesheet.sort_by("id").services
+        @services = @timesheet.services
 
-        if @timesheet.services.sort_by("id")[0] #should be 0
-          @question = @timesheet.services.sort_by("id")[0].service
+        if @service_ids[0] #should be 0
+          @question = Service.find_by_id(@service_ids[0]).service
         end
 
       end
