@@ -174,7 +174,11 @@ class DigitalSignatureController < ApplicationController
 
     t_id = params[:t_id].to_i #timesheet id
 
-    response = params[:anything][:response]
+    something = params[:anything]
+    response = nil
+    if something
+      response = something[:response]
+    end
 
     if response
       # Set answer, go to next question
