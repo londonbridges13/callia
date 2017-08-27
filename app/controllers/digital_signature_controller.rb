@@ -194,7 +194,7 @@ class DigitalSignatureController < ApplicationController
     else
       # display_question
       if order > 0 and @t_id
-        t_id = @t_id 
+        t_id = @t_id
         @timesheet = Call.find_by_id(@t_id)
 
         if @service_ids[order] #test
@@ -213,9 +213,11 @@ class DigitalSignatureController < ApplicationController
         @timesheet = Call.new
         @timesheet.log_type = "Timesheet: Incomplete"
         @timesheet.user = caregiver.user
+        @timesheet.save
         @timesheet.caregiver = caregiver
         @timesheet.client = client
         @timesheet.save
+
         set_services
         @services = @timesheet.services
 
