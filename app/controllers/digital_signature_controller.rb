@@ -177,12 +177,9 @@ class DigitalSignatureController < ApplicationController
     t_id = @t_id
     @service_ids = [:service_ids]
 
-    something = params[:anything]
-    response = nil
-    if something
-      response = something[:response]
-    end
 
+    response = [:response]
+    
     if response
       # Set answer, go to next question
       service = Service.find_by_id(@service_ids[order])
@@ -204,7 +201,7 @@ class DigitalSignatureController < ApplicationController
           @next_url = "/display_question?client_id=#{client.id}&c_id=#{@id}&order=#{order + 1}&t_id=#{@t_id}&service_ids=#{service_ids}"
         else
           # done, redirect to timesheet
-          redirect_to "/timesheet?client_id=#{@timesheet.client.id}.id&c_id=#{@timesheet.caregiver.id}"
+          redirect_to "/timesheet?client_id=#{@timesheet.client.id}&c_id=#{@timesheet.caregiver.id}"
         end
       else
         # order == 0
