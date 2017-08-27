@@ -173,7 +173,7 @@ class DigitalSignatureController < ApplicationController
     client = Client.find_by_id(params[:client_id])
     @client = client
 
-    t_id = params[:t_id].to_i #timesheet id
+    @t_id = params[:t_id].to_i #timesheet id
 
     @service_ids = [:service_ids]
 
