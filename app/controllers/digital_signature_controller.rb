@@ -193,9 +193,10 @@ class DigitalSignatureController < ApplicationController
       redirect_to @next_url
     else
       # display_question
-      if order > 0 and @t_id
+      @timesheet = Call.find_by_id(@t_id)
+
+      if order > 0 and @t_id and @timesheet
         t_id = @t_id
-        @timesheet = Call.find_by_id(@t_id)
 
         if @service_ids[order] #test
           @question = Service.find_by_id(@service_ids[order]).service
