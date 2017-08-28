@@ -175,14 +175,18 @@ class DigitalSignatureController < ApplicationController
 
     @t_id = params[:t_id].to_i #timesheet id
     t_id = @t_id
-    @service_ids = [:service_ids]
-
+    @service_ids = []#params[:service_ids]
+    params[:service_ids].each do |n|
+      @service_ids.push n.to_i
+    end
 
     response = params[:response]
 
     if response
       # Set answer, go to next question
       service = Service.find_by_id(@service_ids[order])
+      p @service_ids
+      p params[:service_ids]
       p @service_ids[order]
       p service
       if service
@@ -190,7 +194,7 @@ class DigitalSignatureController < ApplicationController
         service.save
       end
 
-      @next_url = "/display_question?client_id=#{client.id}&c_id=#{@id}&order=#{order + 1}&t_id=#{@t_id}&service_ids=#{service_ids}"
+      @next_url = "/display_question?client_id=#{client.id}&c_id=#{@id}&order=#{order + 1}&t_id=#{@t_id}&service_ids=#{@service_ids}"
       redirect_to @next_url
     else
       # display_question
@@ -199,7 +203,7 @@ class DigitalSignatureController < ApplicationController
       if order > 0 and @t_id and @timesheet
         t_id = @t_id
 
-        if @service_ids[order] #test
+        if @service_ids[order] #test, DOESNT WORK
           @question = Service.find_by_id(@service_ids[order]).service
 
           @next_url = "/display_question?client_id=#{client.id}&c_id=#{@id}&order=#{order + 1}&t_id=#{@t_id}&service_ids=#{service_ids}"
