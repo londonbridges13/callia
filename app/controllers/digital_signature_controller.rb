@@ -174,6 +174,9 @@ class DigitalSignatureController < ApplicationController
     @client = client
 
     @t_id = params[:t_id].to_i #timesheet id
+    if @t_id
+      @timesheet = Call.find_by_id(@t_id)
+    end
     t_id = @t_id
     @service_ids = []#params[:service_ids]
     if params[:service_ids]
@@ -191,7 +194,7 @@ class DigitalSignatureController < ApplicationController
       p params[:service_ids]
       p @service_ids[order]
       p service
-      
+
       if service
         service.response = response
         unless @timesheet.services.include? service
