@@ -191,8 +191,12 @@ class DigitalSignatureController < ApplicationController
       p params[:service_ids]
       p @service_ids[order]
       p service
+      
       if service
         service.response = response
+        unless @timesheet.services.include? service
+          @timesheet.services.push service
+        end
         service.save
       end
 
@@ -220,6 +224,7 @@ class DigitalSignatureController < ApplicationController
 
         @timesheet = Call.new
         @timesheet.log_type = "Timesheet: Incomplete"
+        @timesheet.save
         @timesheet.user = caregiver.user
         @timesheet.save
         @timesheet.caregiver = caregiver
