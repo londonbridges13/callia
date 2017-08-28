@@ -156,6 +156,13 @@ class DigitalSignatureController < ApplicationController
       @timesheet.services.push service# don't set the service.user, that is for the user to tweak only
       @service_ids.push s.id
     end
+
+    @services = @timesheet.services
+    @t_id = @timesheet.id
+    if @service_ids[0] #should be 0
+      @question = Service.find_by_id(@service_ids[0]).service
+    end
+    
   end
 
 
@@ -235,11 +242,6 @@ class DigitalSignatureController < ApplicationController
         @timesheet.save
 
         set_services
-        @services = @timesheet.services
-        @t_id = @timesheet.id
-        if @service_ids[0] #should be 0
-          @question = Service.find_by_id(@service_ids[0]).service
-        end
 
       end
     end
