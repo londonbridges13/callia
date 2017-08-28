@@ -176,8 +176,10 @@ class DigitalSignatureController < ApplicationController
     @t_id = params[:t_id].to_i #timesheet id
     t_id = @t_id
     @service_ids = []#params[:service_ids]
-    params[:service_ids].each do |n|
-      @service_ids.push n.to_i
+    if params[:service_ids]
+      params[:service_ids].each do |n|
+        @service_ids.push n.to_i
+      end
     end
 
     response = params[:response]
