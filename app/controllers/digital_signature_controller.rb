@@ -177,7 +177,7 @@ class DigitalSignatureController < ApplicationController
     t_id = @t_id
     @service_ids = []#params[:service_ids]
     if params[:service_ids]
-      params[:service_ids].scan(/\d/).map(&:to_i).each do |n|
+      params[:service_ids].tr('[]', '').split(',').map(&:to_i).each do |n|
         @service_ids.push n.to_i
       end
     end
