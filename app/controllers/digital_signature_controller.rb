@@ -140,7 +140,7 @@ class DigitalSignatureController < ApplicationController
     # create call, save services to the call, save caregiver and client to the call
     @timesheet = Call.new(call_params)
 
-    @timesheet.log_type = "Digital Timesheet"
+    @timesheet.log_type = "Digital Timesheet: Completed"
     if @timesheet.save
       redirect_to "/congrats"
     end
@@ -162,7 +162,7 @@ class DigitalSignatureController < ApplicationController
     if @service_ids[0] #should be 0
       @question = Service.find_by_id(@service_ids[0]).service
     end
-    
+
   end
 
 
