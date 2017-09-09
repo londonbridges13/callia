@@ -113,16 +113,16 @@ class User < ActiveRecord::Base
 
   def find_cpc(plan_id)
     if self.calls_this_month and self.calls_this_month > 0
-      if plan_id == "starter-plan-1599"
-        cpc = 0.15 # cost per call
-        free_calls = 25
+      if plan_id == "enterprise-plan-230"
+        cpc = 0.05 # cost per call
+        free_calls = 1000
         create_invoice(cpc, free_calls)
       elsif plan_id == "standard-plan-2399"
-        cpc = 0.10
+        cpc = 0.12
         free_calls = 50
         create_invoice(cpc, free_calls)
       elsif plan_id == "enterprise-plan-5999"
-        cpc = 0.05
+        cpc = 0.10
         free_calls = 250
         create_invoice(cpc, free_calls)
       end

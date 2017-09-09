@@ -74,8 +74,8 @@ class DashboardController < ApplicationController
   def find_free_calls(plan_id)
     if current_user.calls_this_month and current_user.calls_this_month > 0
       free_calls = 0
-      if plan_id == "starter-plan-1599"
-        free_calls = 25
+      if plan_id == "enterprise-plan-230"
+        free_calls = 1000
       elsif plan_id == "standard-plan-2399"
         free_calls = 50
       elsif plan_id == "enterprise-plan-5999"
