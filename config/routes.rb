@@ -77,6 +77,9 @@ Rails.application.routes.draw do
   get 'congrats' => "digital_signature#congrats", as: 'congrats'
 
   # get 'select_client' => "digital_signature#select_client", as: 'select_client'
+  get 'obtain_prospect' => "settings#obtain_prospect", as: 'obtain_prospect'
+  get 'export', to: 'settings#export', as: :foo_export
+
 
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'

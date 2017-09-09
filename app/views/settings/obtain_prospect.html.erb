@@ -1,0 +1,5 @@
+<p><%=@data%></p>
+
+<p><%=@html%></p>
+
+<%= link_to "Export Data", foo_export_path(format: "csv", urls: @urls) %>
