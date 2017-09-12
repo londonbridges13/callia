@@ -79,6 +79,8 @@ Rails.application.routes.draw do
   # get 'select_client' => "digital_signature#select_client", as: 'select_client'
   get 'obtain_prospect' => "settings#obtain_prospect", as: 'obtain_prospect'
   get 'export', to: 'settings#export', as: :foo_export
+  get 'call_process' => "dashboard#call_process", as: 'call_process'
+  get 'digital_timesheet_process' => "dashboard#digital_timesheet_process", as: 'digital_timesheet_process'
 
 
   devise_scope :user do
