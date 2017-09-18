@@ -31,7 +31,7 @@ module Callia
     config.active_record.raise_in_transactional_callbacks = true
 
     config.serve_static_assets = true
-    config.serve_static_files = true # same as serve_static_assets
+    # config.serve_static_files = true # same as serve_static_assets
 
   end
 end
