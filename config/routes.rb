@@ -81,6 +81,7 @@ Rails.application.routes.draw do
   get 'export', to: 'settings#export', as: :foo_export
   get 'call_process' => "dashboard#call_process", as: 'call_process'
   get 'digital_timesheet_process' => "dashboard#digital_timesheet_process", as: 'digital_timesheet_process'
+  get 'weekly_report' => "reports#weekly_report", as: 'weekly_report'
 
 
   devise_scope :user do

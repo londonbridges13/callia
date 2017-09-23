@@ -80,4 +80,9 @@ class ReportsController < ApplicationController
     s = s.gsub! "-", "/"
   end
 
+  def weekly_report
+    render :layout => "empty"
+
+  end
+
 end
