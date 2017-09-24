@@ -77,11 +77,132 @@ class ReportsController < ApplicationController
   end
 
   def convert_to_display(s = nil)
-    s = s.gsub! "-", "/"
+    # s = s.gsub! "-", "/"
+    s.to_date.strftime("%m/%d/%Y")
+
   end
 
   def weekly_report
+    something = params[:anything]
+    @start = params[:start]
+    @end = params[:end]
+    if something
+      #get client and caregiver
+      @client = Client.find_by_id(something[:client_id])
+      @caregiver = Caregiver.find_by_id(something[:caregiver_id])
+      p @client
+      p @caregiver
+      p @start
+
+    end
+
+    # get calls that link to both client and caregiver
+    calls = Call.all.where(caregiver: @caregiver).where(client: @client).where(log_type: "Clocked Out")
+    services = []
+    calls.each do |c|
+      # collect all services
+      c.services.each do |s|
+        services.push s
+      end
+    end
     render :layout => "empty"
+  end
+
+  def start_weekly_report(start_date, end_date)
+    @start_date = Date.strptime(start_date, "%m/%d/%Y")
+    @end_date = Date.strptime(end_date, "%m/%d/%Y")
+
+    num_of_days = (@end_date - @start_date).to_i + 1
+    @num_of_days = num_of_days
+    @array_days = []
+    @all_services = []
+
+    count = 0
+    num_of_days.times do
+      @array_days.push (@start_date + count.days)
+      count += 1
+    end
+
+    @array_days.each do |d|
+      calls = Call.where('created_at BETWEEN ? AND ?', d.to_datetime + 6.hours, d.to_datetime + 30.hours).where(user_id: id).where(log_type: "Clocked Out")
+      services = []
+
+      calls.each do |c|
+        c.services.each do |s|
+          services.push s
+        end
+      end
+      @all_services.push services
+    end
+    # run service to array activity_checklist
+    begin_activity_checklist
+
+  end
+
+  def create_activities
+    #create activities
+    unless @activities_checklist
+      #create it using timesheet and user's services (really just user's services)
+      # create the same number of activites as there are in the days, add to array @activities_checklist
+      # an array within an array
+
+      # create list_of_services
+      list_of_services = []
+      #collect all the service questions, don't repeat
+      # HERE is where we collect all activities displayed in the checklist
+      #MAY WANT TO COME BACK TO ADD THE DEFAULT ACTIVITIES TO THE TIMESHEET
+      @all_services.each do |s|
+        unless list_of_services.includes s.service
+          list_of_services.push [s.service, ""]
+        end 
+      end
+
+      @num_of_days.times do
+        # push list_of_services to @activity_checklist
+        @activity_checklist.push list_of_services
+      end
+      #now we have an array for the activities on the weekly report
+    end
+  end
+
+  def begin_activity_checklist#(services_array, date)
+    #create activities, run the create_activities function
+    # if activity has service on this day, activity has an √
+    create_activities
+
+    count = 0
+    # compare the activities_checklist[a_days_activities_array] to the @all_services[a_days_services_array]
+    @num_of_days.times do
+      @activities_checklist[count].each do |a|
+        # [each activity for Sunday (or any other day), ""]
+        @all_services[count].each do |s|
+          #check if response is yes
+          if s.response == "Yes"
+            # set check for activity
+            a[1] = "√"
+          end
+        end
+      end
+      count += 1
+    end
+    p @activities_checklist
+    p ""
+    p ""
+    p ""
+    p @all_services
+
+  end
+
+
+  def search_weekly_report
+    default_start = Date.today.beginning_of_week(:sunday)
+    default_end = default_start + 6.days
+
+    @default_start = default_start.to_date.to_s # convert
+    @default_end = default_end.to_date.to_s # convert
+    @start = convert_to_display(@default_start)
+    @end = convert_to_display(@default_end)
+
 
   end
 

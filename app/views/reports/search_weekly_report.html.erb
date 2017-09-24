@@ -1,0 +1,96 @@
+<%= form_for :anything, url: "weekly_report" do |f| %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+
+<body>
+
+  <div class="row ">
+    <div class="col-sm-2 ">
+      <br>
+    </div>
+
+
+    <div class="col-sm-8 ibox-content ">
+
+
+      <div class="field">
+        <div class="form-group"><label class="col-sm-3 control-label">&nbsp; Select Client</label>
+          <div class="row">
+            <div class="col-sm-4">
+              <%= f.collection_select :client_id, current_user.clients, :id, :name,
+                {:class => 'prevent_collapse'},:class => "form-control m-b select2_demo_1", :include_blank => 'Select' %>
+            <br><br><br>
+          </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="field">
+        <div class="form-group"><label class="col-sm-3 control-label">&nbsp; Select Caregiver</label>
+          <div class="row">
+            <div class="col-sm-4">
+              <%= f.collection_select :caregiver_id, current_user.caregivers, :id, :name,
+                {:class => 'prevent_collapse'},:class => "form-control m-b select2_demo_1", :include_blank => 'Select' %>
+
+                <br><br><br>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="form-group" id="data_5">
+          <label class="col-sm-3 control-label">&nbsp; Range select</label>
+          <div class="input-daterange input-group col-sm-5" id="datepicker">
+              <input type="text" class="input-sm form-control" name="start" value="<%=@start%>"/>
+              <span class="input-group-addon">to</span>
+              <input type="text" class="input-sm form-control" name="end" value="<%=@end%>" />
+          </div>
+          <br><br>
+        </div>
+      </div>
+
+
+      <div class="col-sm-3">
+      </div>
+
+      <div class="col-sm-6">
+        <div class="actions">
+            <%= f.submit "Search", class: "btn btn-success block full-width m-b" %>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+
+  <script>
+
+  function printpage() {
+      window.print();
+  }
+  </script>
+
+</body>
+</html>
+<% end %>
+
+<script type="text/javascript">
+  $(function() {
+    $(".select2_demo_1").select2();
+    $('#data_5 .input-daterange').datepicker({
+       keyboardNavigation: false,
+       forceParse: false,
+       autoclose: true
+   });
+  });
+
+</script>

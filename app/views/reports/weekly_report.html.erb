@@ -3,7 +3,6 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Billing e.g. invoices and receipts</title>
     <style type="text/css">
         *{margin:0;padding:0;font-family:"Helvetica Neue",Helvetica,Helvetica,Arial,sans-serif;box-sizing:border-box;font-size:14px}img{max-width:100%}body{-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:none;width:100%!important;height:100%;line-height:1.6}table td{vertical-align:top}body{background-color:#f6f6f6}.body-wrap{background-color:#f6f6f6;width:100%}
         .container{display:block!important;max-width:1200px!important;margin:0 auto!important;clear:both!important}.content{max-width:1200px;margin:0 auto;display:block;padding:20px}.main{background:#fff;border:1px solid #e9e9e9;border-radius:3px}.content-wrap{padding:20px}.content-block{padding:0 0 20px}
@@ -30,44 +29,48 @@
 </head>
 
 <body>
+  <button class="pull-right btn btn-success"onclick="printpage()">Print this page</button>
+
   <div class="row ibox-content">
     <div class="col-sm-2 ">
     </div>
 
+
     <div class="col-sm-8  aligncenter">
 
       <h1>
-          Weekly Visit Report <br>
-          7/1/17 - 7/7/17
-          <br><br>
+          Weekly Visit Report <br><br>
       </h1>
-
+      <h2>
+        <%=@start%> - <%=@end%>
+        <br><br>
+      </h2>
 
       <div class=" ">
         <table style="aligncenter">
 
           <tr>
             <td><strong>Name</strong></td>
-            <td>Janice Susan</td>
+            <td><%=@client.name%></td>
           </tr>
           <tr>
             <td><strong>Caregiver</strong></td>
-            <td>Regina Burgeuss</td>
+            <td><%=@caregiver.name%></td>
           </tr>
           <tr>
             <td><strong>Address</strong></td>
-            <td>4244 Ellenwood ave.</td>
+            <td><%=@client.address%></td>
           </tr>
           <tr>
             <td><strong>City/State</strong></td>
-            <td>St. Louis/ Missouri</td>
+            <td><%=@client.city%> / <%=@client.state%></td>
           </tr>
           <tr>
             <td><strong>Phone Number</strong></td>
-            <td>314-832-9210</td>
+            <td><%=@client.authorized_phone%></td>
           </tr>
         </table>
-        <br><br>
+        <br>
       </div>
 
 
@@ -533,6 +536,11 @@
     </div>
   </div>
 
+  <script>
+  function printpage() {
+      window.print();
+  }
+  </script>
 
 </body>
 </html>

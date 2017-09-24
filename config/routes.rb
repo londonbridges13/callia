@@ -82,7 +82,8 @@ Rails.application.routes.draw do
   get 'call_process' => "dashboard#call_process", as: 'call_process'
   get 'digital_timesheet_process' => "dashboard#digital_timesheet_process", as: 'digital_timesheet_process'
   get 'weekly_report' => "reports#weekly_report", as: 'weekly_report'
-
+  post 'weekly_report' => "reports#weekly_report", as: 'post_weekly_report'
+  get 'search_weekly_report' => "reports#search_weekly_report", as: 'search_weekly_report'
 
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
