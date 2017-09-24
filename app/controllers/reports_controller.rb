@@ -156,7 +156,7 @@ class ReportsController < ApplicationController
       #MAY WANT TO COME BACK TO ADD THE DEFAULT ACTIVITIES TO THE TIMESHEET
       @all_services.each do |list|
         list.each do |s|
-          unless list_of_services.includes s.service
+          unless list_of_services.include? s.service
             list_of_services.push [s.service, ""]
           end
         end
