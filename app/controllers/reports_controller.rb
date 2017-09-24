@@ -94,6 +94,8 @@ class ReportsController < ApplicationController
       p @caregiver
       p @start
 
+      start_weekly_report(@start, @end)
+
     end
 
     # get calls that link to both client and caregiver
@@ -124,7 +126,7 @@ class ReportsController < ApplicationController
     end
 
     @array_days.each do |d|
-      calls = Call.where('created_at BETWEEN ? AND ?', d.to_datetime + 6.hours, d.to_datetime + 30.hours).where(user_id: id).where(log_type: "Clocked Out")
+      calls = Call.where('created_at BETWEEN ? AND ?', d.to_datetime + 6.hours, d.to_datetime + 30.hours).where(user_id: current_user.id).where(log_type: "Clocked Out")
       services = []
 
       calls.each do |c|
@@ -135,40 +137,44 @@ class ReportsController < ApplicationController
       @all_services.push services
     end
     # run service to array activity_checklist
-    begin_activity_checklist
+    create_activities
 
   end
 
   def create_activities
     #create activities
+    p "create_activities"
     unless @activities_checklist
       #create it using timesheet and user's services (really just user's services)
       # create the same number of activites as there are in the days, add to array @activities_checklist
       # an array within an array
-
+      @activities_checklist = []
       # create list_of_services
       list_of_services = []
       #collect all the service questions, don't repeat
       # HERE is where we collect all activities displayed in the checklist
       #MAY WANT TO COME BACK TO ADD THE DEFAULT ACTIVITIES TO THE TIMESHEET
-      @all_services.each do |s|
-        unless list_of_services.includes s.service
-          list_of_services.push [s.service, ""]
-        end 
+      @all_services.each do |list|
+        list.each do |s|
+          unless list_of_services.includes s.service
+            list_of_services.push [s.service, ""]
+          end
+        end
       end
 
       @num_of_days.times do
         # push list_of_services to @activity_checklist
-        @activity_checklist.push list_of_services
+        @activities_checklist.push list_of_services
       end
       #now we have an array for the activities on the weekly report
+      begin_activity_checklist
     end
   end
 
   def begin_activity_checklist#(services_array, date)
     #create activities, run the create_activities function
     # if activity has service on this day, activity has an √
-    create_activities
+    p "begin_activity_checklist"
 
     count = 0
     # compare the activities_checklist[a_days_activities_array] to the @all_services[a_days_services_array]
