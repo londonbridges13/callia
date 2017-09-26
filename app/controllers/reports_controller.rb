@@ -198,18 +198,20 @@ class ReportsController < ApplicationController
               a_section.push section
             end
             small_array = []
-            small_array.push count #s.created_at
             if s.short_desc
               small_array.push s.short_desc
             else
               small_array.push s.service
             end
+            mini_small_array = []
+            mini_small_array.push count #s.created_at
 
             if s.response == "Yes"
-              small_array.push "√"
+              mini_small_array.push "√"
             else
-              small_array.push ""
+              mini_small_array.push ""
             end
+            small_array.push mini_small_array
             a_section.push small_array
             @organized_activity.push a_section
           end
@@ -244,12 +246,13 @@ class ReportsController < ApplicationController
 
   def display_table
     existing_sections = []
+    existing_activities = []
     @displayable_sections = []
 
     @organized_activity.each do |a|
       if existing_sections.include? a[0]
         i = existing_sections.index(a[0])
-        @displayable_sections[i].push [a[1][0],a[1][1],a[1][2]]
+        @displayable_sections[i].push [a[1][0],[a[1][1],a[1][2]]]
       else
         existing_sections.push a[0]
         @displayable_sections.push a
