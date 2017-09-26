@@ -181,12 +181,12 @@ class ReportsController < ApplicationController
     @organized_activity = [] #by section
 
     @num_of_days.times do
-      a_section = []
       # if @activities_checklist.count >= count
 
         if @all_services.count >= count and @all_services[count].count > 0
           @all_services[count].each do |s|
             #check if response is yes
+            a_section = []
             if s.response == "Yes"
               # set check for activity
               # a[1] = "√"
@@ -206,11 +206,11 @@ class ReportsController < ApplicationController
               small_array.push ""
             end
             a_section.push small_array
+            @organized_activity.push a_section
           end
         end
 
       # end
-      @organized_activity.push a_section
       count += 1
     end
     p @activities_checklist
