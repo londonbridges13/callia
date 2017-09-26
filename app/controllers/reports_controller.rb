@@ -256,7 +256,7 @@ class ReportsController < ApplicationController
         a[1].each do |q|
           if existing_activities.include? q[0]
             ii = existing_activities.index(q[0])
-            @displayable_sections[i][ii].push [[a[1][0][1][0],a[1][0][1][1]]]
+            @displayable_sections[i][ii].push [a[1][0][1][0],a[1][0][1][1]]
           end
         end
       else
@@ -270,10 +270,11 @@ class ReportsController < ApplicationController
     p "@displayable_sections"
     @count = 0
     p @displayable_sections
-    @displayable_sections = [["OTHER (O)", [["Did you do laundry?", [2, "√"]]], [["Did you feed the patient?", [2, "√"]]],
-     [["Did you wash dishes for the patient?", [2, "√"]]], [["Did you assisst patient with grooming?", [2, "√"]]],
-      [["Did you prepare meal for patient?", [2, "√"]]], [["Did you assist with bathing the patient?", [2, "√"]]],
-      [["Did you help patient with mobility or transfer?", [2, "√"]]], [["Did you do light house keeping?", [2, "√"]]]], ["Consumer Directed (CD)", [["Did you remind patient to take medications?", [2, "√"]]]]]
+    @displayable_sections = [["OTHER (O)", [["Did you do laundry?", [[2, "√"]]]], [["Did you feed the patient?", [[[2, "√"], nil]]]],
+     [["Did you wash dishes for the patient?", [[[2, "√"], nil]]]], [["Did you assisst patient with grooming?", [[[2, "√"], nil]]]],
+     [["Did you prepare meal for patient?", [[[2, "√"], nil]]]], [["Did you assist with bathing the patient?", [[[2, "√"], nil]]]],
+      [["Did you help patient with mobility or transfer?", [[[2, "√"], nil]]]], [["Did you do light house keeping?", [[[2, "√"], nil]]]]],
+       ["Consumer Directed (CD)", [["Did you remind patient to take medications?", [[2, "√"]]]]]]
   end
 
 
