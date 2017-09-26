@@ -199,7 +199,12 @@ class ReportsController < ApplicationController
             end
             small_array = []
             small_array.push count #s.created_at
-            small_array.push s.service
+            if s.short_desc
+              small_array.push s.short_desc
+            else
+              small_array.push s.service
+            end
+
             if s.response == "Yes"
               small_array.push "√"
             else
