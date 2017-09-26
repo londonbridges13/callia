@@ -182,30 +182,33 @@ class ReportsController < ApplicationController
 
     @num_of_days.times do
       a_section = []
-      @activities_checklist[count].each do |a|
-        # [each activity for Sunday (or any other day), ""]
-        @all_services[count].each do |s|
-          #check if response is yes
-          if s.response == "Yes"
-            # set check for activity
-            a[1] = "√"
+      if @activities_checklist.count >= count
+        @activities_checklist[count].each do |a|
+          # [each activity for Sunday (or any other day), ""]
+          if @all_services.count >= count
+            @all_services[count].each do |s|
+            #check if response is yes
+            if s.response == "Yes"
+              # set check for activity
+              a[1] = "√"
+            end
+            if s.section
+              a_section.push s.section
+            else
+              a_section.push "OTHER (O)"
+            end
+            a_section.push s.created_at
+            a_section.push s.service
+            if s.response == "Yes"
+              a_section.push "√"
+            else
+              a_section.push ""
+            end
           end
-          if s.section
-            a_section.push s.section
-          else
-            a_section.push "OTHER (O)"
           end
-          a_section.push s.created_at
-          a_section.push s.service
-          if s.response == "Yes"
-            a_section.push "√"
-          else
-            a_section.push ""
-          end
-          @organized_activity.push a_section
         end
-
       end
+      @organized_activity.push a_section
       count += 1
     end
     p @activities_checklist
