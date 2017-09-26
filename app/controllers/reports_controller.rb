@@ -224,7 +224,7 @@ class ReportsController < ApplicationController
   end
 
   def find_section_for_service(service)
-    section = Service.where(user: current_user, service: service.service).first
+    section = Service.where(user: current_user).where(service: service.service).first
     if section
       return section.section #look up
     else
@@ -232,6 +232,21 @@ class ReportsController < ApplicationController
     end
 
   end
+
+  def display_table
+    existing_sections = []
+    @displayable_sections = []
+
+    @organized_activity.each do |a|
+      if existing_sections.include? a[0]
+        
+      else
+        existing_sections.push a[0]
+        @displayable_sections.push a
+      end
+    end
+  end
+
 
   def organize_services
     @sections = current_user.sections.reverse
