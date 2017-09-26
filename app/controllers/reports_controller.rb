@@ -252,13 +252,10 @@ class ReportsController < ApplicationController
     @organized_activity.each do |a|
       if existing_sections.include? a[0]
         i = existing_sections.index(a[0])
-        @displayable_sections[i].push [[a[1][0][0],[a[1][0][1][0],a[1][0][1][1]]]]
+        @displayable_sections[i].push [[a[1][0][0],[[a[1][0][1][0],a[1][0][1][1]]]]]
         a[1].each do |q|
           if existing_activities.include? q[0]
             ii = existing_activities.index(q[0])
-            p a[1][0][1][0][0]
-            p a[1][0][1][0][0]
-            p [[a[1][0][1][0],a[1][0][1][1]]
             @displayable_sections[i][1][1].push a[1][0][1][0][0]
           end
         end
