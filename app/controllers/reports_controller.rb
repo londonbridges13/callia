@@ -182,32 +182,34 @@ class ReportsController < ApplicationController
 
     @num_of_days.times do
       a_section = []
-      if @activities_checklist.count >= count
-        @activities_checklist[count].each do |a|
-          # [each activity for Sunday (or any other day), ""]
-          if @all_services.count >= count
-            @all_services[count].each do |s|
+      # if @activities_checklist.count >= count
+
+        if @all_services.count >= count and @all_services[count].count > 0
+          @all_services[count].each do |s|
             #check if response is yes
             if s.response == "Yes"
               # set check for activity
               a[1] = "√"
             end
             if s.section
-              a_section.push s.section
+              a_section.push s.section # never used
             else
-              a_section.push "OTHER (O)"
+              section = find_section_for_service s
+              a_section.push section
             end
-            a_section.push s.created_at
-            a_section.push s.service
+            small_array = []
+            small_array.push s.created_at
+            small_array.push s.service
             if s.response == "Yes"
-              a_section.push "√"
+              small_array.push "√"
             else
-              a_section.push ""
+              small_array.push ""
             end
-          end
+            a_section.push small_array
           end
         end
-      end
+
+      # end
       @organized_activity.push a_section
       count += 1
     end
@@ -219,6 +221,16 @@ class ReportsController < ApplicationController
     p ""
     p ""
     p @organized_activity
+  end
+
+  def find_section_for_service(service)
+    section = Service.where(user: current_user, service: service.service).first
+    if section
+      return section.section #look up
+    else
+      return "OTHER (O)"
+    end
+
   end
 
   def organize_services
