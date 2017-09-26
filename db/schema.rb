@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170924190647) do
+ActiveRecord::Schema.define(version: 20170926022806) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "activity"
@@ -207,6 +207,15 @@ ActiveRecord::Schema.define(version: 20170924190647) do
 
   add_index "reminders", ["user_id"], name: "index_reminders_on_user_id"
 
+  create_table "sections", force: :cascade do |t|
+    t.string   "section"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
+
+  add_index "sections", ["user_id"], name: "index_sections_on_user_id"
+
   create_table "services", force: :cascade do |t|
     t.text     "service"
     t.datetime "created_at", null: false
@@ -216,6 +225,7 @@ ActiveRecord::Schema.define(version: 20170924190647) do
     t.integer  "shift_id"
     t.string   "response"
     t.string   "section"
+    t.string   "short_desc"
   end
 
   add_index "services", ["call_id"], name: "index_services_on_call_id"

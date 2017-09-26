@@ -20,7 +20,31 @@ class User < ActiveRecord::Base
   has_many :reminders
   has_many :calls # easy query for payments
   has_many :services
+  has_many :sections
 
+
+  def set_sections
+    basics = ["PERSONAL CARE (PC)",
+      "HOMEMAKER / CHORE (HC)",
+      "ADVANCED PERSONAL CARE (APC)",
+      "RESPITE CARE (R)",
+      "OTHER (O)"]
+
+    user_sections = []
+
+    self.sections.each do |s|
+      user_sections.push s.section
+    end
+    basics.each do |b|
+      unless user_sections.include? b
+        # create section
+        section = Section.new(section: b)
+        section.user = self
+        section.save
+      end
+    end
+
+  end
 
   def first_name
     space_index = self.name.index(" ")
@@ -34,20 +58,22 @@ class User < ActiveRecord::Base
     #Create basic services
     if self.services.count == 0
       services = [
-        "Did you wash dishes for the patient?",
-        "Did you feed the patient?",
-        "Did you assist with bathing the patient?",
-        "Did you do light house keeping?",
-        "Did you assisst patient with grooming?",
-        "Did you do laundry?",
-        "Did you prepare meal for patient?",
-        "Did you remind patient to take medications?",
-        "Did you help patient with mobility or transfer?"
+        ["Did you wash dishes for the patient?","Dishes", "HOMEMAKER / CHORE (HC)"],
+        ["Did you feed the patient?", "Fed Patient", "HOMEMAKER / CHORE (HC)"],
+        ["Did you assist with bathing the patient?", "Bathing & Personal Hygiene", "HOMEMAKER / CHORE (HC)"],
+        ["Did you do light house keeping?", "House Keeping", "HOMEMAKER / CHORE (HC)"],
+        ["Did you assisst patient with grooming?", "Dressing and Grooming", "PERSONAL CARE (PC)"],
+        ["Did you do laundry?", "Laundry", "HOMEMAKER / CHORE (HC)"],
+        ["Did you prepare meal for patient?", "Prepare Meal", "HOMEMAKER / CHORE (HC)"],
+        ["Did you remind patient to take medications?", "Assist w/Self Adm of Meds & Non-Prescrip Top Oints/ Lotions", "PERSONAL CARE (PC)"],
+        ["Did you help patient with mobility or transfer?","Mobility & Transfer (client partial weight bearing)", "PERSONAL CARE (PC)"]
       ]
 
       services.each do |s|
         service = Service.new
-        service.service = s
+        service.service = s[0]
+        service.short_desc = s[1]
+        service.section = s[2]
         service.save
         self.services.push service
       end

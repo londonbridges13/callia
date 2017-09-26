@@ -5,6 +5,7 @@ class ServicesController < ApplicationController
   # GET /services.json
   def index
     @services = current_user.services #Service.all
+    @sections = current_user.sections.reverse
   end
 
   # GET /services/1
@@ -16,10 +17,14 @@ class ServicesController < ApplicationController
   def new
     @service = Service.new
     # @services = current_user.services #Service.all
+    @sections = current_user.sections
+
   end
 
   # GET /services/1/edit
   def edit
+    @sections = current_user.sections
+
   end
 
   # POST /services
@@ -71,6 +76,6 @@ class ServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:service, :response)
+      params.require(:service).permit(:service, :response, :section, :short_desc)
     end
 end

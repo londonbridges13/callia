@@ -20,10 +20,10 @@ module Callia
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    config.assets.precompile += [ 'tutorials.css','phone_numbers.css','application.css','services.css','agency_details.css','reports.css','landing.css','settings.css',
+    config.assets.precompile += [ 'sections.css','tutorials.css','phone_numbers.css','application.css','services.css','agency_details.css','reports.css','landing.css','settings.css',
       'shifts.css','schedule.css','reminders.css','recurring_shifts.css','offices.css','contacts.css','clients.css','caregivers.css','dashboard.css','calls.css','appviews.css', 'cssanimations.css', 'dashboards.css', 'forms.css', 'gallery.css',
        'digital_signature.css','graphs.css', 'mailbox.css', 'miscellaneous.css', 'pages.css', 'tables.css', 'uielements.css', 'widgets.css', 'commerce.css' ]
-    config.assets.precompile += [ 'tutorials.js','phone_numbers.js','application.js','services.js','agency_details.js','reports.js','landing.js','settings.js',
+    config.assets.precompile += [ 'sections.js','tutorials.js','phone_numbers.js','application.js','services.js','agency_details.js','reports.js','landing.js','settings.js',
       'shifts.js','schedule.js','reminders.js','recurring_shifts.js','offices.js','contacts.js','clients.js','caregivers.js','dashboard.js','calls.js','appviews.js', 'cssanimations.js', 'dashboards.js', 'forms.js', 'gallery.js',
        'digital_signature.js','graphs.js', 'mailbox.js', 'miscellaneous.js', 'pages.js', 'tables.js', 'uielements.js', 'widgets.js', 'commerce.js', 'metrics.js', 'landing.js' ]
 

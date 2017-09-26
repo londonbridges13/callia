@@ -15,10 +15,30 @@
     <div class="form-group row">
       <div class="col-sm-6">
         <%= f.label :service %><br>
-        <%= f.text_area :service, class:"form-control" %>
+        <%= f.text_area :service, class:"form-control", placeholder:"Did you give the patient their medicine?" %>
       </div>
     </div>
   </div>
+
+  <div class="form-group row">
+    <div class="col-sm-4">
+      <%= f.text_field :short_desc, class:"form-control", placeholder:"Short Description" %>
+      <span class="help-block m-b-none">This is the description used in the Weekly Report</span>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="form-group"><label class="control-label">Select Section</label>
+      <div class="row">
+        <div class="col-sm-4">
+          <%= f.collection_select :section, @sections, :section, :section,
+            {:class => 'prevent_collapse'},:class => "form-control m-b" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
   <div class="actions">
     <div class="col-sm-4">

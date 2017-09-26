@@ -199,6 +199,24 @@ class ReportsController < ApplicationController
 
   end
 
+  def organize_services
+    @sections = current_user.sections.reverse
+    sections = []
+
+    @organized_services = []
+    current_user.services.each do |s|
+      # collect all sections
+      if !(sections.include? [s.section, s.service]) and s.section
+        # add section to sections
+        sections.push [s.section, s]
+      elsif !s.section
+        # add to other
+        sections.push ["OTHER (O)", s]
+      end
+    end
+    @organized_services = sections
+    p @organized_services
+  end
 
   def search_weekly_report
     default_start = Date.today.beginning_of_week(:sunday)
