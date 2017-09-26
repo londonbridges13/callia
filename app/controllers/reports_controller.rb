@@ -189,7 +189,7 @@ class ReportsController < ApplicationController
             #check if response is yes
             if s.response == "Yes"
               # set check for activity
-              a[1] = "√"
+              # a[1] = "√"
             end
             if s.section
               a_section.push s.section # never used
