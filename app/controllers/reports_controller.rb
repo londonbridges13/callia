@@ -211,7 +211,7 @@ class ReportsController < ApplicationController
             else
               mini_small_array.push ""
             end
-            small_array.push mini_small_array
+            small_array.push [mini_small_array]
             a_section.push [small_array]
             @organized_activity.push a_section
           end
@@ -252,19 +252,28 @@ class ReportsController < ApplicationController
     @organized_activity.each do |a|
       if existing_sections.include? a[0]
         i = existing_sections.index(a[0])
-        @displayable_sections[i].push [[a[1][0][0],[a[1][0][1][0],a[1][0][1][1]]]]
+        @displayable_sections[i].push [[a[1][0][0],[[a[1][0][1][0],a[1][0][1][1]]]]]
+        a[1].each do |q|
+          if existing_activities.include? q[0]
+            ii = existing_activities.index(q[0])
+            @displayable_sections[i][ii].push [[a[1][0][1][0],a[1][0][1][1]]]
+          end
+        end
       else
         existing_sections.push a[0]
         @displayable_sections.push a
+        a[1].each do |q|
+            existing_activities.push q[0]
+        end
       end
     end
     p "@displayable_sections"
+    @count = 0
     p @displayable_sections
-    # @displayable_sections = [["OTHER (O)", ["Did you do laundry?", [2, "√"]], ["Did you feed the patient?", [2, "√"]],
-    #  ["Did you wash dishes for the patient?", [2, "√"]], ["Did you assisst patient with grooming?", [2, "√"]],
-    #   ["Did you prepare meal for patient?", [2, "√"]], ["Did you assist with bathing the patient?", [2, "√"]],
-    #    ["Did you help patient with mobility or transfer?", [2, "√"]], ["Did you do light house keeping?", [2, "√"]]],
-    #    ["Consumer Directed (CD)", ["Did you remind patient to take medications?", [2, "√"]]]]
+    @displayable_sections = [["OTHER (O)", [["Did you do laundry?", [2, "√"]]], [["Did you feed the patient?", [2, "√"]]],
+     [["Did you wash dishes for the patient?", [2, "√"]]], [["Did you assisst patient with grooming?", [2, "√"]]],
+      [["Did you prepare meal for patient?", [2, "√"]]], [["Did you assist with bathing the patient?", [2, "√"]]],
+      [["Did you help patient with mobility or transfer?", [2, "√"]]], [["Did you do light house keeping?", [2, "√"]]]], ["Consumer Directed (CD)", [["Did you remind patient to take medications?", [2, "√"]]]]]
   end
 
 

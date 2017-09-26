@@ -91,23 +91,40 @@
               </tr>
 
               <%@displayable_sections.each do |ds|%>
-                <tr>
-                  <td><strong><%=ds[0]%></strong></td>
-                    <%@array_days.each do |d|%>
-                      <td><%=d.day%></td>
+                <%@count = 0%>
+                <%while @count < ds.count%>
+                  <%if @count == 0%>
+                    <tr>
+                    <td><strong><%=ds[0]%></strong></td>
+                      <%@array_days.each do |d|%>
+                        <td><%=d.day%></td>
+                      <%end%>
+                    </tr>
+                  <%else%>
+                    <%ds[@count].each do |a|%>
+                      <tr>
+                        <%@day_count = 0%>
+                        <td><%=a[0]%></td>
+                          <%a[1][@day_count].each do |r|%>
+                            <%if r[0] == @day_count%>
+                              <td><%=r%></td>
+                            <%else%>
+                              <td></td>
+                            <%end%>
+                            <%@day_count += 1%>
+                          <%end%>
+                          <td>Useless these are</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                      </tr>
                     <%end%>
-                </tr>
-                <%ds[1].each do |a|%>
-                  <tr>
-                    <td><%=a%></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                  </tr>
+                  <%end%>
+                  <%p @count%>
+                  <%@count += 1%>
                 <%end%>
               <%end%>
 
