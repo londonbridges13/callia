@@ -221,6 +221,10 @@ class ReportsController < ApplicationController
     p ""
     p ""
     p @organized_activity
+    p ""
+    p ""
+    p ""
+    display_table
   end
 
   def find_section_for_service(service)
@@ -239,12 +243,15 @@ class ReportsController < ApplicationController
 
     @organized_activity.each do |a|
       if existing_sections.include? a[0]
-
+        i = existing_sections.index(a[0])
+        @displayable_sections[i].push a
       else
         existing_sections.push a[0]
         @displayable_sections.push a
       end
     end
+    p "@displayable_sections"
+    p @displayable_sections
   end
 
 
