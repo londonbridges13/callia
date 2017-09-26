@@ -198,7 +198,7 @@ class ReportsController < ApplicationController
               a_section.push section
             end
             small_array = []
-            small_array.push s.created_at
+            small_array.push count #s.created_at
             small_array.push s.service
             if s.response == "Yes"
               small_array.push "√"
@@ -225,7 +225,7 @@ class ReportsController < ApplicationController
 
   def find_section_for_service(service)
     section = Service.where(user: current_user).where(service: service.service).first
-    if section
+    if section and section.section
       return section.section #look up
     else
       return "OTHER (O)"
@@ -239,7 +239,7 @@ class ReportsController < ApplicationController
 
     @organized_activity.each do |a|
       if existing_sections.include? a[0]
-        
+
       else
         existing_sections.push a[0]
         @displayable_sections.push a
