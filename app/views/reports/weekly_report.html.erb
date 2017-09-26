@@ -90,27 +90,28 @@
                 <th colspan="7">Activities Performed</th>
               </tr>
 
-              <tr>
-                <td><strong>PERSONAL CARE (PC)</strong></td>
+              <%@displayable_sections.each do |ds|%>
+                <tr>
+                  <td><strong><%=ds[0]%></strong></td>
+                    <%@array_days.each do |d|%>
+                      <td><%=d.day%></td>
+                    <%end%>
+                </tr>
+                <%ds[1].each do |a|%>
+                  <tr>
+                    <td><%=ds[1]%></td>
+                    <td><%=a[1]%></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                  </tr>
+                <%end%>
+              <%end%>
 
-                    <td>Sun</td>
-                    <td>Mon</td>
-                    <td>Tues</td>
-                    <td>Wed</td>
-                    <td>Thurs</td>
-                    <td>Fri</td>
-                    <td>Sat</td>
-              </tr>
-              <tr>
-                <td>Dietary Needs</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
               <tr>
                 <td>Dressing and Grooming</td>
                 <td></td>

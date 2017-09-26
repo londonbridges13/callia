@@ -252,7 +252,7 @@ class ReportsController < ApplicationController
     @organized_activity.each do |a|
       if existing_sections.include? a[0]
         i = existing_sections.index(a[0])
-        @displayable_sections[i].push [a[1][0],[a[1][1],a[1][2]]]
+        @displayable_sections[i].push [a[1][0],[a[1][1][0],a[1][1][1]]]
       else
         existing_sections.push a[0]
         @displayable_sections.push a
@@ -260,6 +260,9 @@ class ReportsController < ApplicationController
     end
     p "@displayable_sections"
     p @displayable_sections
+    # @displayable_sections = [["OTHER (O)", ["Did you do laundry?", [2, "√"]], ["Did you feed the patient?", [[2, "√"], nil]], ["Did you wash dishes for the patient?", [[2, "√"], nil]], ["Did you assisst patient with grooming?", [[2, "√"], nil]],
+    # ["Did you prepare meal for patient?", [[2, "√"], nil]], ["Did you assist with bathing the patient?", [[2, "√"], nil]], ["Did you help patient with mobility or transfer?", [[2, "√"], nil]],
+    # ["Did you do light house keeping?", [[2, "√"], nil]]], ["Consumer Directed (CD)", ["Did you remind patient to take medications?", [2, "√"]]]]
   end
 
 
