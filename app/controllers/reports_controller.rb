@@ -178,7 +178,10 @@ class ReportsController < ApplicationController
 
     count = 0
     # compare the activities_checklist[a_days_activities_array] to the @all_services[a_days_services_array]
+    @organized_activity = [] #by section
+
     @num_of_days.times do
+      a_section = []
       @activities_checklist[count].each do |a|
         # [each activity for Sunday (or any other day), ""]
         @all_services[count].each do |s|
@@ -187,7 +190,21 @@ class ReportsController < ApplicationController
             # set check for activity
             a[1] = "√"
           end
+          if s.section
+            a_section.push s.section
+          else
+            a_section.push "OTHER (O)"
+          end
+          a_section.push s.created_at
+          a_section.push s.service
+          if s.response == "Yes"
+            a_section.push "√"
+          else
+            a_section.push ""
+          end
+          @organized_activity.push a_section
         end
+
       end
       count += 1
     end
@@ -196,7 +213,9 @@ class ReportsController < ApplicationController
     p ""
     p ""
     p @all_services
-
+    p ""
+    p ""
+    p @organized_activity
   end
 
   def organize_services
