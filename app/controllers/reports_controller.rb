@@ -244,7 +244,7 @@ class ReportsController < ApplicationController
     @organized_activity.each do |a|
       if existing_sections.include? a[0]
         i = existing_sections.index(a[0])
-        @displayable_sections[i].push a
+        @displayable_sections[i].push [a[1],a[2],a[3]]
       else
         existing_sections.push a[0]
         @displayable_sections.push a
