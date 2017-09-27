@@ -91,38 +91,66 @@
               </tr>
 
               <%@displayable_sections.each do |ds|%>
-                <%@count = 0%>
+                <%@count = 0 #section%>
                 <%while @count < ds.count%>
                   <%if @count == 0%>
                     <tr>
-                    <td><strong><%=ds[0]%></strong></td>
+                      <td><strong><%=ds[0]%></strong></td>
                       <%@array_days.each do |d|%>
-                        <td><%=d.day%></td>
+                        <td><%=d.strftime("%a")%></td>
                       <%end%>
                     </tr>
                   <%else%>
-                    <%ds[@count].each do |a|%><!-- question -->
+                  <%p ds%>
+                  <%p "ds"%>
+                    <%ds[1].each do |a|%><!-- question -->
                       <tr>
-                        <%@day_count = 0%>
-                        <td><%=a[0]%></td>
-                        <%@num_of_days.times do %>
-                        <%p a[1]%>
-                          <%a[1].each do |r|%>
-                            <%if r[0] == @day_count%>
-                              <td><%=r%></td>
-                            <%else%>
-                              <td></td>
+                        <%p ds[@count]%>
+                        <%p "ds count"%>
+                        <%p ds[@count][1]%>
+                        <%p "ds count 1"%>
+                        <%if ds[@count][1]%>
+                          <%p "ds[@count][0]"%>
+                          <%p ds[@count][0]%>
+                          <td><%=ds[@count][0]%></td>
+                          <%@day_count = 0%>
+                          <%@num_of_days.times do %>
+                            <%ds[@count][1].each do |r|%>
+                            <%p r[0]%>
+                            <%p "r[0]"%>
+                              <%if r[0] == @day_count%>
+                                <td><%=r[1]%></td>
+                              <%else%>
+                                <td></td>
+                              <%end%>
                             <%end%>
+                            <%@day_count += 1%>
                           <%end%>
-                          <%@day_count += 1%>
+                        <%else%>
+                          <%p "else ds[@count]"%>
+                          <%p ds[@count][0]%>
+                          <td><%=ds[@count][0][0]%></td>
+                          <%@day_count = 0%>
+                          <%@num_of_days.times do %>
+                            <%ds[@count][0][1].each do |r|%>
+                            <%p ds[@count][1]%>
+                            <%p "a [1]"%>
+                            <%p r[0]%>
+                            <%p "r[0]"%>
+                              <%if r[0] == @day_count%>
+                                <td><%=r[1]%></td>
+                              <%else%>
+                                <td></td>
+                              <%end%>
+                            <%end%>
+                            <%@day_count += 1%>
+                          <%end%>
+
                         <%end%>
-                          <td>Useless these are</td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+
+
+
+
                       </tr>
                     <%end%>
                   <%end%>
@@ -427,127 +455,25 @@
             </table>
             </th>
 
-            <th style="border-left:1px none #dad">
+            <th valign="top" style="border-left:1px none #dad">
               <br><br>
-            <div class="">
-              <table>
-                <tr>
-                  <td><strong>Date:</strong> <strong class="pull-right">Sunday  7/1/17</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Time In: </strong> <strong class="pull-right">10:00 am</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Time Out:</strong> <strong class="pull-right">2:00pm</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Units:</strong><strong class="pull-right">PC: 11 | HC: 0 | APC: 0 | R: 0</strong></td>
-                </tr>
+              <div class="">
+                <table>
+                  <tr>
+                    <td><strong>Date:</strong> <strong class="pull-right">Sunday  7/1/17</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Time In: </strong> <strong class="pull-right">10:00 am</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Time Out:</strong> <strong class="pull-right">2:00pm</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Units:</strong><strong class="pull-right">PC: 11 | HC: 0 | APC: 0 | R: 0</strong></td>
+                  </tr>
 
-              </table>
-            </div>
-            <div class="">
-              <table>
-                <tr>
-                  <td><strong>Date:</strong> <strong class="pull-right">Monday  7/2/17</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Time In: </strong> <strong class="pull-right">10:00 am</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Time Out:</strong> <strong class="pull-right">2:00pm</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Units:</strong><strong class="pull-right">PC: 11 | HC: 0 | APC: 0 | R: 0</strong></td>
-                </tr>
-
-              </table>
-            </div>
-            <div class="">
-              <table>
-                <tr>
-                  <td><strong>Date:</strong> <strong class="pull-right">Tuesday  7/3/17</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Time In: </strong> <strong class="pull-right">10:00 am</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Time Out:</strong> <strong class="pull-right">2:00pm</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Units:</strong><strong class="pull-right">PC: 11 | HC: 0 | APC: 0 | R: 0</strong></td>
-                </tr>
-
-              </table>
-            </div>
-            <div class="">
-              <table>
-                <tr>
-                  <td><strong>Date:</strong> <strong class="pull-right">Wednesday  7/4/17</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Time In: </strong> <strong class="pull-right">10:00 am</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Time Out:</strong> <strong class="pull-right">2:00pm</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Units:</strong><strong class="pull-right">PC: 11 | HC: 0 | APC: 0 | R: 0</strong></td>
-                </tr>
-
-              </table>
-            </div>
-            <div class="">
-              <table>
-                <tr>
-                  <td><strong>Date:</strong> <strong class="pull-right">Thursday  7/5/17</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Time In: </strong> <strong class="pull-right">10:00 am</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Time Out:</strong> <strong class="pull-right">2:00pm</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Units:</strong><strong class="pull-right">PC: 11 | HC: 0 | APC: 0 | R: 0</strong></td>
-                </tr>
-
-              </table>
-            </div>
-            <div class="">
-              <table>
-                <tr>
-                  <td><strong>Date:</strong> <strong class="pull-right">Friday  7/6/17</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Time In: </strong> <strong class="pull-right">10:00 am</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Time Out:</strong> <strong class="pull-right">2:00pm</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Units:</strong><strong class="pull-right">PC: 11 | HC: 0 | APC: 0 | R: 0</strong></td>
-                </tr>
-
-              </table>
-            </div>
-            <div class="">
-        <table>
-          <tr>
-            <td><strong>Date:</strong> <strong class="pull-right">Saturday  7/7/17</strong></td>
-          </tr>
-          <tr>
-            <td><strong>Time In: </strong> <strong class="pull-right">10:00 am</strong></td>
-          </tr>
-          <tr>
-            <td><strong>Time Out:</strong> <strong class="pull-right">2:00pm</strong></td>
-          </tr>
-          <tr>
-            <td><strong>Units:</strong><strong class="pull-right">PC: 11 | HC: 0 | APC: 0 | R: 0</strong></td>
-          </tr>
-
-        </table> <br>
-      </div>
+                </table>
+              </div>
             </th>
       </div>
     </div>
