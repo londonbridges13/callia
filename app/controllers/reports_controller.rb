@@ -248,10 +248,9 @@ class ReportsController < ApplicationController
     short_desc = Service.where(user: current_user).where(service: service.service).first
     if short_desc and short_desc.short_desc
       return short_desc.short_desc #look up
-    else
-      return service.service
+    elsif short_desc.service
+      return short_desc.service
     end
-
   end
 
   def display_table
