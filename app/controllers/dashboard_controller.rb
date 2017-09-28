@@ -4,13 +4,13 @@ class DashboardController < ApplicationController
   def index
     # s = Subscription.new
     # s.load_plans
-    current_user.set_sections
 
     unless current_user
       redirect_to :controller => 'landing', :action => 'index'
     end
 
     if current_user and current_user.subscription
+      current_user.set_sections
       current_user.set_basic_services #if user just registered, create basic services for the calls
 
       @number = "No Number"

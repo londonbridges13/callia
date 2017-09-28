@@ -24,23 +24,25 @@ class User < ActiveRecord::Base
 
 
   def set_sections
-    basics = ["PERSONAL CARE (PC)",
-      "HOMEMAKER / CHORE (HC)",
-      "ADVANCED PERSONAL CARE (APC)",
-      "RESPITE CARE (R)",
-      "OTHER (O)"]
+    if self.sections.count == 0
+      basics = ["PERSONAL CARE (PC)",
+        "HOMEMAKER / CHORE (HC)",
+        "ADVANCED PERSONAL CARE (APC)",
+        "RESPITE CARE (R)",
+        "OTHER (O)"]
 
-    user_sections = []
+      user_sections = []
 
-    self.sections.each do |s|
-      user_sections.push s.section
-    end
-    basics.each do |b|
-      unless user_sections.include? b
-        # create section
-        section = Section.new(section: b)
-        section.user = self
-        section.save
+      self.sections.each do |s|
+        user_sections.push s.section
+      end
+      basics.each do |b|
+        unless user_sections.include? b
+          # create section
+          section = Section.new(section: b)
+          section.user = self
+          section.save
+        end
       end
     end
 
