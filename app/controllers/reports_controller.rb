@@ -198,8 +198,9 @@ class ReportsController < ApplicationController
               a_section.push section
             end
             small_array = []
-            if s.short_desc
-              small_array.push s.short_desc
+            short_desc = find_short_desc_for_service(s)
+            if short_desc
+              small_array.push short_desc
             else
               small_array.push s.service
             end
@@ -240,6 +241,15 @@ class ReportsController < ApplicationController
       return section.section #look up
     else
       return "OTHER (O)"
+    end
+  end
+
+  def find_short_desc_for_service(service)
+    short_desc = Service.where(user: current_user).where(service: service.service).first
+    if short_desc and short_desc.short_desc
+      return short_desc.short_desc #look up
+    else
+      return service.service
     end
 
   end
