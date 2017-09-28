@@ -246,7 +246,7 @@ class ReportsController < ApplicationController
 
   def find_short_desc_for_service(service)
     short_desc = Service.where(user: current_user).where(service: service.service).first
-    if short_desc and short_desc.short_desc
+    if short_desc and short_desc.short_desc and short_desc.short_desc.length > 0
       return short_desc.short_desc #look up
     elsif short_desc.service
       return short_desc.service
