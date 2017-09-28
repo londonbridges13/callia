@@ -40,8 +40,9 @@ class User < ActiveRecord::Base
         unless user_sections.include? b
           # create section
           section = Section.new(section: b)
-          section.user = self
           section.save
+          self.sections.push section
+
         end
       end
     end
@@ -60,15 +61,15 @@ class User < ActiveRecord::Base
     #Create basic services
     if self.services.count == 0
       services = [
-        ["Did you wash dishes for the patient?","Dishes", "HOMEMAKER / CHORE (HC)"],
-        ["Did you feed the patient?", "Fed Patient", "HOMEMAKER / CHORE (HC)"],
+        ["Did you wash dishes for the patient?","Wash Dishes", "HOMEMAKER / CHORE (HC)"],
+        ["Did you feed the patient?", "Feed Patient", "HOMEMAKER / CHORE (HC)"],
         ["Did you assist with bathing the patient?", "Bathing & Personal Hygiene", "HOMEMAKER / CHORE (HC)"],
-        ["Did you do light house keeping?", "House Keeping", "HOMEMAKER / CHORE (HC)"],
+        ["Did you do light house keeping?", "Light House Keeping", "HOMEMAKER / CHORE (HC)"],
         ["Did you assisst patient with grooming?", "Dressing and Grooming", "PERSONAL CARE (PC)"],
         ["Did you do laundry?", "Laundry", "HOMEMAKER / CHORE (HC)"],
         ["Did you prepare meal for patient?", "Prepare Meal", "HOMEMAKER / CHORE (HC)"],
         ["Did you remind patient to take medications?", "Assist w/Self Adm of Meds & Non-Prescrip Top Oints/ Lotions", "PERSONAL CARE (PC)"],
-        ["Did you help patient with mobility or transfer?","Mobility & Transfer (client partial weight bearing)", "PERSONAL CARE (PC)"]
+        ["Did you help patient with mobility or transfer?","Mobility & Transfer", "PERSONAL CARE (PC)"]
       ]
 
       services.each do |s|
