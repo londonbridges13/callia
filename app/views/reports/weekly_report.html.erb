@@ -188,14 +188,14 @@
 
     <div class=" ">
       <table style="aligncenter">
-
+        <tr>
+          <th colspan="2"><strong><%=current_user.agency_name%></strong></th>
+        </tr>
         <tr>
           <td><strong>Total Hours</strong></td>
-          <td><%=@total_hours%></td>
+          <td><%=@total_hours%> OR <%=@total_hours.round%> and <%=(@total_hours % 1) * 60%> minutes</td>
         </tr>
-        <tr>
-          <td><strong><%=current_user.agency_name%></strong></td>
-        </tr>
+
       </table>
       <br>
     </div>
