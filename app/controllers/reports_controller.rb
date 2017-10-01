@@ -131,7 +131,7 @@ class ReportsController < ApplicationController
     end
 
     @array_days.each do |d|
-      calls = Call.where('created_at BETWEEN ? AND ?', d.to_datetime + 6.hours, d.to_datetime + 30.hours).where(user_id: current_user.id).where(log_type: "Clocked Out")
+      calls = Call.where(caregiver: @caregiver).where(client: @client).where('created_at BETWEEN ? AND ?', d.to_datetime + 6.hours, d.to_datetime + 30.hours).where(user_id: current_user.id).where(log_type: "Clocked Out")
       services = []
 
       calls.each do |c|
