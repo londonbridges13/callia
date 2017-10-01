@@ -111,6 +111,7 @@ class ReportsController < ApplicationController
       end
     end
     render :layout => "empty"
+
   end
 
   def start_weekly_report(start_date, end_date)
@@ -121,6 +122,7 @@ class ReportsController < ApplicationController
     @num_of_days = num_of_days
     @array_days = []
     @all_services = []
+    @total_hours = 0
 
     count = 0
     num_of_days.times do
@@ -133,6 +135,11 @@ class ReportsController < ApplicationController
       services = []
 
       calls.each do |c|
+        # diff = (c.created_at - c.clock_in.created_at).round
+        time_diff = TimeDifference.between(c.clock_in.created_at, c.created_at).in_hours
+        # diff = (diff / 1.minute).round
+        # time_diff = (diff / 1.hour).round
+        @total_hours += time_diff
         c.services.each do |s|
           services.push s
         end
