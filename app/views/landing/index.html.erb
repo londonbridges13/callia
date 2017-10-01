@@ -13,12 +13,11 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a class="page-scroll" href="#page-top">Home</a></li>
-                    <li><a class="page-scroll" href="#features">Features</a></li>
-                    <li><a class="page-scroll" href="#team">Team</a></li>
-                    <li><a class="page-scroll" href="#testimonials">Testimonials</a></li>
+                    <li><a class="page-scroll" href="#about">About</a></li>
+                    <li><a class="page-scroll" href="#medicaid">Medicaid</a></li>
+                    <li><a class="page-scroll" href="#private-duty">Private Duty</a></li>
                     <li><a class="page-scroll" href="#pricing">Pricing</a></li>
-                    <li><a class="page-scroll" href="#contact">Contact</a></li>
-                    <li><a class="page-scroll" href="/signup">Register</a></li>
+                    <li><a class="page-scroll" href="/signup">Demo</a></li>
                 </ul>
             </div>
         </div>
@@ -75,17 +74,102 @@
 </a>
 </div>
 
-
-<section id="features" class="container services">
-  <div class="col-sm-3">
-    <a class="btn btn-info btn-block btn-lg" href="/signup"> Request Demo</a>
+<section id="about" class="container">
+  <div class="row">
+    <br>
+    <div class="col-sm-3">
+      <a class="btn btn-info btn-block btn-lg" href="/signup"> Request Demo</a>
+    </div>
+    <div class="col-sm-3">
+      <a class="btn btn-success btn-block btn-lg" href="/login"> Login</a>
+    </div>
   </div>
-  <div class="col-sm-3">
-    <a class="btn btn-success btn-block btn-lg" href="/login"> Login</a>
+
+  <div class="row">
+      <div class="col-sm-12 text-center">
+          <div class="navy-line"></div>
+          <h1>About Section</h1>
+      </div>
+  </div>
+</section>
+<section id="testimonials" class="navy-section testimonials" style="margin-top: 0">
+    <div class="container">
+      <div class="row">
+          <div class="col-sm-12 text-center wow zoomIn">
+              <i class="fa fa-comment big-icon"></i>
+              <h1>
+                  What our users say
+              </h1>
+              <div class="testimonials-text">
+                  <i>" I've been using Callia for Private Duty and now I don't spend hours <br>
+                    working on Timesheet reports or waiting for them to come in.<br>
+                     I save about 10 hours a week with Callia! It's Amazing!
+                    "</i>
+              </div>
+              <small>
+                  <strong>8.02.2017 - Patricia McKay, CaringLegends LLC</strong>
+              </small>
+          </div>
+      </div>
+  </div>
+</section>
+<section id="medicaid" class="container">
+  <div class="row">
+    <div class="col-sm-12 text-center">
+        <div class="navy-line"></div>
+        <h1>Medicaid supported Home Care</h1><br><br><br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-1">
+      <h1>EVV for Home Care</h1><br>
+      <h3>If your Home Care organzination is supported by the Federal Medicaid program, then you are in the right place.</h3>
+    </div>
+    <div class="col-sm-4">
+      <img src="<%= image_path('landing/town.jpg') %>" class="img-responsive" alt="dashboard">
+    </div>
   </div>
 </section>
 
-<section  class="container features">
+
+<section id="private-duty" class="container">
+  <div class="row">
+    <div class="col-sm-12 text-center">
+        <div class="navy-line"></div>
+        <h1>Private Duty Home Care</h1><br><br><br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-1">
+      <h1>You are very busy.</h1>
+      <h2>As a small business owner, you wear many hats in the company.</h2><br>
+      <h2><strong>Delegation is important.</strong></h2>
+      <h2>When you delegate, you are able to focus more on what matters.</h2>
+      <h3>Like:</h3>
+      <h3>&ensp;&ensp; Speaking with potential clients</h3>
+      <h3>&ensp;&ensp; Leading your staff towards a common goal</h3>
+      <h3>&ensp;&ensp; And Growing your Home Care Business</h3>
+      <br>
+      <br>
+
+
+    </div>
+    <div class="col-sm-4">
+      <img src="<%= image_path('landing/beaver.png') %>" class="img-responsive" alt="dashboard">
+    </div>
+  </div>
+  <div class="col-sm-8 col-sm-offset-2 text-center">
+    <h1>As a manager, Callia saves you an extra 5-10 hours per week, allowing you to be as productive as possible</h1>
+  </div>
+  <div class="col-sm-4 col-sm-offset-4">
+    <br>
+    <a href="/signup" class="btn full-width btn-success btn-lg "> Learn More</a>
+    <br><br><br>
+  </div>
+</section>
+
+
+<section id="features" class="container features">
   <div class="container">
       <div class="row">
           <div class="col-sm-12 text-center">
@@ -188,33 +272,11 @@
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2 text-center m-t-lg m-b-lg">
             <h3>Here at Callia, We are passionate about our community. </h3>
-              <h3>Join our community and grow your business today!</h3>
         </div>
     </div>
 </div>
 </section>
 
-<section class="features">
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12 text-center">
-            <div class="navy-line"></div>
-            <h1>Even more great features</h1>
-        </div>
-    </div>
-    <div class="row features-block">
-        <div class="col-sm-3 features-text wow fadeInLeft">
-            <h2>Designed for You</h2>
-            <p>You and your busy schedule. Now you can access your dashboard on the go. Get Check Ins and Reports in Real Time.</p>
-            <a href="/signup" class="btn btn-primary">Sign Up</a>
-        </div>
-        <div class="col-sm-6 text-right m-t-n-lg wow zoomIn">
-            <img src="<%= image_path('landing/iphone.jpg') %>" class="img-responsive" alt="dashboard">
-        </div>
-    </div>
-</div>
-
-</section>
 
 <section class="timeline gray-section">
 <div class="container">
@@ -276,47 +338,18 @@
 
 </section>
 
-<section id="testimonials" class="navy-section testimonials" style="margin-top: 0">
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12 text-center wow zoomIn">
-            <i class="fa fa-comment big-icon"></i>
-            <h1>
-                What our users say
-            </h1>
-            <div class="testimonials-text">
-                <i>" I've been using Callia for Private Duty and now I don't spend hours <br>
-                  working on Timesheet reports or waiting for them to come in.<br>
-                   I save about 10 hours a week with Callia! It's Amazing!
-                  "</i>
-            </div>
-            <small>
-                <strong>8.02.2017 - Patricia McKay, CaringLegends LLC</strong>
-            </small>
-        </div>
-    </div>
-</div>
-
-</section>
 
 
 
 <section id="pricing" class="pricing">
-<div class="container">
+  <div class="container">
     <div class="row m-b-lg">
         <div class="col-sm-12 text-center">
             <div class="navy-line"></div>
-            <h1>App Pricing</h1>
+            <h1>Pricing</h1>
             <br>
             <h2>
-              We've designed our pricing just for you.
-            </h2>
-            <p>As your business grows, you save more on every call.</p>
-            <br>
-            <br>
-            <h2>
-               Choose a plan based on your number of Clients.
+               Join by <strong><%=(Date.today + 8.days).strftime('%B %d')%></strong> and <strong>Save 25%</strong> Every month
             </h2>
         </div>
     </div>
@@ -333,7 +366,7 @@
                     <strong>1 - 50 Clients</strong>
                 </li>
                 <li class="pricing-price">
-                    <span>$23.99</span> / month
+                    <span><strike>$35.99</strike>&ensp;</span> <span>$23.99</span> / month
                 </li>
                 <li>
                     $0.12 / clock in
@@ -345,7 +378,7 @@
                     <strong>Save up to 25% / Month </strong>
                 </li>
                 <li class="plan-action">
-                    <a class="btn btn-primary btn-xs" href="/signup">Signup</a>
+                    <a class="btn btn-primary btn-xs" href="/signup">Get Started</a>
                 </li>
             </ul>
         </div>
@@ -362,7 +395,7 @@
                     <strong>50 - 100 Clients</strong>
                 </li>
                 <li class="pricing-price">
-                    <span>$59.99</span> / month
+                    <span><strike>$85.99</strike>&ensp;</span><span>$59.99</span> / month
                 </li>
                 <li>
                     $0.10 / clock in
@@ -374,7 +407,7 @@
                   <strong>Save up to 30% / Month </strong>
                 </li>
                 <li>
-                    <a class="btn btn-primary btn-xs" href="/signup">Signup</a>
+                    <a class="btn btn-primary btn-xs" href="/signup">Get Started</a>
                 </li>
             </ul>
         </div>
@@ -390,7 +423,7 @@
                     <strong>100+ Clients</strong>
                 </li>
                 <li class="pricing-price">
-                    <span>$230.00</span> / month
+                    <span><strike>$300</strike>&ensp;</span><span>$230.99</span> / month
                 </li>
                 <li>
                     $0.05 / clock in
@@ -399,7 +432,7 @@
                     1000 Free Clock Ins / Month
                 </li>
                 <li>
-                    <a class="btn btn-primary btn-xs" href="/signup">Signup</a>
+                    <a class="btn btn-primary btn-xs" href="/signup">Get Started</a>
                 </li>
             </ul>
         </div>

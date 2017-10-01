@@ -100,6 +100,7 @@ class ReportsController < ApplicationController
 
     # get calls that link to both client and caregiver
     calls = Call.all.where(caregiver: @caregiver).where(client: @client).where(log_type: "Clocked Out")
+    @calls = calls
     services = []
     calls.each do |c|
       # collect all services
