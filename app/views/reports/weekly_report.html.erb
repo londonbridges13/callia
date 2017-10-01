@@ -193,7 +193,7 @@
         </tr>
         <tr>
           <td><strong>Total Hours</strong></td>
-          <td><%=@total_hours%> OR <%=@total_hours.to_i%> and <%=(((@total_hours % 1) * 60)% 1)%> minutes</td>
+          <td><%=@total_hours%> OR <%=@total_hours.to_i%> and <%=(((@total_hours % 1) * 60).to_i)%> minutes</td>
         </tr>
 
       </table>
