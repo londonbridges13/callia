@@ -101,7 +101,7 @@ class ReportsController < ApplicationController
     # get calls that link to both client and caregiver
     start_date = Date.strptime(@start, "%m/%d/%Y")
     end_date = Date.strptime(@end, "%m/%d/%Y")
-    calls = Call.all.where(caregiver: @caregiver).where(client: @client).where(log_type: "Clocked Out").where('created_at BETWEEN ? AND ?', start_date.to_datetime , end_date.to_datetime + 6.hours)
+    calls = Call.all.where(caregiver: @caregiver).where(client: @client).where(log_type: "Clocked Out").where('created_at BETWEEN ? AND ?', start_date.to_datetime, end_date.to_datetime + 30.hours)
     @calls = calls
     services = []
     calls.each do |c|
@@ -271,7 +271,7 @@ class ReportsController < ApplicationController
             # p a[1][0][1][0][0]
             # p a[1][0][1][0][0]
             # p [[a[1][0][1][0],a[1][0][1][1]]
-            if @displayable_sections[i][1][1]
+            if @displayable_sections[i][1][1] # if problem remove the line
               @displayable_sections[i][1][1].push a[1][0][1][0][0]
             end
           end
