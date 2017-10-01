@@ -136,7 +136,7 @@ class ReportsController < ApplicationController
 
       calls.each do |c|
         # diff = (c.created_at - c.clock_in.created_at).round
-        time_diff = TimeDifference.between(c.clock_in.created_at, c.created_at).in_hours
+        time_diff = TimeDifference.between(c.clock_in, c.created_at).in_hours
         # diff = (diff / 1.minute).round
         # time_diff = (diff / 1.hour).round
         @total_hours += time_diff
