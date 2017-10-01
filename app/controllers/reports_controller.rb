@@ -99,7 +99,9 @@ class ReportsController < ApplicationController
     end
 
     # get calls that link to both client and caregiver
-    calls = Call.all.where(caregiver: @caregiver).where(client: @client).where(log_type: "Clocked Out").where('created_at BETWEEN ? AND ?', @start.to_datetime , @end.to_datetime + 6.hours)
+    start_date = Date.strptime(@start, "%m/%d/%Y")
+    end_date = Date.strptime(@end, "%m/%d/%Y")
+    calls = Call.all.where(caregiver: @caregiver).where(client: @client).where(log_type: "Clocked Out").where('created_at BETWEEN ? AND ?', start_date.to_datetime , end_date.to_datetime + 6.hours)
     @calls = calls
     services = []
     calls.each do |c|
