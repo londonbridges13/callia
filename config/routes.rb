@@ -86,6 +86,12 @@ Rails.application.routes.draw do
   post 'weekly_report' => "reports#weekly_report", as: 'post_weekly_report'
   get 'search_weekly_report' => "reports#search_weekly_report", as: 'search_weekly_report'
 
+  # Demo
+  match 'tutorials/demo_explained' => 'tutorials#demo_explained', via: [:get, :post], as: 'demo_explained'
+  # match 'tutorials/demo' => 'tutorials#demo', via: [:get, :post], as: 'demo'
+  post 'demo' => "tutorials#demo", as: 'post_demo'
+  get 'demo' => "tutorials#demo", as: 'demo'
+
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
     get "/signup"   => "devise/registrations#new"
