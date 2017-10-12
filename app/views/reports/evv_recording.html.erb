@@ -2,7 +2,7 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-10">
-        <h2>RVV Recording</h2>
+        <h2>EVV Recording</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="<%= url_for :controller => 'dashboard', :action => 'index' %>">Dashboard</a>
@@ -11,7 +11,7 @@
                 <a href="<%= url_for :controller => 'reports', :action => 'index' %>">Reports</a>
             </li>
             <li class="active">
-                <strong>RVV Recording</strong>
+                <strong>EVV Recording</strong>
             </li>
         </ol>
     </div>
@@ -145,8 +145,8 @@ $(function() {
         buttons: [
             { extend: 'copy'},
             {extend: 'csv'},
-            {extend: 'excel', title: 'RVV Recording | <%=current_user.agency_name%>'},
-            {extend: 'pdf', title: 'RVV Recording | <%=current_user.agency_name%>'}
+            {extend: 'excel', title: 'EVV Recording | <%=current_user.agency_name%>'},
+            {extend: 'pdf', title: 'EVV Recording | <%=current_user.agency_name%>'}
 
         ]
 

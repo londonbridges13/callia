@@ -36,8 +36,12 @@ class TutorialsController < ApplicationController
           @caregiver.save
           @caregiver.set_code(@caregiver.office)
           @caregiver.set_user(current_user)
+          @demo_caregiver = Caregiver.all.where(user: current_user).where("name like ?", "%(Demo Caregiver)%").first
         end
-
+        unless @demo_caregiver
+          @demo_caregiver = demo_caregiver
+        end
+        
         @telephone = something[:telephone]
         unless @telephone
           message = "Please enter a your phone number"

@@ -1,0 +1,258 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-10">
+        <h2>Demo</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="<%= url_for :controller => 'tutorials', :action => 'demo' %>">Start Demo</a>
+            </li>
+            <li class="active">
+                <strong>Demo</strong>
+            </li>
+        </ol>
+
+</div>
+<div class="col-sm-2">
+
+</div>
+        </div>
+<section id="about" class="">
+
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-1">
+        <div class="wrapper wrapper-content animated fadeInUp">
+          <div class="ibox">
+                <div class=" ibox-content">
+                  <br>
+                  <div class="col-sm-offset-1">
+                    <h1 class="">What Happened?</h1>
+                    <br>
+                    <div class="col-sm-9">
+                      <h2 class="">
+                        So far, you've created a Caregiver by the
+                        name of <strong><%=@name%></strong> and
+                        a Client <br>(or patient) with <strong><%=@telephone%></strong> as the
+                        authorized phone number.
+                      </h2>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <br><br>
+                  </div>
+                </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-5 col-sm-offset-1">
+        <div class="wrapper wrapper-content animated fadeInUp">
+          <div class="ibox">
+                <div class=" ibox-content">
+                  <div class="">
+                    <div class="col-sm-3">
+                      <img src="<%= image_path('elder.jpg') %>" class="img-responsive" alt="dashboard">
+                    </div>
+                    <div class="col-sm-7">
+                      <h1 class="pull-right">Demo Client</h1>
+                    </div>
+                    <br>
+                  </div>
+                  <div class="row">
+                  </div>
+                  <div class=" text-center">
+                    <br>
+                    <p style="font-size:20px;">Authorized Phone Number:<br></p>
+                    <p style="font-size:37px; color: #3D8EB9;" class="col-sm-offset-1"><strong class=""><%=@telephone%></strong></p>
+                    <br><br><br>
+                    <br><br>
+                  </div>
+                  <div class="row">
+                  </div>
+                </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-sm-5">
+        <div class="wrapper wrapper-content animated fadeInUp">
+          <div class="ibox">
+                <div class=" ibox-content">
+                  <div class="">
+                    <div class="col-sm-3">
+                      <img src="<%= image_path('nurse.jpg') %>" class="img-responsive" alt="dashboard">
+                    </div>
+                    <div class="col-sm-7">
+                      <h1 class="pull-right"><%=@demo_caregiver.name%></h1>
+                    </div>
+                    <br>
+                  </div>
+                  <div class="row">
+                  </div>
+                  <div class=" text-center">
+                    <br>
+                    <p style="font-size:20px;">Employee Code:<br></p>
+                    <p style="font-size:37px; color: #3D8EB9;" class="col-sm-offset-1"><strong class=""><%=@demo_caregiver.employee_code%></strong></p>
+                    <br><br><br>
+                  </div>
+
+                </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-1">
+        <div class="wrapper wrapper-content animated fadeInUp">
+          <div class="ibox">
+                <div class=" ibox-content">
+                  <br>
+                  <div class="col-sm-offset-1">
+                    <h1 class="" style="color: #3D8EB9;">Now</h1>
+                    <br>
+                    <div class="col-sm-9">
+                      <h2 class="">
+                        <strong>Call <%=current_user.call_number%></strong> using the Client's Phone (the phone with <%=@telephone%> as it's number)
+                      </h2>
+                      <p> <%=current_user.call_number%> is your Home Care Call number. All Employees will call this number to clock in and clock out.</p>
+                      <br>
+                      <br>
+                      <h2 class=""><strong>Enter Employee Code:</strong></h2>
+                      <p style="font-size:37px; color: #3D8EB9;" class="col-sm-offset-1"><strong class=""><%=@demo_caregiver.employee_code%></strong></p>
+
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <br><br>
+                  </div>
+                </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-1">
+          <div class="wrapper wrapper-content animated fadeInUp">
+            <div class="ibox">
+                  <div class=" ibox-content">
+                    <br>
+                    <div class="col-sm-offset-1">
+                      <h1 class="" style="color: #3D8EB9;">Clocking In</h1>
+                      <br>
+                      <div class="col-sm-10">
+                        <h2 class="">
+                          <strong>Callia will record your voice</strong>
+                        </h2>
+                        <p style="font-size:17px;">Callia records the caregiver's to validate the caregiver.</p>
+                        <p style="font-size:17px;">You can access these recordings in the <a href="/evv_recording" style="color: #3D8EB9;">EVV Recording Reports</a></p>
+                        <br>
+                        <br>
+                        <p style="font-size:27px; color: #3D8EB9;" class="col-sm-offset-1"><strong class="">You've Successfully Clocked In</strong></p>
+
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <br><br>
+                    </div>
+                  </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-1">
+              <div class="wrapper wrapper-content animated fadeInUp">
+                <div class="ibox">
+                      <div class=" ibox-content">
+                        <br>
+                        <div class="col-sm-offset-1">
+                          <h1 class="" style="color: #3D8EB9;">Clocking Out</h1>
+                          <br>
+                          <div class="col-sm-10">
+                            <h2 class="">
+                              <strong>Call <span style="font-size:27px; color: #3D8EB9;"><%=@current_user.call_number%></span></strong>
+                            </h2>
+                            <br>
+                            <h2 class="">
+                              <strong>Enter Pin: <span style="font-size:27px; color: #3D8EB9;"><%=@demo_caregiver.employee_code%></span></strong>
+                            </h2>
+                            <br>
+                            <h2 class="" style="color: #3D8EB9;">
+                              <strong>Now</strong>
+                            </h2>
+                            <p style="font-size:23px;">It will ask you about the services that you've done for the patient.</p>
+                            <p style="font-size:23px;"><a style="color: #3D8EB9;">Example:</a> Did you wsh the dishes for the patient?</p>
+                            <br>
+                            <p style="font-size:20px;">( To Edit or Add Service Questions, Go to <a href="/services" style="color: #FF6766;">Call Configuration</a> in Settings )</p>
+
+                            <br>
+                            <p style="font-size:23px;">And once you've answered them all...</p>
+                            <br>
+
+                          </div>
+                          <div class="row">
+                          </div>
+
+                        </div>
+                        <div class="row">
+                          <p style="font-size:27px; color: #3D8EB9;" class="text-center"><strong class="">You've Successfully Clocked Out</strong></p>
+
+                          <br><br>
+                        </div>
+                      </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+
+
+          <div class="row">
+            <div class="col-sm-9 col-sm-offset-1">
+                <div class="wrapper wrapper-content animated fadeInUp">
+                  <div class="ibox">
+                        <div class=" ibox-content">
+                          <div class="col-sm-offset-1">
+
+                            <h1 class="" style="color: #3D8EB9;">Recap</h1>
+                            <br>
+                            <div class="row">
+                              <div class="col-sm-9">
+                                <h2 class="" style="font-size:25px;"><strong>
+                                  What we learned
+                                </strong></h2>
+                                <p style="font-size:23px;">
+                                  - We learned how to call to clock in
+                                </p>
+                                <p style="font-size:23px;">
+                                  - We learned how to call to clock out
+                                </p>
+                                <p style="font-size:23px;">
+                                  - And We learned how to add (or change) any service questions
+                                </p>
+                              </div>
+                              <div class="col-sm-4">
+                                <br><br>
+                                <a href="/dashboard" class="btn btn-w-m full-width btn-success">What's Next</a>
+                              </div>
+                            </div>
+
+                          </div>
+
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+
+</section>
