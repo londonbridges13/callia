@@ -28,7 +28,7 @@ class DashboardController < ApplicationController
     elsif current_user and (current_user.offices.count > 0 and current_user.caregivers.count > 0 and current_user.clients.count > 0)
       # there is a user logged in but they don't have a plan
       # send them to /pricing
-      redirect_to "/pricing"
+      redirect_to "/start_guide"
 
     elsif current_user and current_user.offices.count == 0
       # go to quickstart
