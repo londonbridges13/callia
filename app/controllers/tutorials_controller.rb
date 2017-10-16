@@ -41,7 +41,7 @@ class TutorialsController < ApplicationController
         unless @demo_caregiver
           @demo_caregiver = demo_caregiver
         end
-        
+
         @telephone = something[:telephone]
         unless @telephone
           message = "Please enter a your phone number"
@@ -71,7 +71,14 @@ class TutorialsController < ApplicationController
   end
 
   def demo
+    unless current_user.call_number
+      redirect_to "/pricing"
+    end
     @message = params[:message]
+  end
+
+  def start_guide
+
   end
 
 end

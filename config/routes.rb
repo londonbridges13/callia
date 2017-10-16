@@ -91,6 +91,8 @@ Rails.application.routes.draw do
   # match 'tutorials/demo' => 'tutorials#demo', via: [:get, :post], as: 'demo'
   post 'demo' => "tutorials#demo", as: 'post_demo'
   get 'demo' => "tutorials#demo", as: 'demo'
+  
+  get 'start_guide' => "tutorials#start_guide", as: 'start_guide'
 
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
