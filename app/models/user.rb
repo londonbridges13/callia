@@ -124,16 +124,20 @@ class User < ActiveRecord::Base
   end
 
   def check_on_subscription
-    if self.subscription and self.next_billing_date and (Time.now > self.next_billing_date - 1.day)
-      sid = self.subscription.stripe_id
-      if sid
-        # user has subscription
-        p "user has subscription"
-        #get the plan id
-        plan_id = Stripe::Customer.retrieve(sid).subscriptions.first.plan.id
-        if plan_id
-          find_cpc(plan_id) # cost per call
+    if self.subscription and self.next_billing_date
+      if (Time.now > self.next_billing_date - 1.day) #If the current time is less than 24 hours before billing date, charge the user
+        sid = self.subscription.stripe_id
+        if sid
+          # user has subscription
+          p "user has subscription"
+          #get the plan id
+          plan_id = Stripe::Customer.retrieve(sid).subscriptions.first.plan.id
+          if plan_id
+            find_cpc(plan_id) # cost per call
+          end
         end
+      else
+        p "User is not due yet"
       end
     else
       p "User has no subscription or Missing Next Billing Date"
@@ -161,7 +165,7 @@ class User < ActiveRecord::Base
   def create_invoice(cpc, free_calls)
     amount = 0
     amount = ((cpc * (self.calls_this_month - free_calls)) * 100)
-    if self.subscription and amount > 0
+    if self.subscription# and amount > 0 #Just to see the invoice
       Stripe::InvoiceItem.create(
         :customer => self.subscription.stripe_id,
         :amount => amount.to_i,
