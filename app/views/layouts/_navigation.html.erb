@@ -13,9 +13,9 @@
                               <% end %>
                             </span>
                             <% if user_signed_in? %>
-                            <span class="text-muted text-xs block"> <%=current_user.agency_name %> <b class="caret"></b></span>
+                              <span class="text-muted text-xs block"> <%=current_user.agency_name %> <b class="caret"></b></span>
                             <% else %>
-                            <span class="text-muted text-xs block"> Dashboard <b class="caret"></b></span>
+                              <span class="text-muted text-xs block"> Dashboard <b class="caret"></b></span>
                             <% end %>
                         </span>
                     </a>
@@ -33,17 +33,17 @@
             <!-- Button in Sidebar -->
             <li class="<%= is_active_controller('dashboards') %>">
                 <%= link_to main_app.dashboard_index_path do %>
-                <i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.layouts">Dashboard</span>
+                  <i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.layouts">Dashboard</span>
                   <!-- <span class="label label-primary pull-right">NEW</span> -->
                 <% end %>
             </li>
             <li class="<%= is_active_controller(nil) %>">
                 <a href="#"><i class="fa fa-pencil-square-o"></i> <span class="nav-label" data-i18n="nav.otherpages">Create</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('pages', 'in') %>">
-                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Shift", main_app.new_shift_path %> </li>
-                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Client", main_app.new_client_path %> </li>
-                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Caregiver", main_app.new_caregiver_path %> </li>
-                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Office", main_app.new_office_path %> </li>
+                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Shift", main_app.new_shift_path, target: "_blank" %> </li>
+                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Client", main_app.new_client_path, target: "_blank" %> </li>
+                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Caregiver", main_app.new_caregiver_path, target: "_blank" %> </li>
+                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Office", main_app.new_office_path, target: "_blank" %> </li>
 
                 </ul>
             </li>
