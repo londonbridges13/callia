@@ -131,6 +131,7 @@ class DashboardController < ApplicationController
         "Serena"
       end
     end
+  end
 
 
   def call_logs #reports/call_logs
