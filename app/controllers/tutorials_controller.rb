@@ -75,6 +75,12 @@ class TutorialsController < ApplicationController
       add_phone_number_to_user
     end
     @message = params[:message]
+
+    if current_user.offices.count == 0
+      @office = Office.new(name: "(Demo Office)")
+      @office.user = current_user
+      @office.save
+    end
   end
 
   def start_guide
