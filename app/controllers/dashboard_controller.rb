@@ -108,10 +108,30 @@ class DashboardController < ApplicationController
         redirect_to "/"
       else
         #email me to buy a number from twilio
-
+        send_twilio_email
       end
     end
   end
+
+  def send_twilio_email
+    # using mailgun
+    name = "Lyndon"
+    email = "lyndonmckay@callia.us"
+    mail = Mail.deliver do
+      to      "#{email}" # change to self.email
+      from    'Callia Support <serena@support.callia.us>'
+      subject 'Callia needs more phone numbers'
+
+      text_part do
+        body "Hi #{name},\n"+
+        "Callia is in need of new phone numbers for this increase in Callia members.\n\n" +
+        "To add new numbers, go here\n\n" +
+        "www.twilio.com \n" +
+        "Thanks,\n" +
+        "Serena"
+      end
+    end
+
 
   def call_logs #reports/call_logs
     start = Date.today.beginning_of_day
