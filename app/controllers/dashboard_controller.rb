@@ -25,7 +25,7 @@ class DashboardController < ApplicationController
         #give the user a number
         add_phone_number_to_user
       end
-    elsif current_user and (current_user.offices.count > 0 and current_user.caregivers.count > 0 and current_user.clients.count > 0)
+    elsif current_user and !current_user.subscription#(current_user.offices.count > 0 and current_user.caregivers.count > 0 and current_user.clients.count > 0)
       # there is a user logged in but they don't have a plan
       # send them to /pricing
       redirect_to "/start_guide"
