@@ -72,13 +72,51 @@ class TutorialsController < ApplicationController
 
   def demo
     unless current_user.call_number
-      redirect_to "/pricing"
+      add_phone_number_to_user
     end
     @message = params[:message]
   end
 
   def start_guide
-
   end
 
+  def add_phone_number_to_user
+    # this means that the user has signed up, selected a plan, and entered credit card info
+    unless current_user.call_number
+      number = PhoneNumber.where(is_used: false).first
+      if number
+        number.user_id = current_user.id
+        current_user.call_number = number.number
+        number.is_used = true
+        number.save
+        current_user.save
+
+        #reload the page
+      else
+        #email me to buy a number from twilio
+        send_twilio_email
+      end
+    end
+  end
+
+  def send_twilio_email
+    # using mailgun
+    name = "Lyndon"
+    email = "lyndonmckay@callia.us"
+    mail = Mail.deliver do
+      to      "#{email}" # change to self.email
+      from    'Callia Support <serena@support.callia.us>'
+      subject 'Callia needs more phone numbers'
+
+      text_part do
+        body "Hi #{name},\n"+
+        "Callia is in need of new phone numbers for this increase in Callia members.\n\n" +
+        "To add new numbers, go here\n\n" +
+        "www.twilio.com \n" +
+        "Thanks,\n" +
+        "Serena"
+      end
+    end
+
+  end
 end

@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
         body "Hi #{name},\n"+
         "Thanks for signing up. I'm so excited to get started.\n\n" +
         "To help you get going, I've added a link to a Quick Start Guide.\n\n" +
-        "www.callia.us/quickstart \n" +
+        "www.callia.us/start_guide \n" +
         "Callia is easy use and this Quick Start Guide is the perfect place to start!\n\n" +
         "Thanks,\n" +
         "Serena"
