@@ -40,10 +40,10 @@
             <li class="<%= is_active_controller(nil) %>">
                 <a href="#"><i class="fa fa-pencil-square-o"></i> <span class="nav-label" data-i18n="nav.otherpages">Create</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('pages', 'in') %>">
-                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Shift", main_app.new_shift_path %> </li>
-                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Client", main_app.new_client_path %> </li>
-                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Caregiver", main_app.new_caregiver_path %> </li>
-                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Office", main_app.new_office_path %> </li>
+                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Shift", main_app.new_shift_path, target: "_blank" %> </li>
+                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Client", main_app.new_client_path, target: "_blank" %> </li>
+                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Caregiver", main_app.new_caregiver_path, target: "_blank" %> </li>
+                    <li class="<%= is_active_action('new') %>"><%= link_to "Create Office", main_app.new_office_path, target: "_blank" %> </li>
 
                 </ul>
             </li>
