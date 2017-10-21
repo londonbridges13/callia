@@ -14,12 +14,16 @@ class TutorialsController < ApplicationController
 
   def demo_explained
     something = params[:anything]
-    demo_office = Office.all.where(user: current_user).where("name like ?", "%(Demo Office)%").first
+    demo_office = Office.all.where(user: current_user).where(name:"(Demo Office)").first
     unless demo_office
       @office = Office.new(name: "(Demo Office)")
       @office.user = current_user
       @office.save
     end
+    if demo_office
+      @office = demo_office
+    end
+
     if something
       #CREATE IF AND ONLY IF USER DOESNT HAVE DEMO CAREGIVER AND DEMO CLIENT
       @name = something[:name]
@@ -54,13 +58,13 @@ class TutorialsController < ApplicationController
           @client.office = @office
           demo_client = Client.all.where(user: current_user).where("name like ?", "%Demo Client%").first
           unless demo_client
-            unless @client.save
+            if @client.save
+              #when if saves
+              @client.set_code(@office, current_user)
+            else
               # redirect back because the client didn't save
               message = "Please enter a another phone number. This number is already used for a Client."
               redirect_to "/demo?message=#{message}"
-            else
-              #when if saves
-              @client.set_code(@client.office, current_user)
             end
           end
         end
