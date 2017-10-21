@@ -226,7 +226,12 @@ class User < ActiveRecord::Base
     if self.subscription
       # test subscription
       sid = self.subscription.stripe_id
-      plan_id = Stripe::Customer.retrieve(sid).subscriptions.first.plan.id
+      plan_id = nil
+      subscription = Stripe::Customer.retrieve(sid).subscriptions.first
+      if subscription
+        plan = subscription.plan
+        plan_id = plan.id
+      end
 
       unless plan_id
         # there is no plan_id
